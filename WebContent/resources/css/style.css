@@ -1,0 +1,43 @@
+@CHARSET "ISO-8859-1";
+
+.entrar{
+	font-size: 50px;
+	text-align: center;
+}
+body{
+	background-color: #eeeeee;
+}
+.header{
+	background-color: black;
+	color: white;
+	width:100%;
+	text-align: center;
+}
+.userLoged{
+	text-align: right;
+}
+.titleHeader{
+	font-size:36px;
+	line-height:48px;
+}
+.footer{
+	position:fixed;
+	bottom:0px;
+	background-color:black;
+	width:100%;
+	color:white;
+	text-align: center;
+	ma
+}
+.login{
+	margin-top: 100px;
+}
+.content{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.error{
+	display: block;
+	color: red;
+	font: oblique;
+}

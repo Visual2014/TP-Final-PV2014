@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-oct-2014 19:40:43 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="ar.edu.unju.fi.model.Producto" table="producto" schema="public">
+        <id name="codigo" type="int">
+            <column name="codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="24" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="16" />
+        </property>
+        <property name="fechaVencimiento" type="date">
+            <column name="fecha_vencimiento" length="13" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="32" />
+        </property>
+        <property name="precioFardo" type="big_decimal">
+            <column name="precio_fardo" precision="10" />
+        </property>
+        <property name="precioUnitario" type="big_decimal">
+            <column name="precio_unitario" precision="10" />
+        </property>
+        <property name="stock" type="java.lang.Integer">
+            <column name="stock" />
+        </property>
+        <property name="tamanio" type="string">
+            <column name="tamanio" length="12" />
+        </property>
+        <set name="detallePedidos" table="detalle_pedido" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="codigo" />
+            </key>
+            <one-to-many class="ar.edu.unju.fi.model.DetallePedido" />
+        </set>
+    </class>
+</hibernate-mapping>
