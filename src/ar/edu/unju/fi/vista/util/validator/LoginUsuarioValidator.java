@@ -14,9 +14,11 @@ import ar.edu.unju.fi.model.constantes.EstadoUsuario;
 
 @FacesValidator("loginUsuarioValidator")
 public class LoginUsuarioValidator implements Validator {
+
 	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
+
 		System.out.println("--------validator usuario");
 		int dni = Integer.valueOf(value.toString());
 		UsuarioDAO dao = new UsuarioDAOImp();
@@ -25,12 +27,13 @@ public class LoginUsuarioValidator implements Validator {
 			if (user.getEstado().equals(EstadoUsuario.NO_ACTIVO)) {
 				System.out.println("[+]no activo");
 				throw new ValidatorException(new FacesMessage(
-						"el usuario no esta activo"));
+						FacesMessage.SEVERITY_WARN,
+						"el usuario no esta activo", null));
 			}
 		} else {
 			System.out.println("[+]no existe");
 			throw new ValidatorException(new FacesMessage(
-					"el usuario no existe"));
+					FacesMessage.SEVERITY_ERROR, "el usuario no existe", null));
 		}
 	}
 }

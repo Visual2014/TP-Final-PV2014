@@ -26,7 +26,7 @@ public class ProductListBean implements Serializable {
 
 		ProductoDAO dao = new ProductoDAOimp();
 		productList = dao.buscar(codigo, nombre, estado);
-		return "listaProductos?faces-redirect=true";
+		return null;
 	}
 
 	public String getEstado() {

@@ -12,12 +12,13 @@ import ar.edu.unju.fi.hibernate.HibernateUtil;
 import ar.edu.unju.fi.model.Usuario;
 
 public class UsuarioDAOImp extends HibernateUtil implements UsuarioDAO {
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> getAll() {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Usuario.class);
 		criteria.addOrder(Order.asc("nombre"));
+		
 		List<Usuario> list = criteria.list();
 		session.close();
 		return list;
@@ -25,7 +26,7 @@ public class UsuarioDAOImp extends HibernateUtil implements UsuarioDAO {
 
 	@Override
 	public Usuario get(int dni) {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Usuario.class);
 		criteria.add(Restrictions.eq("documento", dni));
 		Usuario user = null;
@@ -42,7 +43,6 @@ public class UsuarioDAOImp extends HibernateUtil implements UsuarioDAO {
 		List<Usuario> listaUsuarios = getAll();
 		Usuario user = null;
 		for (Usuario u : listaUsuarios) {
-			System.out.println(u.getDocumento() + "-" + u.getPassword());
 			if (u.getDocumento() == dni && u.getPassword().equals(pass)) {
 				user = u;
 			}

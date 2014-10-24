@@ -12,7 +12,7 @@ public class RolUsuarioDAOimp extends HibernateUtil implements RolUsuarioDAO {
 
 	@Override
 	public Rol get(int rolId) {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Rol.class);
 		criteria.add(Restrictions.eq("rolId", rolId));
 		Rol unRol = (Rol) criteria.list().get(0);

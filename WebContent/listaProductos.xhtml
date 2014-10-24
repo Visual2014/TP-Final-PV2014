@@ -17,11 +17,16 @@
 		<ui:define name="content">
 			<div align="center">
 				<h:form>
-					<p:panelGrid columns="2">
+					<p:message for="codigo" />
+					<p:panelGrid columns="6">
+						<p:outputLabel value="Codigo: " />
+						<p:inputText id="codigo" value="#{productListBean.codigo}"
+							converterMessage="el codigo debe ser numerico">
+							<f:convertNumber integerOnly="true" groupingUsed="false" />
+						</p:inputText>
+
 						<p:outputLabel value="Nombre: " />
 						<p:inputText value="#{productListBean.nombre}" />
-						<p:outputLabel value="Codigo: " />
-						<p:inputText value="#{productListBean.codigo}" />
 
 						<p:outputLabel value="Estado" />
 						<p:selectOneMenu id="estado" value="#{productListBean.estado}">
@@ -29,15 +34,15 @@
 							<f:selectItem itemValue="NO DISPONIBLE" itemLabel="No Disponible" />
 							<f:selectItem itemValue="DISPONIBLE" itemLabel="Disponible" />
 						</p:selectOneMenu>
-
-						<p:commandButton id="submit" action="#{productListBean.search}"
-							value="buscar" />
-						<p:commandButton id="add" action="#{altaProdBean.preInsert}"
-							value="Nuevo" />
-
 					</p:panelGrid>
-					<p:dataTable id="productos" value="#{productListBean.productList}"
-						var="p" style="width:50%">
+					<p:commandButton id="submit" action="#{productListBean.search}"
+						value="buscar" ajax="false" />
+					<p:commandButton id="add" action="#{altaProdBean.preInsert}"
+						value="Nuevo" />
+					<p:dataTable styleClass="tabla" id="productos"
+						value="#{productListBean.productList}"
+						rendered="#{not empty productListBean.productList}" var="p"
+						rows="10" paginator="true">
 
 						<p:column headerText="codigo">
 							<p:outputLabel value="#{p.codigo}" />

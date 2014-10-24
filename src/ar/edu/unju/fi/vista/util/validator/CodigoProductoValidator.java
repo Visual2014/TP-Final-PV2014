@@ -17,7 +17,7 @@ public class CodigoProductoValidator implements Validator {
 			Object value) throws ValidatorException {
 		Integer codigo = (Integer) value;
 		ProductoDAO dao = new ProductoDAOimp();
-		if (dao.get(codigo) == null) {
+		if (dao.get(codigo) != null) {
 			throw new ValidatorException(
 					new FacesMessage("El codigo ya existe"));
 		}

@@ -14,7 +14,7 @@ public class ProductoDAOimp extends HibernateUtil implements ProductoDAO {
 
 	@Override
 	public void insert(Producto p) {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		session.beginTransaction();
 		session.save(p);
 		session.getTransaction().commit();
@@ -24,7 +24,7 @@ public class ProductoDAOimp extends HibernateUtil implements ProductoDAO {
 
 	@Override
 	public void update(Producto p) {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		session.beginTransaction();
 		session.update(p);
 		session.getTransaction().commit();
@@ -33,7 +33,7 @@ public class ProductoDAOimp extends HibernateUtil implements ProductoDAO {
 
 	@Override
 	public void delete(Producto p) {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		session.beginTransaction();
 		session.delete(p);
 		session.getTransaction().commit();
@@ -42,29 +42,35 @@ public class ProductoDAOimp extends HibernateUtil implements ProductoDAO {
 
 	@Override
 	public Producto get(int codigo) {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		criteria.add(Restrictions.eq("codigo", codigo));
-		Producto producto = (Producto) criteria.list().get(0);
+		Producto producto=null;
+		try {
+			producto = (Producto) criteria.list().get(0);
+		} catch (java.lang.IndexOutOfBoundsException e) {
+		} 
 		session.close();
 		return producto;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Producto> getAll() {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		List<Producto> list = criteria.list();
 		session.close();
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Producto> buscar(int codigo, String nombre, String estado) {
 		System.out.println("-----------buscar dao");
 		System.out.println(codigo + " " + nombre + " " + estado);
 
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		if (codigo != 0) {
 			criteria.add(Restrictions.eq("codigo", codigo));

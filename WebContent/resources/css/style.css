@@ -15,7 +15,8 @@ body{
 }
 .userLoged{
 	text-align: right;
-}
+ 	padding-right: 10px;
+ }
 .titleHeader{
 	font-size:36px;
 	line-height:48px;
@@ -43,6 +44,6 @@ body{
 	color: red;
 	font: oblique;
 }
-.centrado{
-	aling: center;
+.tabla{
+	margin-top: 50px;
 }
