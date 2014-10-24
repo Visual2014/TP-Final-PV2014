@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="/templates/template.xhtml">
+
+		<ui:define name="header">
+			<p:outputLabel value="lista productos" />
+		</ui:define>
+
+		<ui:define name="content">
+			<div align="center">
+				<h:form>
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Nombre: " />
+						<p:inputText value="#{productListBean.nombre}" />
+						<p:outputLabel value="Codigo: " />
+						<p:inputText value="#{productListBean.codigo}" />
+
+						<p:outputLabel value="Estado" />
+						<p:selectOneMenu id="estado" value="#{productListBean.estado}">
+							<f:selectItem itemValue="TODO" itemLabel="Todos" />
+							<f:selectItem itemValue="NO DISPONIBLE" itemLabel="No Disponible" />
+							<f:selectItem itemValue="DISPONIBLE" itemLabel="Disponible" />
+						</p:selectOneMenu>
+
+						<p:commandButton id="submit" action="#{productListBean.search}"
+							value="buscar" />
+						<p:commandButton id="add" action="#{altaProdBean.preInsert}"
+							value="Nuevo" />
+
+					</p:panelGrid>
+					<p:dataTable id="productos" value="#{productListBean.productList}"
+						var="p" style="width:50%">
+
+						<p:column headerText="codigo">
+							<p:outputLabel value="#{p.codigo}" />
+						</p:column>
+
+						<p:column headerText="Nombre">
+							<p:outputLabel value="#{p.nombre}" />
+						</p:column>
+
+						<p:column headerText="Descripcion">
+							<p:outputLabel value="#{p.descripcion}" />
+						</p:column>
+
+						<p:column headerText="Estado">
+							<p:outputLabel value="#{p.estado}" />
+						</p:column>
+
+						<p:column headerText="Modificar">
+							<p:commandButton action="#{altaProdBean.preModif()}"
+								value="Modificar">
+								<f:setPropertyActionListener value="#{p}"
+									target="#{altaProdBean.producto}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</div>
+		</ui:define>
+
+		<ui:define name="footer" />
+	</ui:composition>
+</h:body>
+
+</html>

@@ -1,7 +1,7 @@
 package ar.edu.unju.fi.dao.test;
 
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.UsuarioDAOImp;
+import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Usuario;
 
 

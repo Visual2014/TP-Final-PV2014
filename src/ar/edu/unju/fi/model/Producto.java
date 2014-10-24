@@ -2,7 +2,6 @@ package ar.edu.unju.fi.model;
 
 // Generated 21-oct-2014 19:40:42 by Hibernate Tools 3.4.0.CR1
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +16,8 @@ public class Producto implements java.io.Serializable {
 	private String estado;
 	private Date fechaVencimiento;
 	private String descripcion;
-	private BigDecimal precioFardo;
-	private BigDecimal precioUnitario;
+	private Double precioFardo;
+	private Double precioUnitario;
 	private Integer stock;
 	private String tamanio;
 	private Set detallePedidos = new HashSet(0);
@@ -31,8 +30,8 @@ public class Producto implements java.io.Serializable {
 	}
 
 	public Producto(int codigo, String nombre, String estado,
-			Date fechaVencimiento, String descripcion, BigDecimal precioFardo,
-			BigDecimal precioUnitario, Integer stock, String tamanio,
+			Date fechaVencimiento, String descripcion, Double precioFardo,
+			Double precioUnitario, Integer stock, String tamanio,
 			Set detallePedidos) {
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -86,19 +85,19 @@ public class Producto implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public BigDecimal getPrecioFardo() {
+	public Double getPrecioFardo() {
 		return this.precioFardo;
 	}
 
-	public void setPrecioFardo(BigDecimal precioFardo) {
+	public void setPrecioFardo(Double precioFardo) {
 		this.precioFardo = precioFardo;
 	}
 
-	public BigDecimal getPrecioUnitario() {
+	public Double getPrecioUnitario() {
 		return this.precioUnitario;
 	}
 
-	public void setPrecioUnitario(BigDecimal precioUnitario) {
+	public void setPrecioUnitario(Double precioUnitario) {
 		this.precioUnitario = precioUnitario;
 	}
 

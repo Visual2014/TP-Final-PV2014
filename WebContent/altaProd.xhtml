@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<ui:composition template="templates/template.xhtml">
+
+		<ui:define name="header">
+			<p:outputLabel value="Alta Modificacion de Productos" />
+		</ui:define>
+
+		<ui:define name="content">
+			<p:outputLabel value="Detalle del Producto" />
+			<h:form>
+				<p:panelGrid columns="3">
+
+
+					<p:outputLabel value="Codigo: " />
+					<p:inputText id="codigo" value="#{altaProdBean.producto.codigo}"
+						disabled="#{altaProdBean.banderaModif}" required="true"
+						requiredMessage="Campo Obligatorio"
+						converterMessage="Debe ser un valor entero">
+						<f:validator validatorId="codigoProductoValidator" />
+						<f:ajax event="blur" render="msgCodigo" />
+					</p:inputText>
+					<h:message id="msgCodigo" for="codigo" style="color:red" />
+
+
+
+					<p:outputLabel value="Nombre: " />
+					<p:inputText id="nombre" value="#{altaProdBean.producto.nombre}"
+						required="true" requiredMessage="Campo Requerido" maxlength="15">
+						<f:ajax event="blur" render="msgNombre" />
+					</p:inputText>
+					<h:message id="msgNombre" for="nombre" style="color:red" />
+
+
+
+					<p:outputLabel value="Descripcion: " />
+					<p:inputText id="descripcion"
+						value="#{altaProdBean.producto.descripcion}" maxlength="15">
+						<f:ajax event="blur" render="msgDescripcion" />
+					</p:inputText>
+					<h:message id="msgDescripcion" for="descripcion" style="color:red" />
+
+
+
+					<p:outputLabel value="Tamaño: " />
+					<p:inputText id="tamanio" value="#{altaProdBean.producto.tamanio}"
+						required="true" requiredMessage="Campo Obligatorio" maxlength="6">
+						<f:ajax event="blur" render="msgTamanio" />
+					</p:inputText>
+					<h:message id="msgTamanio" for="tamanio" style="color:red" />
+
+
+
+					<p:outputLabel value="Fecha de Vencimiento: " />
+					<p:calendar id="fechaVencimiento" showOn="button"
+						value="#{altaProdBean.producto.fechaVencimiento}"
+						pattern="dd/MM/yyyy"
+						converterMessage="Formato de fecha dd/MM/yyyy" required="true"
+						requiredMessage="Campo Obligatorio">
+						<f:validator validatorId="fechaProductoValidator" />
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+						<f:ajax event="blur" render="msgFVencimiento" />
+					</p:calendar>
+					<h:message id="msgFVencimiento" for="fechaVencimiento"
+						style="color:red" />
+
+
+
+					<p:outputLabel value="Precio Unitario: " />
+					<p:inputText id="precioUnitario"
+						value="#{altaProdBean.producto.precioUnitario}" required="true"
+						requiredMessage="Campo Obligatorio"
+						converterMessage="el numero debe ser un decimal positivo con hasta dos decimales"
+						validatorMessage="El numero debe ser positivo">
+						<f:convertNumber pattern="#0.00" />
+						<f:validateDoubleRange minimum="0" />
+						<f:ajax event="blur" render="msgUnitario" />
+					</p:inputText>
+					<h:message id="msgUnitario" for="precioUnitario" style="color:red" />
+
+
+
+					<p:outputLabel value="Precio Por Fardo: " />
+					<p:inputText id="precioFardo"
+						value="#{altaProdBean.producto.precioFardo}">
+						<f:convertNumber pattern="#0.00" />
+						<f:attribute name="precioUnitario"
+							value="#{altaProdBean.producto.precioUnitario}" />
+						<f:validator validatorId="precioFardoProductoValidator" />
+						<f:ajax event="blur" render="msgFardo" />
+					</p:inputText>
+					<h:message id="msgFardo" for="precioFardo" style="color:red" />
+
+
+					<p:outputLabel value="Stock: " />
+					<p:inputText id="stock" value="#{altaProdBean.producto.stock}"
+						required="true" requiredMessage="Campo Obligatorio"
+						validatorMessage="El valor debe estar entre 0 y 100">
+						<f:validateLongRange minimum="0" maximum="100" />
+						<f:ajax event="blur" render="msgStock" />
+					</p:inputText>
+					<h:message id="msgStock" for="stock" style="color:red" />
+
+
+					<p:outputLabel value="Estado: " />
+					<h:selectOneMenu id="estado"
+						value="#{altaProdBean.producto.estado}">
+						<f:selectItem itemLabel="Disponible" itemValue="DISPONIBLE" />
+						<f:selectItem itemLabel="No Disponible" itemValue="NO DISPONIBLE" />
+						<f:ajax event="blur" render="msgEstado" />
+					</h:selectOneMenu>
+					<h:message id="msgEstado" for="estado" style="color:red" />
+
+					<p:commandButton action="#{altaProdBean.aceptar()}" value="Aceptar" />
+				</p:panelGrid>
+
+			</h:form>
+		</ui:define>
+
+		<ui:define name="footer" />
+	</ui:composition>
+</h:body>
+</html>

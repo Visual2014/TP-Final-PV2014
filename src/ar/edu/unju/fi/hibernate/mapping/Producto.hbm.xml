@@ -20,10 +20,10 @@
         <property name="descripcion" type="string">
             <column name="descripcion" length="32" />
         </property>
-        <property name="precioFardo" type="big_decimal">
+        <property name="precioFardo" type="double">
             <column name="precio_fardo" precision="10" />
         </property>
-        <property name="precioUnitario" type="big_decimal">
+        <property name="precioUnitario" type="double">
             <column name="precio_unitario" precision="10" />
         </property>
         <property name="stock" type="java.lang.Integer">
