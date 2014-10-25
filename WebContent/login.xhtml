@@ -12,24 +12,32 @@
 		<p:outputLabel value="Iniciar Sesion" />
 	</ui:define>
 	<ui:define name="content">
-		<div align="center">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel value="Documento: " />
-					<p:inputText id="documento" value="#{loginBean.dni}"
-						required="true" requiredMessage="requerido"
-						converterMessage="el dni deben ser solo numeros">
-						<f:validator validatorId="loginUsuarioValidator" />
-					</p:inputText>
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Documento: " />
+				<p:inputText id="documento" value="#{loginBean.dni}" required="true"
+					requiredMessage="dni requerido"
+					converterMessage="el dni deben ser solo numeros">
+					<f:validator validatorId="loginUsuarioValidator" />
+					<f:ajax immediate="false" render="@this" />
+				</p:inputText>
 
-					<p:outputLabel value="Password: " />
-					<p:inputText value="#{loginBean.password}" id="password" />
-				</p:panelGrid>
-				<p:commandButton action="#{loginBean.ingresar}" ajax="false" />
-				<p:message for="documento" />
-				<p:growl id="growl" life="5000" />
-			</h:form>
-		</div>
+				<p:outputLabel value="Password: " />
+				<p:inputText value="#{loginBean.password}" id="password"
+					required="true" requiredMessage="password requerido">
+					<f:attribute name="dni" value="#{loginBean.dni}" />
+					<f:validator validatorId="loginPasswordValidator" />
+					<f:ajax render="@this" />
+				</p:inputText>
+			</p:panelGrid>
+
+			<p:commandButton value="Iniciar Session"
+				action="#{loginBean.ingresar}">
+				<f:ajax execute="@form" render="@all" />
+			</p:commandButton>
+			<p:messages id="mensajes" />
+			<p:growl id="growl" life="5000" />
+		</h:form>
 
 	</ui:define>
 	<ui:define name="footer">

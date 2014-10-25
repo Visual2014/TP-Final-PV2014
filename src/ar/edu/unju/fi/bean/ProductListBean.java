@@ -21,6 +21,10 @@ public class ProductListBean implements Serializable {
 	private String estado;
 	private List<Producto> productList;
 
+	public String url() {
+		return "listaProductos?faces-redirect=true";
+	}
+
 	public String search() {
 		System.out.println("-------Busqueda");
 

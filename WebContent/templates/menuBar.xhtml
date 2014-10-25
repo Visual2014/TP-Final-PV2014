@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<ui:composition>
+		<h:form>
+			<p:menubar rendered="#{not empty loginBean.logedUser}">
+
+				<p:submenu label="Productos">
+					<p:menuitem value="Nuevo Producto"
+						action="#{altaProdBean.preInsert}">
+					</p:menuitem>
+
+					<p:menuitem value="Tabla Productos" action="#{productListBean.url}" />
+				</p:submenu>
+
+				<p:submenu label="Pedidos"
+					rendered="#{'ADMINISTRADOR' eq loginBean.logedUser.rol.descripcion}">
+					<p:menuitem value="Nuevo Pedido" />
+					<p:menuitem value="Tabla Pedidos" />
+				</p:submenu>
+
+				<p:menuitem value="Cerrar Sesion" action="#{loginBean.url}"
+					icon="ui-icon-close">
+				</p:menuitem>
+			</p:menubar>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

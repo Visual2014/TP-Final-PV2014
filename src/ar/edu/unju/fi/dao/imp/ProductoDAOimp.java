@@ -45,11 +45,11 @@ public class ProductoDAOimp extends HibernateUtil implements ProductoDAO {
 		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		criteria.add(Restrictions.eq("codigo", codigo));
-		Producto producto=null;
+		Producto producto = null;
 		try {
 			producto = (Producto) criteria.list().get(0);
 		} catch (java.lang.IndexOutOfBoundsException e) {
-		} 
+		}
 		session.close();
 		return producto;
 	}

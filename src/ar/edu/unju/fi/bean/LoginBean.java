@@ -14,22 +14,20 @@ import ar.edu.unju.fi.model.Usuario;
 public class LoginBean {
 	public Integer dni;
 	public String password;
-	public Usuario logedUser = null;
+	public Usuario logedUser;
 
 	public String url() {
+		logedUser = null;
 		return "login?faces-redirect=true";
 	}
 
 	public String ingresar() {
 		UsuarioDAO dao = new UsuarioDAOImp();
-		Usuario user = dao.validarPassword(dni, password);
-		if (user != null) {
-			RolUsuarioDAO daoRol = new RolUsuarioDAOimp();
-			user.setRol(daoRol.get(user.getRol().getRolId()));
-			logedUser = user;
-			return "listaProductos?faces-redirect=true";
-		}
-		return null;
+		RolUsuarioDAO daoRol = new RolUsuarioDAOimp();
+		Usuario user = dao.get(dni);
+		user.setRol(daoRol.get(user.getRol().getRolId()));
+		logedUser = user;
+		return "home?faces-redirect=true";
 	}
 
 	public Integer getDni() {

@@ -29,16 +29,12 @@
 					</p:inputText>
 					<h:message id="msgCodigo" for="codigo" style="color:red" />
 
-
-
 					<p:outputLabel value="Nombre: " />
 					<p:inputText id="nombre" value="#{altaProdBean.producto.nombre}"
 						required="true" requiredMessage="Campo Requerido" maxlength="15">
 						<f:ajax event="blur" render="msgNombre" />
 					</p:inputText>
 					<h:message id="msgNombre" for="nombre" style="color:red" />
-
-
 
 					<p:outputLabel value="Descripcion: " />
 					<p:inputText id="descripcion"
@@ -47,16 +43,12 @@
 					</p:inputText>
 					<h:message id="msgDescripcion" for="descripcion" style="color:red" />
 
-
-
 					<p:outputLabel value="Tamaño: " />
 					<p:inputText id="tamanio" value="#{altaProdBean.producto.tamanio}"
 						required="true" requiredMessage="Campo Obligatorio" maxlength="6">
 						<f:ajax event="blur" render="msgTamanio" />
 					</p:inputText>
 					<h:message id="msgTamanio" for="tamanio" style="color:red" />
-
-
 
 					<p:outputLabel value="Fecha de Vencimiento: " />
 					<p:calendar id="fechaVencimiento" showOn="button"
@@ -71,8 +63,6 @@
 					<h:message id="msgFVencimiento" for="fechaVencimiento"
 						style="color:red" />
 
-
-
 					<p:outputLabel value="Precio Unitario: " />
 					<p:inputText id="precioUnitario"
 						value="#{altaProdBean.producto.precioUnitario}" required="true"
@@ -85,8 +75,6 @@
 					</p:inputText>
 					<h:message id="msgUnitario" for="precioUnitario" style="color:red" />
 
-
-
 					<p:outputLabel value="Precio Por Fardo: " />
 					<p:inputText id="precioFardo"
 						value="#{altaProdBean.producto.precioFardo}">
@@ -98,7 +86,6 @@
 					</p:inputText>
 					<h:message id="msgFardo" for="precioFardo" style="color:red" />
 
-
 					<p:outputLabel value="Stock: " />
 					<p:inputText id="stock" value="#{altaProdBean.producto.stock}"
 						required="true" requiredMessage="Campo Obligatorio"
@@ -108,7 +95,6 @@
 					</p:inputText>
 					<h:message id="msgStock" for="stock" style="color:red" />
 
-
 					<p:outputLabel value="Estado: " />
 					<h:selectOneMenu id="estado"
 						value="#{altaProdBean.producto.estado}">
@@ -117,10 +103,10 @@
 						<f:ajax event="blur" render="msgEstado" />
 					</h:selectOneMenu>
 					<h:message id="msgEstado" for="estado" style="color:red" />
-
-					<p:commandButton action="#{altaProdBean.aceptar}" value="Aceptar" />
 				</p:panelGrid>
-
+				<p:commandButton action="#{altaProdBean.aceptar}" value="Aceptar">
+					<f:ajax execute="@form" render="@all" />
+				</p:commandButton>
 			</h:form>
 		</ui:define>
 

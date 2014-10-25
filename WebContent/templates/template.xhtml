@@ -1,32 +1,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core">
-      
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
 <h:head>
-  	<title>"#{msg.title_app}"</title>
-	<h:outputStylesheet library="css" name="style.css"  />
+	<title>"#{msg.title_app}"</title>
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 
 <h:body>
 	<div id="header" class="header">
-	    <ui:include src="/templates/header.xhtml"></ui:include>
-	    <div class="titleHeader" >
-	    	<ui:insert name="header"></ui:insert>
-	    </div>
-	</div> 
-	
-	
-	<div id="content" class="content">
-	  <ui:insert name="content"/>
+		<ui:include src="/templates/header.xhtml"></ui:include>
+		<div class="titleHeader">
+			<ui:insert name="header"></ui:insert>
+		</div>
 	</div>
-	
+
+
+	<div id="content" class="content" align="center">
+		<div id="menubar" class="menuBar">
+			<ui:include src="/templates/menuBar.xhtml"></ui:include>
+		</div>
+		<ui:insert name="content" />
+	</div>
+
 	<div id="footer" class="footer">
-	  <ui:insert name="footer">
-	  </ui:insert>
-	  <ui:include src="/templates/footer.xhtml"></ui:include>
+		<ui:insert name="footer">
+		</ui:insert>
+		<ui:include src="/templates/footer.xhtml"></ui:include>
 	</div>
 </h:body>
 </html>

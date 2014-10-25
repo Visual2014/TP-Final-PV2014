@@ -19,8 +19,8 @@ public class LoginUsuarioValidator implements Validator {
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
 
-		System.out.println("--------validator usuario");
 		int dni = Integer.valueOf(value.toString());
+		System.out.println("validator usuario: " + dni);
 		UsuarioDAO dao = new UsuarioDAOImp();
 		Usuario user = dao.get(dni);
 		if (user != null) {

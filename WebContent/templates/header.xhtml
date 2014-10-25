@@ -5,12 +5,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:p="http://primefaces.org/ui" >
+	xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
 <h:body>
 	<ui:composition>
 		<div class="userLoged">
-			<p:outputLabel value="[#{loginBean.logedUser.rol.descripcion}] - #{loginBean.logedUser.nombre}, #{loginBean.logedUser.apellido} " rendered="#{not empty loginBean.logedUser}"/><br/>
+			<p:outputLabel
+				value="[#{loginBean.logedUser.rol.descripcion}] - #{loginBean.logedUser.nombre}, #{loginBean.logedUser.apellido} "
+				rendered="#{not empty loginBean.logedUser}" />
+			<br />
 		</div>
 	</ui:composition>
 </h:body>

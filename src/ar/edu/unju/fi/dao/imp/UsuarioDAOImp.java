@@ -18,7 +18,7 @@ public class UsuarioDAOImp extends HibernateUtil implements UsuarioDAO {
 		Session session = getSession();
 		Criteria criteria = session.createCriteria(Usuario.class);
 		criteria.addOrder(Order.asc("nombre"));
-		
+
 		List<Usuario> list = criteria.list();
 		session.close();
 		return list;
