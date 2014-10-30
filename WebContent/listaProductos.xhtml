@@ -43,19 +43,19 @@
 					rendered="#{not empty productListBean.productList}" var="p"
 					rows="10" paginator="true">
 
-					<p:column headerText="codigo">
+					<p:column headerText="codigo" sortBy="#{p.codigo}">
 						<p:outputLabel value="#{p.codigo}" />
 					</p:column>
 
-					<p:column headerText="Nombre">
+					<p:column headerText="Nombre" sortBy="#{p.nombre}">
 						<p:outputLabel value="#{p.nombre}" />
 					</p:column>
 
-					<p:column headerText="Descripcion">
+					<p:column headerText="Descripcion" sortBy="#{p.descripcion}">
 						<p:outputLabel value="#{p.descripcion}" />
 					</p:column>
 
-					<p:column headerText="Estado">
+					<p:column headerText="Estado" sortBy="#{p.estado}">
 						<p:outputLabel value="#{p.estado}" />
 					</p:column>
 
@@ -66,6 +66,16 @@
 								target="#{altaProdBean.producto}" />
 						</p:commandButton>
 					</p:column>
+					<p:column headerText="Eliminar">
+				<p:commandButton action="#{altaProdBean.preEliminar()}" value="Eliminar">
+						<p:confirm header="Eliminar Producto" message="Esta seguro que desea eliminar el producto?" icon="ui-icon-alert" />
+						<f:setPropertyActionListener value="#{p}" target="#{altaProdBean.producto}"/>
+				</p:commandButton>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+	       			 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	        		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    			</p:confirmDialog>
+				</p:column>
 				</p:dataTable>
 			</h:form>
 		</ui:define>

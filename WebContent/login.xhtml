@@ -23,12 +23,12 @@
 				</p:inputText>
 
 				<p:outputLabel value="Password: " />
-				<p:inputText value="#{loginBean.password}" id="password"
+				<p:password value="#{loginBean.password}" id="password"
 					required="true" requiredMessage="password requerido">
 					<f:attribute name="dni" value="#{loginBean.dni}" />
 					<f:validator validatorId="loginPasswordValidator" />
 					<f:ajax render="@this" />
-				</p:inputText>
+				</p:password>
 			</p:panelGrid>
 
 			<p:commandButton value="Iniciar Session"

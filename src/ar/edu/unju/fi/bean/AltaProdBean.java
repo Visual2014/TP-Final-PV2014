@@ -15,13 +15,14 @@ public class AltaProdBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Producto producto;
 	private String banderaModif = "false";
+	ProductoDAO dao = new ProductoDAOimp();	
 
 	/*
 	 * llama al metodo add del manager para agregar el nuevo producto a la lista
 	 */
 	public String aceptar() {
 		System.out.println("------- aceptar");
-		ProductoDAO dao = new ProductoDAOimp();
+
 
 		if (banderaModif.equals("false")) {
 			dao.insert(producto);
@@ -45,6 +46,12 @@ public class AltaProdBean implements Serializable {
 		return "altaProd.xhtml?faces-redirect=true";
 	}
 
+	public String preEliminar(){
+		System.out.println("--------preEliminar");
+		dao.delete(producto);
+		return "listaProductos.xhtml?faces-redirect=true";
+	}
+	
 	public Producto getProducto() {
 		return producto;
 	}
