@@ -17,30 +17,31 @@
 		<ui:define name="content">
 			<h:form>
 				<p:message for="codigo" />
-				<p:panelGrid columns="6">
+				<p:panelGrid columns="7" styleClass="searchPanel">
 					<p:outputLabel value="Codigo: " />
-					<p:inputText id="codigo" value="#{productListBean.codigo}"
+					<p:inputText id="codigo" value="#{aBMProdBean.codigo}"
 						converterMessage="el codigo debe ser numerico">
 						<f:convertNumber integerOnly="true" groupingUsed="false" />
 					</p:inputText>
 
 					<p:outputLabel value="Nombre: " />
-					<p:inputText value="#{productListBean.nombre}" />
+					<p:inputText value="#{aBMProdBean.nombre}" />
 
 					<p:outputLabel value="Estado" />
-					<p:selectOneMenu id="estado" value="#{productListBean.estado}">
+					<p:selectOneMenu id="estado" value="#{aBMProdBean.estado}">
 						<f:selectItem itemValue="TODO" itemLabel="Todos" />
 						<f:selectItem itemValue="NO DISPONIBLE" itemLabel="No Disponible" />
 						<f:selectItem itemValue="DISPONIBLE" itemLabel="Disponible" />
 					</p:selectOneMenu>
+					<p:commandButton id="submit" action="#{aBMProdBean.search}"
+					 ajax="false" icon="ui-icon-search"/>
 				</p:panelGrid>
 
-				<p:commandButton id="submit" action="#{productListBean.search}"
-					value="Buscar" ajax="false" />
+				
 
 				<p:dataTable styleClass="tabla" id="productos"
-					value="#{productListBean.productList}"
-					rendered="#{not empty productListBean.productList}" var="p"
+					value="#{aBMProdBean.productList}"
+					rendered="#{not empty aBMProdBean.productList}" var="p"
 					rows="10" paginator="true">
 
 					<p:column headerText="codigo" sortBy="#{p.codigo}">
@@ -59,22 +60,23 @@
 						<p:outputLabel value="#{p.estado}" />
 					</p:column>
 
-					<p:column headerText="Modificar">
-						<p:commandButton action="#{altaProdBean.preModif()}"
-							value="Modificar">
+					<p:column headerText="Acciones">
+					<div align="center">
+						<p:commandButton action="#{aBMProdBean.preModif()}"
+							icon="ui-icon-pencil" title="Modificar">
 							<f:setPropertyActionListener value="#{p}"
-								target="#{altaProdBean.producto}" />
+								target="#{aBMProdBean.producto}" />
 						</p:commandButton>
-					</p:column>
-					<p:column headerText="Eliminar">
-				<p:commandButton action="#{altaProdBean.preEliminar()}" value="Eliminar">
+				<p:commandButton action="#{aBMProdBean.preEliminar()}" icon="ui-icon-trash" title="Eliminar">
 						<p:confirm header="Eliminar Producto" message="Esta seguro que desea eliminar el producto?" icon="ui-icon-alert" />
-						<f:setPropertyActionListener value="#{p}" target="#{altaProdBean.producto}"/>
+						<f:setPropertyActionListener value="#{p}" target="#{aBMProdBean.producto}"/>
+						<f:ajax render="productos"/>
 				</p:commandButton>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
 	       			 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 	        		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
     			</p:confirmDialog>
+    			</div>
 				</p:column>
 				</p:dataTable>
 			</h:form>
