@@ -9,29 +9,29 @@
 
 <ui:composition template="templates/template.xhtml">
 	<ui:define name="header">
-		<p:outputLabel value="Iniciar Sesion" />
+		<p:outputLabel value="#{msg.btn_login}" />
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Documento: " />
+				<p:outputLabel value="#{msg.label_dni}" />
 				<p:inputText id="documento" value="#{loginBean.dni}" required="true"
-					requiredMessage="dni requerido"
-					converterMessage="el dni deben ser solo numeros">
+					requiredMessage="#{msg.msg_dniRequerido}"
+					converterMessage="#{msg.msg_convertNumero}">
 					<f:validator validatorId="loginUsuarioValidator" />
 					<f:ajax immediate="false" render="@this" />
 				</p:inputText>
 
-				<p:outputLabel value="Password: " />
+				<p:outputLabel value="#{msg.label_pass}" />
 				<p:password value="#{loginBean.password}" id="password"
-					required="true" requiredMessage="password requerido">
+					required="true" requiredMessage="#{msg.msg_passRequerido}">
 					<f:attribute name="dni" value="#{loginBean.dni}" />
 					<f:validator validatorId="loginPasswordValidator" />
 					<f:ajax render="@this" />
 				</p:password>
 			</p:panelGrid>
 
-			<p:commandButton value="Iniciar Session"
+			<p:commandButton value="#{msg.btn_login}"
 				action="#{loginBean.ingresar}">
 				<f:ajax execute="@form" render="@all" />
 			</p:commandButton>

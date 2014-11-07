@@ -11,12 +11,12 @@
 	<ui:composition template="/templates/template.xhtml">
 
 		<ui:define name="header">
-			<h:outputLabel value="Bienvenido" />
+			<h:outputLabel value="#{msg.label_welcome}" />
 		</ui:define>
 
 		<ui:define name="content">
 			<h:form>
-				<p:commandButton action="#{loginBean.url}" value="Ingresar" />
+				<p:commandButton action="#{loginBean.url}" value="#{msg.btn_ingresar}" />
 			</h:form>
 		</ui:define>
 

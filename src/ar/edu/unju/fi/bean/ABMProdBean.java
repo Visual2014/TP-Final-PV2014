@@ -21,6 +21,8 @@ public class ABMProdBean implements Serializable {
 	private String nombre;
 	private String estado;
 	private List<Producto> productList;
+	boolean listaVacia;
+
 
 	public Integer getCodigo() {
 		return codigo;
@@ -60,12 +62,25 @@ public class ABMProdBean implements Serializable {
 
 	public String search() {
 		System.out.println("-------Busqueda");
-
+		System.out.println("Lista vacia: "+listaVacia);
+		listaVacia=true;
 		ProductoDAO dao = new ProductoDAOimp();
 		productList = dao.buscar(codigo, nombre, estado);
+		if(!productList.isEmpty()){
+			listaVacia=false;
+		}
+		System.out.println("Lista vacia: "+listaVacia);
 		return null;
 	}
 		
+
+	public boolean isListaVacia() {
+		return listaVacia;
+	}
+
+	public void setListaVacia(boolean listaVacia) {
+		this.listaVacia = listaVacia;
+	}
 
 	/*
 	 * llama al metodo add del manager para agregar el nuevo producto a la lista

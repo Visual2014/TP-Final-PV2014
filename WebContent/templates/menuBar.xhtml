@@ -12,21 +12,21 @@
 		<h:form>
 			<p:menubar rendered="#{not empty loginBean.logedUser}">
 
-				<p:submenu label="Productos">
-					<p:menuitem value="Nuevo Producto"
+				<p:submenu label="#{msg.label_producto}">
+					<p:menuitem value="#{msg.label_nuevoProducto}"
 						action="#{aBMProdBean.preInsert}">
 					</p:menuitem>
 
-					<p:menuitem value="Tabla Productos" action="#{aBMProdBean.url}" />
+					<p:menuitem value="#{msg.label_tablaProductos}" action="#{aBMProdBean.url}" />
 				</p:submenu>
 
 				<p:submenu label="Pedidos"
 					rendered="#{'ADMINISTRADOR' eq loginBean.logedUser.rol.descripcion}">
-					<p:menuitem value="Nuevo Pedido" />
-					<p:menuitem value="Tabla Pedidos" />
+					<p:menuitem value="#{msg.label_nuevoPedido}" />
+					<p:menuitem value="#{msg.label_tablaPedidos}" />
 				</p:submenu>
 
-				<p:menuitem value="Cerrar Sesion" action="#{loginBean.url}"
+				<p:menuitem value="#{msg.btn_logout}" action="#{loginBean.url}"
 					icon="ui-icon-close">
 				</p:menuitem>
 			</p:menubar>

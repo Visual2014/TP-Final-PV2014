@@ -11,31 +11,36 @@
 	<ui:composition template="/templates/template.xhtml">
 
 		<ui:define name="header">
-			<p:outputLabel value="lista productos" />
+			<p:outputLabel value="#{msg.label_tituloLista}" />
 		</ui:define>
 
 		<ui:define name="content">
 			<h:form>
 				<p:message for="codigo" />
 				<p:panelGrid columns="7" styleClass="searchPanel">
-					<p:outputLabel value="Codigo: " />
+					<p:outputLabel value="#{msg.label_codigo}" />
 					<p:inputText id="codigo" value="#{aBMProdBean.codigo}"
 						converterMessage="el codigo debe ser numerico">
 						<f:convertNumber integerOnly="true" groupingUsed="false" />
 					</p:inputText>
 
-					<p:outputLabel value="Nombre: " />
+					<p:outputLabel value="#{msg.label_nombre}" />
 					<p:inputText value="#{aBMProdBean.nombre}" />
 
-					<p:outputLabel value="Estado" />
+					<p:outputLabel value="#{msg.label_estado}" />
 					<p:selectOneMenu id="estado" value="#{aBMProdBean.estado}">
-						<f:selectItem itemValue="TODO" itemLabel="Todos" />
-						<f:selectItem itemValue="NO DISPONIBLE" itemLabel="No Disponible" />
-						<f:selectItem itemValue="DISPONIBLE" itemLabel="Disponible" />
+						<f:selectItem itemValue="TODO" itemLabel="#{msg.label_todo}" />
+						<f:selectItem itemValue="NO DISPONIBLE" itemLabel="#{msg.label_noDisponible}" />
+						<f:selectItem itemValue="DISPONIBLE" itemLabel="#{msg.label_disponible}" />
 					</p:selectOneMenu>
 					<p:commandButton id="submit" action="#{aBMProdBean.search}"
-					 ajax="false" icon="ui-icon-search"/>
+					 ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
+					 <p:dialog header="Error" widgetVar="dlg1" minHeight="40" rendered="#{aBMProdBean.listaVacia}">
+    						<h:outputText value="#{msg.label_empty}"/>
+					 </p:dialog>
+					 </p:commandButton>
 				</p:panelGrid>
+				
 
 				
 
@@ -44,37 +49,37 @@
 					rendered="#{not empty aBMProdBean.productList}" var="p"
 					rows="10" paginator="true">
 
-					<p:column headerText="codigo" sortBy="#{p.codigo}">
+					<p:column headerText="#{msg.header_codigo}" sortBy="#{p.codigo}">
 						<p:outputLabel value="#{p.codigo}" />
 					</p:column>
 
-					<p:column headerText="Nombre" sortBy="#{p.nombre}">
+					<p:column headerText="#{msg.header_nombre}" sortBy="#{p.nombre}">
 						<p:outputLabel value="#{p.nombre}" />
 					</p:column>
 
-					<p:column headerText="Descripcion" sortBy="#{p.descripcion}">
+					<p:column headerText="#{msg.header_descripcion}" sortBy="#{p.descripcion}">
 						<p:outputLabel value="#{p.descripcion}" />
 					</p:column>
 
-					<p:column headerText="Estado" sortBy="#{p.estado}">
+					<p:column headerText="#{msg.header_estado}" sortBy="#{p.estado}">
 						<p:outputLabel value="#{p.estado}" />
 					</p:column>
 
-					<p:column headerText="Acciones">
+					<p:column headerText="#{msg.header_accion}">
 					<div align="center">
-						<p:commandButton action="#{aBMProdBean.preModif()}"
+						<p:commandButton action="#{aBMProdBean.preModif}"
 							icon="ui-icon-pencil" title="Modificar">
 							<f:setPropertyActionListener value="#{p}"
 								target="#{aBMProdBean.producto}" />
 						</p:commandButton>
-				<p:commandButton action="#{aBMProdBean.preEliminar()}" icon="ui-icon-trash" title="Eliminar">
-						<p:confirm header="Eliminar Producto" message="Esta seguro que desea eliminar el producto?" icon="ui-icon-alert" />
+				<p:commandButton action="#{aBMProdBean.preEliminar}" icon="ui-icon-trash" title="Eliminar">
+						<p:confirm header="#{msg.header_eliminar}" message="#{msg.msg_eliminar}" icon="ui-icon-alert" />
 						<f:setPropertyActionListener value="#{p}" target="#{aBMProdBean.producto}"/>
 						<f:ajax render="productos"/>
 				</p:commandButton>
-				<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-	       			 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-	        		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				<p:confirmDialog global="true" showEffect="fade">
+	       			 <p:commandButton value="#{msg.btn_aceptar}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	        		<p:commandButton value="#{msg.btn_cancelar}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
     			</p:confirmDialog>
     			</div>
 				</p:column>
