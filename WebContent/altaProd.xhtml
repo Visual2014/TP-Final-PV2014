@@ -95,19 +95,20 @@
 					</p:inputText>
 					<h:message id="msgStock" for="stock" style="color:red" />
 
-					<p:outputLabel value="#{msg.label_estado}" />
-					<h:selectOneMenu id="estado"
-						value="#{aBMProdBean.producto.estado}">
-						<f:selectItem itemLabel="#{msg.label_disponible}" itemValue="DISPONIBLE" />
-						<f:selectItem itemLabel="#{msg.label_noDisponible}" itemValue="NO DISPONIBLE" />
+					<p:outputLabel value="Estado: " />
+					<h:selectOneMenu id="estado" value="#{aBMProdBean.producto.estado}">
+						<f:selectItem itemLabel="Disponible" itemValue="DISPONIBLE" />
+						<f:selectItem itemLabel="No Disponible" itemValue="NO DISPONIBLE" />
 						<f:ajax event="blur" render="msgEstado" />
 					</h:selectOneMenu>
 					<h:message id="msgEstado" for="estado" style="color:red" />
 				</p:panelGrid>
-				<p:commandButton action="#{aBMProdBean.aceptar}" value="#{msg.btn_aceptar}">
+				<p:commandButton action="#{aBMProdBean.aceptar}"
+					value="#{msg.btn_aceptar}">
 					<f:ajax execute="@form" render="@all" />
 				</p:commandButton>
-				<p:commandButton action="#{aBMProdBean.url}" value="#{msg.btn_cancelar}" />
+				<p:commandButton action="#{aBMProdBean.url}"
+					value="#{msg.btn_cancelar}" />
 			</h:form>
 		</ui:define>
 

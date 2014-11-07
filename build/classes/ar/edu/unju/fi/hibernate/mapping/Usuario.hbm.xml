@@ -3,25 +3,27 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 21-oct-2014 19:40:43 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="ar.edu.unju.fi.model.Usuario" table="usuario" schema="public">
-        <id name="documento" type="int">
-            <column name="documento" />
-            <generator class="assigned" />
-        </id>
-        <many-to-one name="rol" class="ar.edu.unju.fi.model.Rol" fetch="select">
-            <column name="rol_id" />
-        </many-to-one>
-        <property name="nombre" type="string">
-            <column name="nombre" length="16" />
-        </property>
-        <property name="apellido" type="string">
-            <column name="apellido" length="16" />
-        </property>
-        <property name="estado" type="string">
-            <column name="estado" length="12" />
-        </property>
-        <property name="password" type="string">
-            <column name="password" length="8" />
-        </property>
-    </class>
+	<class name="ar.edu.unju.fi.model.Usuario" table="usuario"
+		schema="public">
+		<id name="documento" type="int">
+			<column name="documento" />
+			<generator class="assigned" />
+		</id>
+		<many-to-one name="rol" class="ar.edu.unju.fi.model.Rol"
+			fetch="select">
+			<column name="rol_id" />
+		</many-to-one>
+		<property name="nombre" type="string">
+			<column name="nombre" length="16" />
+		</property>
+		<property name="apellido" type="string">
+			<column name="apellido" length="16" />
+		</property>
+		<property name="estado" type="string">
+			<column name="estado" length="12" />
+		</property>
+		<property name="password" type="string">
+			<column name="password" length="8" />
+		</property>
+	</class>
 </hibernate-mapping>

@@ -1,4 +1,4 @@
-package ar.edu.unju.fi.vista.util.validator;
+package ar.edu.unju.fi.util.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -7,14 +7,13 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import ar.edu.unju.fi.dao.RolUsuarioDAO;
+import ar.edu.unju.fi.bean.BaseBean;
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.imp.RolUsuarioDAOimp;
-import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
-import ar.edu.unju.fi.model.Usuario;
+import ar.edu.unju.fi.services.ServiceFacade;
+import ar.edu.unju.fi.services.SpringUtil;
 
 @FacesValidator("loginPasswordValidator")
-public class LoginPasswordValidator implements Validator {
+public class LoginPasswordValidator extends BaseBean implements Validator {
 
 	@Override
 	public void validate(FacesContext context, UIComponent component,
@@ -23,7 +22,7 @@ public class LoginPasswordValidator implements Validator {
 		int dni = Integer.valueOf(component.getAttributes().get("dni")
 				.toString());
 		String pass = (String) value;
-		UsuarioDAO dao = new UsuarioDAOImp();
+		UsuarioDAO dao = getService().getUsuarioDAO();
 
 		System.out.println("validar DNI: " + dni + "  Pass: " + pass);
 		if (dao.validarPassword(dni, pass) == null) {

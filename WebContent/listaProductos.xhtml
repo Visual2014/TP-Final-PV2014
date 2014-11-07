@@ -30,24 +30,27 @@
 					<p:outputLabel value="#{msg.label_estado}" />
 					<p:selectOneMenu id="estado" value="#{aBMProdBean.estado}">
 						<f:selectItem itemValue="TODO" itemLabel="#{msg.label_todo}" />
-						<f:selectItem itemValue="NO DISPONIBLE" itemLabel="#{msg.label_noDisponible}" />
-						<f:selectItem itemValue="DISPONIBLE" itemLabel="#{msg.label_disponible}" />
+						<f:selectItem itemValue="NO DISPONIBLE"
+							itemLabel="#{msg.label_noDisponible}" />
+						<f:selectItem itemValue="DISPONIBLE"
+							itemLabel="#{msg.label_disponible}" />
 					</p:selectOneMenu>
 					<p:commandButton id="submit" action="#{aBMProdBean.search}"
-					 ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
-					 <p:dialog header="Error" widgetVar="dlg1" minHeight="40" rendered="#{aBMProdBean.listaVacia}">
-    						<h:outputText value="#{msg.label_empty}"/>
-					 </p:dialog>
-					 </p:commandButton>
+						ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
+						<p:dialog header="Error" widgetVar="dlg1" minHeight="40"
+							rendered="#{aBMProdBean.listaVacia}">
+							<h:outputText value="#{msg.label_empty}" />
+						</p:dialog>
+					</p:commandButton>
 				</p:panelGrid>
-				
 
-				
+
+
 
 				<p:dataTable styleClass="tabla" id="productos"
 					value="#{aBMProdBean.productList}"
-					rendered="#{not empty aBMProdBean.productList}" var="p"
-					rows="10" paginator="true">
+					rendered="#{not empty aBMProdBean.productList}" var="p" rows="10"
+					paginator="true">
 
 					<p:column headerText="#{msg.header_codigo}" sortBy="#{p.codigo}">
 						<p:outputLabel value="#{p.codigo}" />
@@ -57,7 +60,8 @@
 						<p:outputLabel value="#{p.nombre}" />
 					</p:column>
 
-					<p:column headerText="#{msg.header_descripcion}" sortBy="#{p.descripcion}">
+					<p:column headerText="#{msg.header_descripcion}"
+						sortBy="#{p.descripcion}">
 						<p:outputLabel value="#{p.descripcion}" />
 					</p:column>
 
@@ -66,23 +70,28 @@
 					</p:column>
 
 					<p:column headerText="#{msg.header_accion}">
-					<div align="center">
-						<p:commandButton action="#{aBMProdBean.preModif}"
-							icon="ui-icon-pencil" title="Modificar">
-							<f:setPropertyActionListener value="#{p}"
-								target="#{aBMProdBean.producto}" />
-						</p:commandButton>
-				<p:commandButton action="#{aBMProdBean.preEliminar}" icon="ui-icon-trash" title="Eliminar">
-						<p:confirm header="#{msg.header_eliminar}" message="#{msg.msg_eliminar}" icon="ui-icon-alert" />
-						<f:setPropertyActionListener value="#{p}" target="#{aBMProdBean.producto}"/>
-						<f:ajax render="productos"/>
-				</p:commandButton>
-				<p:confirmDialog global="true" showEffect="fade">
-	       			 <p:commandButton value="#{msg.btn_aceptar}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-	        		<p:commandButton value="#{msg.btn_cancelar}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-    			</p:confirmDialog>
-    			</div>
-				</p:column>
+						<div align="center">
+							<p:commandButton action="#{aBMProdBean.preModif}"
+								icon="ui-icon-pencil" title="Modificar">
+								<f:setPropertyActionListener value="#{p}"
+									target="#{aBMProdBean.producto}" />
+							</p:commandButton>
+							<p:commandButton action="#{aBMProdBean.preEliminar}"
+								icon="ui-icon-trash" title="Eliminar">
+								<p:confirm header="#{msg.header_eliminar}"
+									message="#{msg.msg_eliminar}" icon="ui-icon-alert" />
+								<f:setPropertyActionListener value="#{p}"
+									target="#{aBMProdBean.producto}" />
+								<f:ajax render="productos" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade">
+								<p:commandButton value="#{msg.btn_aceptar}" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="#{msg.btn_cancelar}" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</div>
+					</p:column>
 				</p:dataTable>
 			</h:form>
 		</ui:define>

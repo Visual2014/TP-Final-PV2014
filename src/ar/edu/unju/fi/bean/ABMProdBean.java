@@ -7,22 +7,99 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import ar.edu.unju.fi.dao.ProductoDAO;
-import ar.edu.unju.fi.dao.imp.ProductoDAOimp;
+import ar.edu.unju.fi.dao.imp.ProductoDAOImp;
 import ar.edu.unju.fi.model.Producto;
 
 @ManagedBean
 @SessionScoped
-public class ABMProdBean implements Serializable {
+public class ABMProdBean extends BaseBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Producto producto;
-	private String banderaModif = "false";
+	private String banderaModif;
 	private Integer codigo;
 	private String nombre;
 	private String estado;
 	private List<Producto> productList;
 	boolean listaVacia;
 
+	public ABMProdBean() {
+		banderaModif = "false";
+	}
+
+	public String search() {
+		System.out.println("-------Busqueda");
+		System.out.println("Lista vacia: " + listaVacia);
+		listaVacia = true;
+		ProductoDAO dao = getService().getProductoDAO();
+		productList = dao.buscar(codigo, nombre, estado);
+		if (!productList.isEmpty()) {
+			listaVacia = false;
+		}
+		System.out.println("Lista vacia: " + listaVacia);
+		return null;
+	}
+
+	public boolean isListaVacia() {
+		return listaVacia;
+	}
+
+	public void setListaVacia(boolean listaVacia) {
+		this.listaVacia = listaVacia;
+	}
+
+	/*
+	 * llama al metodo add del manager para agregar el nuevo producto a la lista
+	 */
+	public String aceptar() {
+		System.out.println("------- aceptar");
+		ProductoDAO dao = getService().getProductoDAO();
+
+		if (banderaModif.equals("false")) {
+			dao.insert(producto);
+		} else {
+			dao.update(producto);
+		}
+		return "listaProductos.xhtml?faces-redirect=true";
+	}
+
+	// instancia el objeto producto de esta clase antes de ingresar a la pagina
+	public String preInsert() {
+		System.out.println("--------preInsert");
+		setProducto(new Producto());
+		banderaModif = "false";
+		return "altaProd.xhtml?faces-redirect=true";
+	}
+
+	public String preModif() {
+		System.out.println("-------- preModif");
+		banderaModif = "true";
+		return "altaProd.xhtml?faces-redirect=true";
+	}
+
+	public String preEliminar() {
+		System.out.println("--------preEliminar");
+		ProductoDAO dao = getService().getProductoDAO();
+		dao.delete(producto);
+		search();
+		return null;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto product) {
+		this.producto = product;
+	}
+
+	public String getBanderaModif() {
+		return banderaModif;
+	}
+
+	public void setBanderaModif(String banderaModif) {
+		this.banderaModif = banderaModif;
+	}
 
 	public Integer getCodigo() {
 		return codigo;
@@ -59,81 +136,4 @@ public class ABMProdBean implements Serializable {
 	public String url() {
 		return "listaProductos?faces-redirect=true";
 	}
-
-	public String search() {
-		System.out.println("-------Busqueda");
-		System.out.println("Lista vacia: "+listaVacia);
-		listaVacia=true;
-		ProductoDAO dao = new ProductoDAOimp();
-		productList = dao.buscar(codigo, nombre, estado);
-		if(!productList.isEmpty()){
-			listaVacia=false;
-		}
-		System.out.println("Lista vacia: "+listaVacia);
-		return null;
-	}
-		
-
-	public boolean isListaVacia() {
-		return listaVacia;
-	}
-
-	public void setListaVacia(boolean listaVacia) {
-		this.listaVacia = listaVacia;
-	}
-
-	/*
-	 * llama al metodo add del manager para agregar el nuevo producto a la lista
-	 */
-	public String aceptar() {
-		System.out.println("------- aceptar");
-		ProductoDAO dao = new ProductoDAOimp();
-
-
-		if (banderaModif.equals("false")) {
-			dao.insert(producto);
-		} else {
-			dao.update(producto);
-		}
-		return "listaProductos.xhtml?faces-redirect=true";
-	}
-
-	// instancia el objeto producto de esta clase antes de ingresar a la pagina
-	public String preInsert() {
-		System.out.println("--------preInsert");
-		setProducto(new Producto());
-		banderaModif = "false";
-		return "altaProd.xhtml?faces-redirect=true";
-	}
-
-	public String preModif() {
-		System.out.println("-------- preModif");
-		banderaModif = "true";
-		return "altaProd.xhtml?faces-redirect=true";
-	}
-
-	public String preEliminar(){
-		System.out.println("--------preEliminar");
-		ProductoDAO dao = new ProductoDAOimp();
-		dao.delete(producto);
-		search();
-		return null;
-	}
-	
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto product) {
-		this.producto = product;
-	}
-
-	public String getBanderaModif() {
-		return banderaModif;
-	}
-
-	public void setBanderaModif(String banderaModif) {
-		this.banderaModif = banderaModif;
-	}
-
 }

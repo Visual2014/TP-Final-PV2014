@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+	<bean id="usuarioDAO" class="ar.edu.unju.fi.dao.imp.UsuarioDAOImp" />
+	<bean id="rolUsuarioDAO" class="ar.edu.unju.fi.dao.imp.RolUsuarioDAOImp" />
+	<bean id="productoDAO" class="ar.edu.unju.fi.dao.imp.ProductoDAOImp" />
+
+	<bean id="serviceFacade" class="ar.edu.unju.fi.services.ServiceFacade">
+		<property name="usuarioDAO" ref="usuarioDAO" />
+		<property name="rolUsuarioDAO" ref="rolUsuarioDAO" />
+		<property name="productoDAO" ref="productoDAO" />
+
+	</bean>
+
+</beans>

@@ -5,13 +5,13 @@ import javax.faces.bean.SessionScoped;
 
 import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.imp.RolUsuarioDAOimp;
-import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Usuario;
+import ar.edu.unju.fi.services.ServiceFacade;
+import ar.edu.unju.fi.services.SpringUtil;
 
 @ManagedBean
 @SessionScoped
-public class LoginBean {
+public class LoginBean extends BaseBean {
 	public Integer dni;
 	public String password;
 	public Usuario logedUser;
@@ -22,8 +22,9 @@ public class LoginBean {
 	}
 
 	public String ingresar() {
-		UsuarioDAO dao = new UsuarioDAOImp();
-		RolUsuarioDAO daoRol = new RolUsuarioDAOimp();
+		UsuarioDAO dao = getService().getUsuarioDAO();
+		RolUsuarioDAO daoRol = getService().getRolUsuarioDAO();
+
 		Usuario user = dao.get(dni);
 		user.setRol(daoRol.get(user.getRol().getRolId()));
 		logedUser = user;

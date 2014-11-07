@@ -15,7 +15,7 @@ public class UsuarioDAOImp extends HibernateUtil implements UsuarioDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> getAll() {
-		Session session = getSession();
+		Session session = getSessionFactory().openSession();
 		Criteria criteria = session.createCriteria(Usuario.class);
 		criteria.addOrder(Order.asc("nombre"));
 
@@ -26,7 +26,7 @@ public class UsuarioDAOImp extends HibernateUtil implements UsuarioDAO {
 
 	@Override
 	public Usuario get(int dni) {
-		Session session = getSession();
+		Session session = getSessionFactory().openSession();
 		Criteria criteria = session.createCriteria(Usuario.class);
 		criteria.add(Restrictions.eq("documento", dni));
 		Usuario user = null;

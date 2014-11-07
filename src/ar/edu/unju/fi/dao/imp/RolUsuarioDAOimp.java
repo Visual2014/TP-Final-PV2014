@@ -8,7 +8,7 @@ import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.hibernate.HibernateUtil;
 import ar.edu.unju.fi.model.Rol;
 
-public class RolUsuarioDAOimp extends HibernateUtil implements RolUsuarioDAO {
+public class RolUsuarioDAOImp extends HibernateUtil implements RolUsuarioDAO {
 
 	@Override
 	public Rol get(int rolId) {
