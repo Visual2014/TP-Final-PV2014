@@ -4,16 +4,97 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>ar/edu/unju/fi/services/db.properties</value>
+		</property>
+	</bean>
 
-	<bean id="usuarioDAO" class="ar.edu.unju.fi.dao.imp.UsuarioDAOImp" />
-	<bean id="rolUsuarioDAO" class="ar.edu.unju.fi.dao.imp.RolUsuarioDAOImp" />
-	<bean id="productoDAO" class="ar.edu.unju.fi.dao.imp.ProductoDAOImp" />
+	<!-- DATA SOURCE DECLARATION -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- DATABASE PROPERTY -->
+	<bean id="hibernateProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.connection.pool_size">11</prop>
+				<prop key="hibernate.c3p0.timeout">100</prop>
+				<prop key="hibernate.c3p0.max_statements">2</prop>
+				<prop key="hibernate.c3p0.min_size">0</prop>
+				<prop key="hibernate.c3p0.max_size">1</prop>
+				<prop key="hibernate.transaction.auto_close_session">true</prop>
+				<prop key="hibernate.connection.release_mode">on_close</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- SESSION FACTORY -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="mappingResources">
+			<list>
+				<value>ar/edu/unju/fi/hibernate/mapping/Usuario.hbm.xml</value>
+				<value>ar/edu/unju/fi/hibernate/mapping/DetallePedido.hbm.xml
+				</value>
+				<value>ar/edu/unju/fi/hibernate/mapping/Producto.hbm.xml</value>
+				<value>ar/edu/unju/fi/hibernate/mapping/Pedido.hbm.xml</value>
+				<value>ar/edu/unju/fi/hibernate/mapping/Rol.hbm.xml</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties" ref="hibernateProperties"></property>
+	</bean>
+
+
+	<bean id="usuarioDAO" class="ar.edu.unju.fi.dao.imp.UsuarioDAOImp">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="rolUsuarioDAO" class="ar.edu.unju.fi.dao.imp.RolUsuarioDAOImp">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="productoDAO" class="ar.edu.unju.fi.dao.imp.ProductoDAOImp">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 
 	<bean id="serviceFacade" class="ar.edu.unju.fi.services.ServiceFacade">
 		<property name="usuarioDAO" ref="usuarioDAO" />
 		<property name="rolUsuarioDAO" ref="rolUsuarioDAO" />
 		<property name="productoDAO" ref="productoDAO" />
+	</bean>
 
+	<!-- Transaction Manager -->
+
+	<!-- <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager"> -->
+	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
+	<!-- </bean> -->
+
+	<bean id="baseTransactionProxy"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="baseTransactionManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
 	</bean>
 
 </beans>

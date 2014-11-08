@@ -1,48 +1,51 @@
 package ar.edu.unju.fi.dao.imp;
 
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
 import ar.edu.unju.fi.dao.ProductoDAO;
-import ar.edu.unju.fi.hibernate.HibernateUtil;
 import ar.edu.unju.fi.model.Producto;
 
-public class ProductoDAOImp extends HibernateUtil implements ProductoDAO {
+public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 
 	@Override
 	public void insert(Producto p) {
-		Session session = getSessionFactory().openSession();
-		session.beginTransaction();
-		session.save(p);
-		session.getTransaction().commit();
-		session.close();
+		try {
+			getHibernateTemplate().save(p);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void update(Producto p) {
-		Session session = getSessionFactory().openSession();
-		session.beginTransaction();
-		session.update(p);
-		session.getTransaction().commit();
-		session.close();
+		try {
+			getHibernateTemplate().update(p);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void delete(Producto p) {
-		Session session = getSessionFactory().openSession();
-		session.beginTransaction();
-		session.delete(p);
-		session.getTransaction().commit();
-		session.close();
+		try {
+			getHibernateTemplate().delete(p);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public Producto get(int codigo) {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		criteria.add(Restrictions.eq("codigo", codigo));
 		Producto producto = null;
@@ -57,7 +60,7 @@ public class ProductoDAOImp extends HibernateUtil implements ProductoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Producto> getAll() {
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		List<Producto> list = criteria.list();
 		session.close();
@@ -70,7 +73,7 @@ public class ProductoDAOImp extends HibernateUtil implements ProductoDAO {
 		System.out.println("-----------buscar dao");
 		System.out.println(codigo + " " + nombre + " " + estado);
 
-		Session session = getSessionFactory().openSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		if (codigo != 0) {
 			criteria.add(Restrictions.eq("codigo", codigo));

@@ -6,8 +6,6 @@ import javax.faces.bean.SessionScoped;
 import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.model.Usuario;
-import ar.edu.unju.fi.services.ServiceFacade;
-import ar.edu.unju.fi.services.SpringUtil;
 
 @ManagedBean
 @SessionScoped

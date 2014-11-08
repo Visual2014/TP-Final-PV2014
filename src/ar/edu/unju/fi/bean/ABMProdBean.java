@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import ar.edu.unju.fi.dao.ProductoDAO;
-import ar.edu.unju.fi.dao.imp.ProductoDAOImp;
 import ar.edu.unju.fi.model.Producto;
 
 @ManagedBean
