@@ -15,13 +15,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author José
  */
 public class SpringUtil {
+	
 	private static ApplicationContext applicationContext;
 	static {
 		try {
 			applicationContext = new ClassPathXmlApplicationContext(
 					"ar/edu/unju/fi/services/applicationContext.xml");
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 

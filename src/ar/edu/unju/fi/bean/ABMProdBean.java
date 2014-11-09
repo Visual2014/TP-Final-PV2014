@@ -6,6 +6,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.unju.fi.dao.ProductoDAO;
 import ar.edu.unju.fi.model.Producto;
 
@@ -21,21 +23,23 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	private String estado;
 	private List<Producto> productList;
 	boolean listaVacia;
+	static Logger logger = Logger.getLogger(ABMProdBean.class);
 
 	public ABMProdBean() {
 		banderaModif = "false";
 	}
 
 	public String search() {
-		System.out.println("-------Busqueda");
-		System.out.println("Lista vacia: " + listaVacia);
+		logger.debug("test log4j");
+		logger.debug("-------Busqueda");
+		logger.debug("Lista vacia: " + listaVacia);
 		listaVacia = true;
 		ProductoDAO dao = getService().getProductoDAO();
 		productList = dao.buscar(codigo, nombre, estado);
 		if (!productList.isEmpty()) {
 			listaVacia = false;
 		}
-		System.out.println("Lista vacia: " + listaVacia);
+		logger.debug("Lista vacia: " + listaVacia);
 		return null;
 	}
 
@@ -51,7 +55,7 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	 * llama al metodo add del manager para agregar el nuevo producto a la lista
 	 */
 	public String aceptar() {
-		System.out.println("------- aceptar");
+		logger.debug("------ aceptar");
 		ProductoDAO dao = getService().getProductoDAO();
 
 		if (banderaModif.equals("false")) {
@@ -64,20 +68,20 @@ public class ABMProdBean extends BaseBean implements Serializable {
 
 	// instancia el objeto producto de esta clase antes de ingresar a la pagina
 	public String preInsert() {
-		System.out.println("--------preInsert");
+		logger.debug("--------preInsert");
 		setProducto(new Producto());
 		banderaModif = "false";
 		return "altaProd.xhtml?faces-redirect=true";
 	}
 
 	public String preModif() {
-		System.out.println("-------- preModif");
+		logger.debug("-------- preModif");
 		banderaModif = "true";
 		return "altaProd.xhtml?faces-redirect=true";
 	}
 
 	public String preEliminar() {
-		System.out.println("--------preEliminar");
+		logger.debug("--------preEliminar");
 		ProductoDAO dao = getService().getProductoDAO();
 		dao.delete(producto);
 		search();

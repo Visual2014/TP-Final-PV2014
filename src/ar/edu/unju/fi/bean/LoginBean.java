@@ -3,6 +3,8 @@ package ar.edu.unju.fi.bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.model.Usuario;
@@ -10,6 +12,7 @@ import ar.edu.unju.fi.model.Usuario;
 @ManagedBean
 @SessionScoped
 public class LoginBean extends BaseBean {
+	static Logger logger = Logger.getLogger(LoginBean.class);
 	public Integer dni;
 	public String password;
 	public Usuario logedUser;
@@ -26,6 +29,8 @@ public class LoginBean extends BaseBean {
 		Usuario user = dao.get(dni);
 		user.setRol(daoRol.get(user.getRol().getRolId()));
 		logedUser = user;
+		logger.info(logedUser.getNombre() + " " + logedUser.getApellido()
+				+ " Ha iniciado Session...");
 		return "home?faces-redirect=true";
 	}
 

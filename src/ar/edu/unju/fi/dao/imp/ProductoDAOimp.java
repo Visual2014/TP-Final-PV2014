@@ -2,6 +2,7 @@ package ar.edu.unju.fi.dao.imp;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -70,9 +71,6 @@ public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Producto> buscar(int codigo, String nombre, String estado) {
-		System.out.println("-----------buscar dao");
-		System.out.println(codigo + " " + nombre + " " + estado);
-
 		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		if (codigo != 0) {
