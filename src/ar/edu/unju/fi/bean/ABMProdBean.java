@@ -21,7 +21,7 @@ public class ABMProdBean implements Serializable {
 	private String nombre;
 	private String estado;
 	private List<Producto> productList;
-	boolean listaVacia;
+	private String listaVacia;
 
 
 	public Integer getCodigo() {
@@ -62,24 +62,13 @@ public class ABMProdBean implements Serializable {
 
 	public String search() {
 		System.out.println("-------Busqueda");
-		System.out.println("Lista vacia: "+listaVacia);
-		listaVacia=true;
+		listaVacia="true";
 		ProductoDAO dao = new ProductoDAOimp();
 		productList = dao.buscar(codigo, nombre, estado);
 		if(!productList.isEmpty()){
-			listaVacia=false;
+			listaVacia="false";
 		}
-		System.out.println("Lista vacia: "+listaVacia);
 		return null;
-	}
-		
-
-	public boolean isListaVacia() {
-		return listaVacia;
-	}
-
-	public void setListaVacia(boolean listaVacia) {
-		this.listaVacia = listaVacia;
 	}
 
 	/*
@@ -88,8 +77,7 @@ public class ABMProdBean implements Serializable {
 	public String aceptar() {
 		System.out.println("------- aceptar");
 		ProductoDAO dao = new ProductoDAOimp();
-
-
+		
 		if (banderaModif.equals("false")) {
 			dao.insert(producto);
 		} else {
@@ -136,4 +124,11 @@ public class ABMProdBean implements Serializable {
 		this.banderaModif = banderaModif;
 	}
 
+	public String getListaVacia() {
+		return listaVacia;
+	}
+
+	public void setListaVacia(String listaVacia) {
+		this.listaVacia = listaVacia;
+	}
 }

@@ -13,6 +13,7 @@ public class Usuario implements java.io.Serializable {
 	private String apellido;
 	private String estado;
 	private String password;
+	private String email;
 
 	public Usuario() {
 	}
@@ -78,5 +79,15 @@ public class Usuario implements java.io.Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 
 }

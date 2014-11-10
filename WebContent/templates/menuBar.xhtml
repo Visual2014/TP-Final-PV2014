@@ -20,10 +20,16 @@
 					<p:menuitem value="#{msg.label_tablaProductos}" action="#{aBMProdBean.url}" />
 				</p:submenu>
 
-				<p:submenu label="Pedidos"
+				<p:submenu label="#{msg.label_pedido}"
 					rendered="#{'ADMINISTRADOR' eq loginBean.logedUser.rol.descripcion}">
 					<p:menuitem value="#{msg.label_nuevoPedido}" />
 					<p:menuitem value="#{msg.label_tablaPedidos}" />
+				</p:submenu>
+				
+				<p:submenu label="#{msg.label_usuario}"
+					rendered="#{'ADMINISTRADOR' eq loginBean.logedUser.rol.descripcion}">
+					<p:menuitem value="#{msg.label_nuevoUsuario}" action="#{aBMUserBean.preInsert}"/>
+					<p:menuitem value="#{msg.label_tablaUsuario}" action="#{aBMUserBean.url}"/>
 				</p:submenu>
 
 				<p:menuitem value="#{msg.btn_logout}" action="#{loginBean.url}"

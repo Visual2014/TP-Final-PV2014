@@ -16,6 +16,7 @@ public class Rol implements java.io.Serializable {
 
 	public Rol() {
 	}
+	
 
 	public Rol(int rolId) {
 		this.rolId = rolId;

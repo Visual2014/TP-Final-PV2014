@@ -10,20 +10,17 @@
 	<ui:composition template="templates/template.xhtml">
 
 		<ui:define name="header">
-			<p:outputLabel value="Alta Modificacion de Productos" />
+			<p:outputLabel value="#{msg.header_altaProd}" />
 		</ui:define>
 
 		<ui:define name="content">
-			<p:outputLabel value="Detalle del Producto" />
 			<h:form>
 				<p:panelGrid columns="3">
-
-
 					<p:outputLabel value="#{msg.label_codigo}" />
 					<p:inputText id="codigo" value="#{aBMProdBean.producto.codigo}"
 						disabled="#{aBMProdBean.banderaModif}" required="true"
-						requiredMessage="Campo Obligatorio"
-						converterMessage="Debe ser un valor entero">
+						requiredMessage="#{msg.msg_requerido}" 
+						converterMessage="#{msg.msg_errorInt}">
 						<f:validator validatorId="codigoProductoValidator" />
 						<f:ajax event="blur" render="msgCodigo" />
 					</p:inputText>
@@ -31,7 +28,7 @@
 
 					<p:outputLabel value="#{msg.label_nombre}" />
 					<p:inputText id="nombre" value="#{aBMProdBean.producto.nombre}"
-						required="true" requiredMessage="Campo Requerido" maxlength="15">
+						required="true" requiredMessage="#{msg.msg_requerido}" maxlength="15">
 						<f:ajax event="blur" render="msgNombre" />
 					</p:inputText>
 					<h:message id="msgNombre" for="nombre" style="color:red" />
@@ -45,7 +42,7 @@
 
 					<p:outputLabel value="#{msg.label_tamanio}" />
 					<p:inputText id="tamanio" value="#{aBMProdBean.producto.tamanio}"
-						required="true" requiredMessage="Campo Obligatorio" maxlength="6">
+						required="true" requiredMessage="#{msg.msg_requerido}" maxlength="6">
 						<f:ajax event="blur" render="msgTamanio" />
 					</p:inputText>
 					<h:message id="msgTamanio" for="tamanio" style="color:red" />
@@ -55,7 +52,7 @@
 						value="#{aBMProdBean.producto.fechaVencimiento}"
 						pattern="dd/MM/yyyy"
 						converterMessage="Formato de fecha dd/MM/yyyy" required="true"
-						requiredMessage="Campo Obligatorio">
+						requiredMessage="#{msg.msg_requerido}">
 						<f:validator validatorId="fechaProductoValidator" />
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 						<f:ajax event="blur" render="msgFVencimiento" />
@@ -66,9 +63,9 @@
 					<p:outputLabel value="#{msg.label_precioUnitario}" />
 					<p:inputText id="precioUnitario"
 						value="#{aBMProdBean.producto.precioUnitario}" required="true"
-						requiredMessage="Campo Obligatorio"
-						converterMessage="el numero debe ser un decimal positivo con hasta dos decimales"
-						validatorMessage="El numero debe ser positivo">
+						requiredMessage="#{msg.msg_requerido}"
+						converterMessage="#{msg.msg_convertPrecio}"
+						validatorMessage="#{msg.msg_convertPositivo}">
 						<f:convertNumber pattern="#0.00" />
 						<f:validateDoubleRange minimum="0" />
 						<f:ajax event="blur" render="msgUnitario" />
@@ -88,8 +85,8 @@
 
 					<p:outputLabel value="#{msg.label_stock}" />
 					<p:inputText id="stock" value="#{aBMProdBean.producto.stock}"
-						required="true" requiredMessage="Campo Obligatorio"
-						validatorMessage="El valor debe estar entre 0 y 100">
+						required="true" requiredMessage="#{msg.msg_requerido}"
+						validatorMessage="#{msg.msg_rango}">
 						<f:validateLongRange minimum="0" maximum="100" />
 						<f:ajax event="blur" render="msgStock" />
 					</p:inputText>

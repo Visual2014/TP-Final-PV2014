@@ -11,32 +11,35 @@
 	<ui:composition template="/templates/template.xhtml">
 
 		<ui:define name="header">
-			<p:outputLabel value="#{msg.label_tituloListaProd}" />
+			<p:outputLabel value="#{msg.label_tituloListaUser}" />
 		</ui:define>
 
 		<ui:define name="content">
 			<h:form>
-				<p:message for="codigo" />
-				<p:panelGrid columns="7" styleClass="searchPanel">
-					<p:outputLabel value="#{msg.label_codigo}" />
-					<p:inputText id="codigo" value="#{aBMProdBean.codigo}"
-						converterMessage="#{msg.msg_errorCodigo}">
+				<p:message for="documento" />
+				<p:panelGrid columns="9" styleClass="searchPanel">
+					<p:outputLabel value="#{msg.label_dni}" />
+					<p:inputText id="documento" value="#{aBMUserBean.documento}"
+						converterMessage="#{msg.msg_errorDni}">
 						<f:convertNumber integerOnly="true" groupingUsed="false" />
 					</p:inputText>
+					
+					<p:outputLabel value="#{msg.label_apellido}" />
+					<p:inputText value="#{aBMUserBean.apellido}" />
 
 					<p:outputLabel value="#{msg.label_nombre}" />
-					<p:inputText value="#{aBMProdBean.nombre}" />
+					<p:inputText value="#{aBMUserBean.nombre}" />
 
 					<p:outputLabel value="#{msg.label_estado}" />
-					<p:selectOneMenu id="estado" value="#{aBMProdBean.estado}">
+					<p:selectOneMenu id="estado" value="#{aBMUserBean.estado}">
 						<f:selectItem itemValue="TODO" itemLabel="#{msg.label_todo}" />
-						<f:selectItem itemValue="NO DISPONIBLE" itemLabel="#{msg.label_noDisponible}" />
-						<f:selectItem itemValue="DISPONIBLE" itemLabel="#{msg.label_disponible}" />
+						<f:selectItem itemValue="NO ACTIVO" itemLabel="#{msg.label_noActivo}" />
+						<f:selectItem itemValue="ACTIVO" itemLabel="#{msg.label_activo}" />
 					</p:selectOneMenu>
-					<p:commandButton id="submit" action="#{aBMProdBean.search}"
+					<p:commandButton id="submit" action="#{aBMUserBean.search}"
 					 ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
-					 <p:dialog header="Error" widgetVar="dlg1" minHeight="40" rendered="#{aBMProdBean.listaVacia}">
-    						<h:outputText value="#{msg.label_emptyProd}"/>
+					 <p:dialog header="Error" widgetVar="dlg1" minHeight="40" rendered="#{aBMUserBean.listaVacia}">
+    						<h:outputText value="#{msg.label_emptyUser}"/>
 					 </p:dialog>
 					 </p:commandButton>
 				</p:panelGrid>
@@ -44,22 +47,28 @@
 
 				
 
-				<p:dataTable styleClass="tabla" id="productos"
-					value="#{aBMProdBean.productList}"
-					rendered="#{not empty aBMProdBean.productList}" var="p"
+				<p:dataTable styleClass="tabla" id="usuarios"
+					value="#{aBMUserBean.usuarioList}"
+					rendered="#{not empty aBMUserBean.usuarioList}" var="p"
 					rows="10" paginator="true">
 
-					<p:column headerText="#{msg.header_codigo}" sortBy="#{p.codigo}">
-						<p:outputLabel value="#{p.codigo}" />
+					<p:column headerText="#{msg.header_dni}" sortBy="#{p.documento}">
+						<p:outputLabel value="#{p.documento}" />
 					</p:column>
 
 					<p:column headerText="#{msg.header_nombre}" sortBy="#{p.nombre}">
 						<p:outputLabel value="#{p.nombre}" />
 					</p:column>
 
-					<p:column headerText="#{msg.header_descripcion}" sortBy="#{p.descripcion}">
-						<p:outputLabel value="#{p.descripcion}" />
+					<p:column headerText="#{msg.header_apellido}" sortBy="#{p.apellido}">
+						<p:outputLabel value="#{p.apellido}" />
 					</p:column>
+					
+					<!-- 
+					<p:column headerText="#{msg.header_rol}" sortBy="#{p.rolString}">
+						<p:outputLabel value="#{p.rolString}" /> 
+					</p:column>
+					-->
 
 					<p:column headerText="#{msg.header_estado}" sortBy="#{p.estado}">
 						<p:outputLabel value="#{p.estado}" />
@@ -67,15 +76,15 @@
 
 					<p:column headerText="#{msg.header_accion}">
 					<div align="center">
-						<p:commandButton action="#{aBMProdBean.preModif}"
+						<p:commandButton action="#{aBMUserBean.preModif}"
 							icon="ui-icon-pencil" title="Modificar">
 							<f:setPropertyActionListener value="#{p}"
-								target="#{aBMProdBean.producto}" />
+								target="#{aBMUserBean.usuario}" />
 						</p:commandButton>
-				<p:commandButton action="#{aBMProdBean.preEliminar}" icon="ui-icon-trash" title="Eliminar">
+				<p:commandButton action="#{aBMUserBean.preEliminar}" icon="ui-icon-trash" title="Eliminar">
 						<p:confirm header="#{msg.header_eliminar}" message="#{msg.msg_eliminar}" icon="ui-icon-alert" />
-						<f:setPropertyActionListener value="#{p}" target="#{aBMProdBean.producto}"/>
-						<f:ajax render="productos"/>
+						<f:setPropertyActionListener value="#{p}" target="#{aBMUserBean.usuario}"/>
+						<f:ajax render="usuarios"/>
 				</p:commandButton>
 				<p:confirmDialog global="true" showEffect="fade">
 	       			 <p:commandButton value="#{msg.btn_aceptar}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
