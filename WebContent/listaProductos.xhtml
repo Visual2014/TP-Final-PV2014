@@ -36,20 +36,11 @@
 							itemLabel="#{msg.label_disponible}" />
 					</p:selectOneMenu>
 					<p:commandButton id="submit" action="#{aBMProdBean.search}"
-<<<<<<< HEAD
 					 ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
 					 <p:dialog header="Error" widgetVar="dlg1" minHeight="40" rendered="#{aBMProdBean.listaVacia}">
     						<h:outputText value="#{msg.label_emptyProd}"/>
 					 </p:dialog>
 					 </p:commandButton>
-=======
-						ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
-						<p:dialog header="Error" widgetVar="dlg1" minHeight="40"
-							rendered="#{aBMProdBean.listaVacia}">
-							<h:outputText value="#{msg.label_empty}" />
-						</p:dialog>
-					</p:commandButton>
->>>>>>> origin/master
 				</p:panelGrid>
 
 

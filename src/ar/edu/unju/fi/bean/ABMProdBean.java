@@ -22,29 +22,14 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	private String nombre;
 	private String estado;
 	private List<Producto> productList;
-<<<<<<< HEAD
-	private String listaVacia;
-=======
 	boolean listaVacia;
 	static Logger logger = Logger.getLogger(ABMProdBean.class);
->>>>>>> origin/master
 
 	public ABMProdBean() {
 		banderaModif = "false";
 	}
 
 	public String search() {
-<<<<<<< HEAD
-		System.out.println("-------Busqueda");
-		listaVacia="true";
-		ProductoDAO dao = new ProductoDAOimp();
-		productList = dao.buscar(codigo, nombre, estado);
-		if(!productList.isEmpty()){
-			listaVacia="false";
-		}
-		return null;
-	}
-=======
 		logger.debug("test log4j");
 		logger.debug("-------Busqueda");
 		logger.debug("Lista vacia: " + listaVacia);
@@ -65,21 +50,14 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	public void setListaVacia(boolean listaVacia) {
 		this.listaVacia = listaVacia;
 	}
->>>>>>> origin/master
 
 	/*
 	 * llama al metodo add del manager para agregar el nuevo producto a la lista
 	 */
 	public String aceptar() {
-<<<<<<< HEAD
-		System.out.println("------- aceptar");
-		ProductoDAO dao = new ProductoDAOimp();
-		
-=======
 		logger.debug("------ aceptar");
 		ProductoDAO dao = getService().getProductoDAO();
 
->>>>>>> origin/master
 		if (banderaModif.equals("false")) {
 			dao.insert(producto);
 		} else {
@@ -126,14 +104,6 @@ public class ABMProdBean extends BaseBean implements Serializable {
 		this.banderaModif = banderaModif;
 	}
 
-<<<<<<< HEAD
-	public String getListaVacia() {
-		return listaVacia;
-	}
-
-	public void setListaVacia(String listaVacia) {
-		this.listaVacia = listaVacia;
-=======
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -168,6 +138,5 @@ public class ABMProdBean extends BaseBean implements Serializable {
 
 	public String url() {
 		return "listaProductos?faces-redirect=true";
->>>>>>> origin/master
 	}
 }

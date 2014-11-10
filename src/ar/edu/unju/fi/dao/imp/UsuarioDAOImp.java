@@ -3,11 +3,8 @@ package ar.edu.unju.fi.dao.imp;
 import java.util.List;
 
 import org.hibernate.Criteria;
-<<<<<<< HEAD
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
-=======
->>>>>>> origin/master
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -27,16 +24,10 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Usuario get(int documento) {
 		Session session = getSession();
 		Criteria criteria = session.createCriteria(Usuario.class);
 		criteria.add(Restrictions.eq("documento", documento));
-=======
-	public Usuario get(int dni) {
-		Criteria criteria = getSession().createCriteria(Usuario.class);
-		criteria.add(Restrictions.eq("documento", dni));
->>>>>>> origin/master
 		Usuario user = null;
 		try {
 			user = (Usuario) criteria.list().get(0);
