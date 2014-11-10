@@ -1,4 +1,4 @@
-package ar.edu.unju.fi.vista.util.validator;
+package ar.edu.unju.fi.util.validator;
 
 import java.util.Date;
 

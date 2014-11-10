@@ -3,37 +3,38 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 21-oct-2014 19:40:43 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="ar.edu.unju.fi.model.Pedido" table="pedido" schema="public">
-        <id name="pedidoId" type="int">
-            <column name="pedido_id" />
-            <generator class="assigned" />
-        </id>
-        <property name="fechaPedido" type="date">
-            <column name="fecha_pedido" length="13" />
-        </property>
-        <property name="total" type="big_decimal">
-            <column name="total" precision="10" />
-        </property>
-        <property name="estado" type="string">
-            <column name="estado" length="12" />
-        </property>
-        <property name="usuarioCreacion" type="java.lang.Integer">
-            <column name="usuario_creacion" />
-        </property>
-        <property name="fechaCreacion" type="date">
-            <column name="fecha_creacion" length="13" />
-        </property>
-        <property name="usuarioModificacion" type="java.lang.Integer">
-            <column name="usuario_modificacion" />
-        </property>
-        <property name="fechaModificacion" type="date">
-            <column name="fecha_modificacion" length="13" />
-        </property>
-        <set name="detallePedidos" table="detalle_pedido" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="pedido_id" />
-            </key>
-            <one-to-many class="ar.edu.unju.fi.model.DetallePedido" />
-        </set>
-    </class>
+	<class name="ar.edu.unju.fi.model.Pedido" table="pedido" schema="public">
+		<id name="pedidoId" type="int">
+			<column name="pedido_id" />
+			<generator class="assigned" />
+		</id>
+		<property name="fechaPedido" type="date">
+			<column name="fecha_pedido" length="13" />
+		</property>
+		<property name="total" type="big_decimal">
+			<column name="total" precision="10" />
+		</property>
+		<property name="estado" type="string">
+			<column name="estado" length="12" />
+		</property>
+		<property name="usuarioCreacion" type="java.lang.Integer">
+			<column name="usuario_creacion" />
+		</property>
+		<property name="fechaCreacion" type="date">
+			<column name="fecha_creacion" length="13" />
+		</property>
+		<property name="usuarioModificacion" type="java.lang.Integer">
+			<column name="usuario_modificacion" />
+		</property>
+		<property name="fechaModificacion" type="date">
+			<column name="fecha_modificacion" length="13" />
+		</property>
+		<set name="detallePedidos" table="detalle_pedido" inverse="true"
+			lazy="true" fetch="select">
+			<key>
+				<column name="pedido_id" />
+			</key>
+			<one-to-many class="ar.edu.unju.fi.model.DetallePedido" />
+		</set>
+	</class>
 </hibernate-mapping>

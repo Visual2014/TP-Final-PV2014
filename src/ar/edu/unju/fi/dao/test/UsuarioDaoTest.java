@@ -4,17 +4,16 @@ import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Usuario;
 
-
 public class UsuarioDaoTest {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		UsuarioDAO dao=new UsuarioDAOImp();
-		
+		UsuarioDAO dao = new UsuarioDAOImp();
+
 		for (Usuario u : dao.getAll()) {
-			System.out.println( u.getNombre() + " "+u.getApellido());
+			System.out.println(u.getNombre() + " " + u.getApellido());
 		}
 	}
 

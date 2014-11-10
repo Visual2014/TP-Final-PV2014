@@ -3,19 +3,20 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 21-oct-2014 19:40:43 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="ar.edu.unju.fi.model.Rol" table="rol" schema="public">
-        <id name="rolId" type="int">
-            <column name="rol_id" />
-            <generator class="assigned" />
-        </id>
-        <property name="descripcion" type="string">
-            <column name="descripcion" length="16" />
-        </property>
-        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="rol_id" />
-            </key>
-            <one-to-many class="ar.edu.unju.fi.model.Usuario" />
-        </set>
-    </class>
+	<class name="ar.edu.unju.fi.model.Rol" table="rol" schema="public">
+		<id name="rolId" type="int">
+			<column name="rol_id" />
+			<generator class="assigned" />
+		</id>
+		<property name="descripcion" type="string">
+			<column name="descripcion" length="16" />
+		</property>
+		<set name="usuarios" table="usuario" inverse="true" lazy="true"
+			fetch="select">
+			<key>
+				<column name="rol_id" />
+			</key>
+			<one-to-many class="ar.edu.unju.fi.model.Usuario" />
+		</set>
+	</class>
 </hibernate-mapping>

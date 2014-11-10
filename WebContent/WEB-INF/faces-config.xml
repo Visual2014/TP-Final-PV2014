@@ -13,7 +13,7 @@
 	</locale-config>
 	<resource-bundle>
 		<base-name>
-		ar.edu.unju.fi.resources.mensajes
+			ar.edu.unju.fi.resources.mensajes
 		</base-name>
 		<var>msg</var>
 	</resource-bundle>
