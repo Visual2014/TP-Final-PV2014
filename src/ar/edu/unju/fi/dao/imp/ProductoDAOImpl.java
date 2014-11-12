@@ -14,7 +14,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import ar.edu.unju.fi.dao.ProductoDAO;
 import ar.edu.unju.fi.model.Producto;
 
-public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
+public class ProductoDAOImpl extends HibernateDaoSupport implements ProductoDAO {
 
 	@Override
 	public void insert(Producto p) {

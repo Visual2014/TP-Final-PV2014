@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
+import ar.edu.unju.fi.dao.imp.UsuarioDAOImpl;
 import ar.edu.unju.fi.model.Usuario;
 
 @ManagedBean
@@ -25,7 +25,7 @@ public class ABMUserBean implements Serializable{
 	
 	public String search(){
 		listaVacia = "true";
-		UsuarioDAO dao = new UsuarioDAOImp();
+		UsuarioDAO dao = new UsuarioDAOImpl();
 		usuarioList = dao.buscarUser(documento, apellido, nombre, estado);
 		if(!usuarioList.isEmpty()){
 			listaVacia = "false";
@@ -35,7 +35,7 @@ public class ABMUserBean implements Serializable{
 	}
 	
 	public String aceptar(){
-		UsuarioDAO dao = new UsuarioDAOImp();
+		UsuarioDAO dao = new UsuarioDAOImpl();
 		
 		if(banderaModif.equals("false")){
 			dao.insert(usuario);
@@ -57,7 +57,7 @@ public class ABMUserBean implements Serializable{
 	}
 	
 	public String preEliminar(){
-		UsuarioDAO dao = new UsuarioDAOImp();
+		UsuarioDAO dao = new UsuarioDAOImpl();
 		dao.delete(usuario);
 		search();
 		return null;
