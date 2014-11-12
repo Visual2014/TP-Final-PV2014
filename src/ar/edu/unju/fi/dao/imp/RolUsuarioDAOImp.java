@@ -8,7 +8,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.model.Rol;
 
-public class RolUsuarioDAOImpl extends HibernateDaoSupport implements
+public class RolUsuarioDAOImp extends HibernateDaoSupport implements
 		RolUsuarioDAO {
 
 	@Override

@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import ar.edu.unju.fi.bean.BaseBean;
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.imp.UsuarioDAOImpl;
+import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Usuario;
 import ar.edu.unju.fi.model.constantes.EstadoUsuario;
 import ar.edu.unju.fi.services.ServiceFacade;

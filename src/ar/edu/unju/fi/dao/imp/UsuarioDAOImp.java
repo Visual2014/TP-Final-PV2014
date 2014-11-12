@@ -12,7 +12,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.model.Usuario;
 
-public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
+public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> getAll() {

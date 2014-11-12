@@ -8,7 +8,7 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.imp.UsuarioDAOImpl;
+import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 
 @FacesValidator()
 public class DniUserValidator implements Validator{
@@ -17,7 +17,7 @@ public class DniUserValidator implements Validator{
 	public void validate(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException {
 			Integer documento=(Integer)value;
-			UsuarioDAO dao = new UsuarioDAOImpl();
+			UsuarioDAO dao = new UsuarioDAOImp();
 			if(dao.get(documento)!=null){
 				throw new ValidatorException(
 						new FacesMessage("El documento ya existe"));
