@@ -16,5 +16,5 @@ public interface UsuarioDAO {
 
 	Usuario validarPassword(Integer documento, String pass);
 	
-	List<Usuario> buscarUser(int documento, String apellido, String nombre, String estado);
+	List<Usuario> buscarUser(int documento, String apellido, String estado);
 }

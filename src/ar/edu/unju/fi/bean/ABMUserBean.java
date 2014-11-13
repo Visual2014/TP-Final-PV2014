@@ -6,31 +6,34 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Usuario;
 
 @ManagedBean
 @SessionScoped
-public class ABMUserBean implements Serializable{
+public class ABMUserBean extends BaseBean implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	private String banderaModif = "false";
 	private Integer documento;
 	private String apellido;
-	private String nombre;
 	private String estado;
 	private List<Usuario> usuarioList;
-	private String listaVacia ="true";
+	static Logger logger = Logger.getLogger(ABMUserBean.class);
 	
 	public String search(){
-		listaVacia = "true";
-		UsuarioDAO dao = new UsuarioDAOImp();
-		usuarioList = dao.buscarUser(documento, apellido, nombre, estado);
-		if(!usuarioList.isEmpty()){
-			listaVacia = "false";
-			}
-
+		logger.debug("test log4j");
+		logger.debug("-------Busqueda");
+		
+		UsuarioDAO dao = getService().getUsuarioDAO();
+		usuarioList = dao.buscarUser(documento, apellido, estado);
 		return null;
 	}
 	
@@ -99,15 +102,6 @@ public class ABMUserBean implements Serializable{
 		this.documento = documento;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public String getApellido() {
 		return apellido;
 	}
@@ -135,12 +129,5 @@ public class ABMUserBean implements Serializable{
 		this.usuarioList = usuarioList;
 	}
 
-	public String getListaVacia() {
-		return listaVacia;
-	}
-
-	public void setListaVacia(String listaVacia) {
-		this.listaVacia = listaVacia;
-	}
 
 }

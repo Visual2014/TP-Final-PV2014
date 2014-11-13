@@ -37,9 +37,6 @@
 					</p:selectOneMenu>
 					<p:commandButton id="submit" action="#{aBMProdBean.search}"
 					 ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
-					 <p:dialog header="Error" widgetVar="dlg1" minHeight="40" rendered="#{aBMProdBean.listaVacia}">
-    						<h:outputText value="#{msg.label_emptyProd}"/>
-					 </p:dialog>
 					 </p:commandButton>
 				</p:panelGrid>
 
@@ -48,8 +45,8 @@
 
 				<p:dataTable styleClass="tabla" id="productos"
 					value="#{aBMProdBean.productList}"
-					rendered="#{not empty aBMProdBean.productList}" var="p" rows="10"
-					paginator="true">
+					 var="p" rows="10"
+					paginator="true" emptyMessage="#{msg.label_emptyUser}">
 
 					<p:column headerText="#{msg.header_codigo}" sortBy="#{p.codigo}">
 						<p:outputLabel value="#{p.codigo}" />

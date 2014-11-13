@@ -22,7 +22,6 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	private String nombre;
 	private String estado;
 	private List<Producto> productList;
-	boolean listaVacia;
 	static Logger logger = Logger.getLogger(ABMProdBean.class);
 
 	public ABMProdBean() {
@@ -32,23 +31,11 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	public String search() {
 		logger.debug("test log4j");
 		logger.debug("-------Busqueda");
-		logger.debug("Lista vacia: " + listaVacia);
-		listaVacia = true;
+
 		ProductoDAO dao = getService().getProductoDAO();
 		productList = dao.buscar(codigo, nombre, estado);
-		if (!productList.isEmpty()) {
-			listaVacia = false;
-		}
-		logger.debug("Lista vacia: " + listaVacia);
+
 		return null;
-	}
-
-	public boolean isListaVacia() {
-		return listaVacia;
-	}
-
-	public void setListaVacia(boolean listaVacia) {
-		this.listaVacia = listaVacia;
 	}
 
 	/*

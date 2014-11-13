@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -80,21 +81,16 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Usuario> buscarUser(int documento, String apellido, String nombre, String estado) {
-		System.out.println("-----------buscar Usuario dao");
-		System.out.println(documento + " " + nombre + " " + estado);
+	public List<Usuario> buscarUser(int documento, String apellido, String estado) {
 
 		Session session = getSession();
-		Criteria criteria = session.createCriteria(Usuario.class);
+		Criteria criteria = getSession().createCriteria(Usuario.class);
+		//DetachedCriteria criteria = DetachedCriteria.forClass(Usuario.class);
 		if (documento != 0) {
 			criteria.add(Restrictions.eq("documento", documento));
 		} else {
 			if(!apellido.equals("")){
 				criteria.add(Restrictions.ilike("apellido", apellido,
-						MatchMode.ANYWHERE));
-			}
-			if (!nombre.equals("")) {
-				criteria.add(Restrictions.ilike("nombre", nombre,
 						MatchMode.ANYWHERE));
 			}
 			if (!estado.equals("TODO")) {
@@ -106,5 +102,6 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 
 		session.close();
 		return list;
+		//return getHibernateTemplate().findByCriteria(criteria);
 	}
 }
