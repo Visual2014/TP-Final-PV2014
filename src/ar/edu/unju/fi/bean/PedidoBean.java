@@ -3,7 +3,9 @@ package ar.edu.unju.fi.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -12,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.dao.DeadlockLoserDataAccessException;
 
+import ar.edu.unju.fi.dao.PedidoDAO;
 import ar.edu.unju.fi.model.DetallePedido;
 import ar.edu.unju.fi.model.Pedido;
 import ar.edu.unju.fi.model.Producto;
@@ -98,6 +101,16 @@ public class PedidoBean extends BaseBean implements Serializable {
 		listDetallePedido.remove(unDetalle);
 	}
 	
+	public String grabarPedido(){
+		Set<DetallePedido> detallesPedido=new HashSet<DetallePedido>(listDetallePedido);
+		pedido.setDetallePedidos(detallesPedido);
+		
+		PedidoDAO pedidoDAO=getService().getPedidoDAO();
+		
+		pedidoDAO.insert(pedido);
+		
+		return urlListaPedidos();
+	}
 //	public void editRow(RowEditEvent event) {
 //		logger.debug("fila editada");
 //		logger.debug(listDetallePedido.get(0).getProducto().getNombre()+" cant:"+listDetallePedido.get(0).getCantidad());

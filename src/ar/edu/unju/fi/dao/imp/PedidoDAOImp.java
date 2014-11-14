@@ -1,10 +1,12 @@
 package ar.edu.unju.fi.dao.imp;
 
+import java.nio.channels.GatheringByteChannel;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ar.edu.unju.fi.dao.PedidoDAO;
@@ -25,4 +27,32 @@ public class PedidoDAOImp extends HibernateDaoSupport implements PedidoDAO {
 		return criteria.list();
 	}
 
+	@Override
+	public void insert(Pedido pedido) {
+		try {
+			getHibernateTemplate().save(pedido);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void update(Pedido pedido) {
+		try {
+			getHibernateTemplate().update(pedido);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void delete(Pedido pedido) {
+		try {
+			getHibernateTemplate().delete(pedido);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 }

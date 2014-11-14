@@ -9,4 +9,7 @@ public interface PedidoDAO {
 	
 	List<Pedido> search(Date fecha, String estado);
 	
+	void insert(Pedido pedido);
+	void update(Pedido pedido);
+	void delete(Pedido pedido);
 }
