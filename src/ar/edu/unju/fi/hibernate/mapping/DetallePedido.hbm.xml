@@ -7,7 +7,7 @@
 		schema="public">
 		<id name="detallePedidoId" type="int">
 			<column name="detalle_pedido_id" />
-			<generator class="assigned" />
+			<generator class="increment" />
 		</id>
 		<many-to-one name="producto" class="ar.edu.unju.fi.model.Producto"
 			fetch="select">
@@ -17,7 +17,7 @@
 			fetch="select">
 			<column name="pedido_id" />
 		</many-to-one>
-		<property name="precioUnitario" type="big_decimal">
+		<property name="precioUnitario" type="double">
 			<column name="precio_unitario" precision="10" />
 		</property>
 		<property name="cantidad" type="java.lang.Integer">

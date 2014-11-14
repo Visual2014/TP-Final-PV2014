@@ -2,7 +2,6 @@ package ar.edu.unju.fi.model;
 
 // Generated 21-oct-2014 19:40:42 by Hibernate Tools 3.4.0.CR1
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +13,7 @@ public class Pedido implements java.io.Serializable {
 
 	private int pedidoId;
 	private Date fechaPedido;
-	private BigDecimal total;
+	private Double total;
 	private String estado;
 	private Integer usuarioCreacion;
 	private Date fechaCreacion;
@@ -29,7 +28,7 @@ public class Pedido implements java.io.Serializable {
 		this.pedidoId = pedidoId;
 	}
 
-	public Pedido(int pedidoId, Date fechaPedido, BigDecimal total,
+	public Pedido(int pedidoId, Date fechaPedido, Double total,
 			String estado, Integer usuarioCreacion, Date fechaCreacion,
 			Integer usuarioModificacion, Date fechaModificacion,
 			Set detallePedidos) {
@@ -60,11 +59,11 @@ public class Pedido implements java.io.Serializable {
 		this.fechaPedido = fechaPedido;
 	}
 
-	public BigDecimal getTotal() {
+	public Double getTotal() {
 		return this.total;
 	}
 
-	public void setTotal(BigDecimal total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 

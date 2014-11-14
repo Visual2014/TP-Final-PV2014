@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="templates/template.xhtml">
+	<ui:define name="header">
+		<p:outputLabel value="detalles del Pedido" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form">
+			<p:growl id="msgs" life="6000" />
+
+			<p:panelGrid columns="2">
+
+				<p:commandButton value="agregar un Producto" type="button"
+					onclick="PF('buscarProd').show();" />
+				<p:commandButton value="guardar pedido pedido" icon="ui-icon-disk" />
+
+			</p:panelGrid>
+
+			<!-- 			TABLA DETALLES DEL PEDIDO -->
+			<p:dataTable id="tablaDetalles"
+				value="#{pedidoBean.listDetallePedido}" var="d" editable="true">
+				<p:ajax event="rowEdit" update=":form:msgs" />
+				<p:ajax event="rowEditCancel" update=":form:msgs" />
+
+				<p:column width="15">
+					<p:rowEditor>
+					</p:rowEditor>
+				</p:column>
+
+				<p:column>
+					<p:commandButton action="#{pedidoBean.removeProducto}"
+						icon="ui-icon-trash">
+						<f:setPropertyActionListener value="#{d}"
+							target="#{pedidoBean.unDetalle}"></f:setPropertyActionListener>
+						<f:ajax execute="@form" render="@all"></f:ajax>
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="codigo">
+					<p:outputLabel value="#{d.producto.codigo}" />
+				</p:column>
+
+				<p:column headerText="producto">
+					<p:outputLabel value="#{d.producto.nombre}" />
+				</p:column>
+
+				<p:column headerText="cantidad">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{d.cantidad}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:spinner id="modelInput" value="#{d.cantidad}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="precio">
+					<p:outputLabel value="#{d.producto.precioUnitario}" />
+				</p:column>
+
+				<p:column headerText="subtotal">
+					<p:outputLabel value="#{d.precioUnitario}"></p:outputLabel>
+				</p:column>
+
+			</p:dataTable>
+
+			<!-- DIALOG BUSQUEDA PRODUCTO -->
+			<p:dialog header="Buscar Producto" widgetVar="buscarProd"
+				modal="true">
+				<p:message for="codigo" />
+				<p:panelGrid columns="7" styleClass="searchPanel">
+					<p:outputLabel value="#{msg.label_codigo}" />
+					<p:inputText id="codigo" value="#{aBMProdBean.codigo}"
+						converterMessage="el codigo debe ser numerico">
+						<f:convertNumber integerOnly="true" groupingUsed="false" />
+					</p:inputText>
+					<p:outputLabel value="#{msg.label_nombre}" />
+					<p:inputText value="#{aBMProdBean.nombre}" />
+					<p:commandButton action="#{aBMProdBean.search}"
+						icon="ui-icon-search" update="tablaProductos">
+						<f:setPropertyActionListener value="TODO"
+							target="#{aBMProdBean.estado}" />
+					</p:commandButton>
+				</p:panelGrid>
+
+				<p:spinner id="cant" value="#{pedidoBean.cantidad}">
+
+				</p:spinner>
+
+				<p:dataTable id="tablaProductos" value="#{aBMProdBean.productList}"
+					var="p" paginator="true" rows="5" paginatorAlwaysVisible="false">
+					<p:column headerText="codigo">
+						<p:outputLabel value="#{p.codigo}" />
+					</p:column>
+					<p:column headerText="descripcion">
+						<p:outputLabel value="#{p.descripcion}" />
+					</p:column>
+					<p:column headerText="Stock">
+						<p:outputLabel value="#{p.stock}" />
+					</p:column>
+					<p:column headerText="precio">
+						<p:outputLabel value="#{p.precioUnitario}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton title="agregar" icon="ui-icon-plusthick"
+							action="#{pedidoBean.addProducto}">
+							<f:ajax execute="@form" render="@all" />
+							<f:setPropertyActionListener value="#{p}"
+								target="#{pedidoBean.producto}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+
+
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footer">
+	</ui:define>
+</ui:composition>
+</html>

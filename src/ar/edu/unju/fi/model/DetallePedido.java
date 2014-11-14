@@ -13,7 +13,7 @@ public class DetallePedido implements java.io.Serializable {
 	private int detallePedidoId;
 	private Producto producto;
 	private Pedido pedido;
-	private BigDecimal precioUnitario;
+	private Double precioUnitario;
 	private Integer cantidad;
 	private Integer usuarioCreacion;
 	private Date fechaCreacion;
@@ -28,7 +28,7 @@ public class DetallePedido implements java.io.Serializable {
 	}
 
 	public DetallePedido(int detallePedidoId, Producto producto, Pedido pedido,
-			BigDecimal precioUnitario, Integer cantidad,
+			Double precioUnitario, Integer cantidad,
 			Integer usuarioCreacion, Date fechaCreacion,
 			Integer usuarioModificacion, Date fechaModificacion) {
 		this.detallePedidoId = detallePedidoId;
@@ -66,11 +66,11 @@ public class DetallePedido implements java.io.Serializable {
 		this.pedido = pedido;
 	}
 
-	public BigDecimal getPrecioUnitario() {
-		return this.precioUnitario;
+	public Double getPrecioUnitario() {
+		return this.producto.getPrecioUnitario()*this.getCantidad();
 	}
 
-	public void setPrecioUnitario(BigDecimal precioUnitario) {
+	public void setPrecioUnitario(Double precioUnitario) {
 		this.precioUnitario = precioUnitario;
 	}
 

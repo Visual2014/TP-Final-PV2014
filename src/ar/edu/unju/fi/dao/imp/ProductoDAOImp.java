@@ -71,6 +71,7 @@ public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Producto> buscar(int codigo, String nombre, String estado) {
+		logger.debug("buscarDAO  cod:"+codigo+ " nombre:"+nombre+" estado:"+estado);
 		Session session = getSession();
 		Criteria criteria = session.createCriteria(Producto.class);
 		if (codigo != 0) {

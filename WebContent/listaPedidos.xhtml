@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="templates/template.xhtml">
+	<ui:define name="header">
+		<p:outputLabel value="#{msg.lbl_title_list_pedidos}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:message for="fecha"></p:message>
+			<p:panelGrid columns="5">
+				<p:outputLabel value="fecha:" />
+				<p:calendar id="calendar" value="#{pedidoBean.fechaBusqueda}"
+					showOn="button" />
+
+				<p:outputLabel value="estado:" />
+				<p:selectOneMenu value="#{pedidoBean.estado}">
+					<f:selectItem itemLabel="TODO" itemValue="TODO" />
+					<f:selectItem itemLabel="INICIADO" itemValue="INICIADO" />
+					<f:selectItem itemLabel="CONFIRMADO" itemValue="CONFIRMADO" />
+					<f:selectItem itemLabel="ANULADO" itemValue="ANULADO" />
+				</p:selectOneMenu>
+
+				<p:commandButton icon="ui-icon-search"
+					actionListener="#{pedidoBean.search}">
+					<f:ajax render="@all" />
+				</p:commandButton>
+			</p:panelGrid>
+			<p:commandButton value="Nuevo Pedido" icon="ui-icon-cart"
+				onclick="PF('fechaNewPedido').show()">
+			</p:commandButton>
+
+			<p:dataTable value="#{pedidoBean.listPedidos}" var="p">
+
+				<p:column>
+					<p:commandButton icon="ui-icon-circle-check" title="CONFIRMAR PEDIDO" />
+					<p:commandButton icon="ui-icon-circle-close" title="ANULAR PEDIDO" />
+				</p:column>
+				<p:column headerText="id Pedido">
+					<p:outputLabel value="#{p.pedidoId}" />
+				</p:column>
+
+				<p:column headerText="fecha">
+					<p:outputLabel value="#{p.fechaPedido}">
+						<f:convertDateTime pattern="MM/dd/yyyy" />
+					</p:outputLabel>
+				</p:column>
+
+				<p:column headerText="estado">
+					<p:outputLabel value="#{p.estado}" />
+				</p:column>
+
+				<p:column headerText="usuario">
+					<p:outputLabel value="#{p.usuarioCreacion}" />
+				</p:column>
+
+				<p:column headerText="total">
+					<p:outputLabel value="#{p.total}" />
+				</p:column>
+			</p:dataTable>
+			<!-- DIALOG FECHA NEW PEDIDO -->
+			<p:dialog modal="true" widgetVar="fechaNewPedido"
+				header="Ingrese fecha">
+				<p:outputLabel value="ingrese la fecha del nuevo pedido" />
+				<p:calendar id="fecha" showOn="button"
+					value="#{pedidoBean.fechaNuevoPedido}" pattern="dd/MM/yyyy"
+					required="true" requiredMessage="debe ingresar una fecha">
+					<f:validator validatorId="fechaPedidoValidator"></f:validator>
+				</p:calendar>
+				<p:commandButton value="aceptar" action="#{pedidoBean.urlNuevoPedido}">
+					<f:ajax execute="@form" render="@all" />
+				</p:commandButton>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footer">
+	</ui:define>
+</ui:composition>
+</html>
