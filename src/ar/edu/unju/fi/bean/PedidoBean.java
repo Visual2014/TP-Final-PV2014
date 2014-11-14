@@ -11,8 +11,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
-import org.primefaces.event.RowEditEvent;
-import org.springframework.dao.DeadlockLoserDataAccessException;
 
 import ar.edu.unju.fi.dao.PedidoDAO;
 import ar.edu.unju.fi.model.DetallePedido;
@@ -21,6 +19,12 @@ import ar.edu.unju.fi.model.Producto;
 import ar.edu.unju.fi.model.Usuario;
 import ar.edu.unju.fi.model.constantes.EstadoPedido;
 
+/**
+ * clase bean asociada a las paginas de Lista de Pedidos y nuevos pedidos.
+ * 
+ * @author MaT-iaS
+ * 
+ */
 @ManagedBean
 @SessionScoped
 public class PedidoBean extends BaseBean implements Serializable {
@@ -30,42 +34,79 @@ public class PedidoBean extends BaseBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// atributos para la busqueda
+	/**
+	 * atributo usado para almacenar la fecha con la cual se hace la busqueda de
+	 * pedidos en la BD
+	 */
 	private Date fechaBusqueda;
+	/**
+	 * atributo usado para almacenar un Estado de pedido con la cual se hace la
+	 * busqueda de pedidos en la BD
+	 */
 	private String estado;
 
 	// listas
-	public List<Pedido> listPedidos;
-	public List<DetallePedido> listDetallePedido;
+	/**
+	 * atributo usado para almacenar una lista de Pedidos para carga el
+	 * DataTable de pedidos
+	 */
+	private List<Pedido> listPedidos;
+	/**
+	 * atributo usado para almacenar una lista detalles de pedido que despues
+	 * sera asignada al pedido
+	 */
+	private List<DetallePedido> listDetallePedido;
 
 	// pedido
-	public Date fechaNuevoPedido = new Date();
-	public Pedido pedido;
-	public Usuario logedUser;
+	/** atributo usado para almacenar la fecha del nuevo pedido */
+	private Date fechaNuevoPedido;
+	/** atributo usado para crear el nuevo Pedido */
+	private Pedido pedido;
+	/** atributo usado para almacenar el usuario que esta logueado */
+	private Usuario logedUser;
 
 	// detalle Pedido
-	public DetallePedido unDetalle;
-	public Producto producto;
-	public Integer cantidad;
-	public Integer detalleId;
+	/**
+	 * atributo usado para crear un nuevo detalle y asignarlo al pedido. y para
+	 * eliminar un detalle existente de la lista de detalles
+	 */
+	private DetallePedido unDetalle;
+	/**
+	 * atributo usado para almacenar un producto que luego sera asignado a un
+	 * detalle de pedido.
+	 */
+	private Producto producto;
+	/**
+	 * atributo usado para almacenar la cantidad de un producto que luego sera
+	 * asignado a un detalle de pedido.
+	 */
+	private Integer cantidad;
 
+	/**
+	 * redirige a la pagina listaPedidos.html
+	 * 
+	 * @return un {@code String} con la url de lista de pedidos
+	 */
 	public String urlListaPedidos() {
 		return "listaPedidos.xhtml?faces-redirect=true";
 	}
 
-	/*
-	 * carga DataTable de listaPedidos.xhtml
+	/**
+	 * metodo que realiza la Busqueda de pedidos en la BD y carga el DataTable
+	 * de pedidos.
 	 */
 	public void search() {
 		logger.debug("------------- search Pedidos");
 		listPedidos = getService().getPedidoDAO().search(fechaBusqueda, estado);
 	}
 
-	/*
-	 * redirige a la pagina para realizar un Nuevo pedido
+	/**
+	 * redirige a la pagina para realizar un Nuevo pedido e instancia un detalle
+	 * vacio y el pedido con sus datos correspondientes.
 	 */
 	public String urlNuevoPedido() {
 		logger.debug("---------- nuevoPedido");
-		
+
 		listDetallePedido = new ArrayList<DetallePedido>();
 		unDetalle = new DetallePedido();
 		pedido = new Pedido();
@@ -76,13 +117,14 @@ public class PedidoBean extends BaseBean implements Serializable {
 		return "nuevoPedido.xhtml?faces-redirect=true";
 	}
 
-	/*
-	 * agreaga el producto seleccionado al detalle de Pedido
+	/**
+	 * crean un DetallePedido nuevo con el Producto y cantidad seleccionados y
+	 * lo agrega a la lista de detalles.
 	 */
 	public void addProducto() {
 
 		logger.debug("producto:" + producto.getDescripcion());
-		 DetallePedido unDetalle=new DetallePedido();
+		DetallePedido unDetalle = new DetallePedido();
 		unDetalle.setPedido(pedido);
 		unDetalle.setCantidad(cantidad);
 		unDetalle.setFechaCreacion(new Date());
@@ -95,34 +137,44 @@ public class PedidoBean extends BaseBean implements Serializable {
 		listDetallePedido.add(unDetalle);
 	}
 
+	/**
+	 * elimina el Producto seleccionado de la Lista de Detalles
+	 */
 	public void removeProducto() {
 		logger.debug("------- removeDet");
-		logger.debug("remover el prod: "+unDetalle.getProducto().getNombre());
+		logger.debug("remover el prod: " + unDetalle.getProducto().getNombre());
 		listDetallePedido.remove(unDetalle);
 	}
-	
-	public String grabarPedido(){
-		Set<DetallePedido> detallesPedido=new HashSet<DetallePedido>(listDetallePedido);
+
+	/**
+	 * asigna la lista de detalles al pedido y guarda el pedido con sus
+	 * correspondientes detalle en la BD.
+	 * 
+	 * @return un {@code String} con la url a la pagina de lista de Pedidos
+	 */
+	public String grabarPedido() {
+		Set<DetallePedido> detallesPedido = new HashSet<DetallePedido>(
+				listDetallePedido);
 		pedido.setDetallePedidos(detallesPedido);
-		
-		PedidoDAO pedidoDAO=getService().getPedidoDAO();
-		
+
+		PedidoDAO pedidoDAO = getService().getPedidoDAO();
+
 		pedidoDAO.insert(pedido);
-		
+
 		return urlListaPedidos();
 	}
-//	public void editRow(RowEditEvent event) {
-//		logger.debug("fila editada");
-//		logger.debug(listDetallePedido.get(0).getProducto().getNombre()+" cant:"+listDetallePedido.get(0).getCantidad());
-//		DetallePedido detallePedido=(DetallePedido) event.getObject();
-//		logger.debug(detallePedido.getProducto().getNombre()+" cant:"+detallePedido.getCantidad());
-//	}
-//	
-//	public void cancelEditRow(RowEditEvent event){
-//		logger.debug("edit fila cancelado");
-//	}
-	
-	// Getters and Setters
+
+	// public void editRow(RowEditEvent event) {
+	// logger.debug("fila editada");
+	// logger.debug(listDetallePedido.get(0).getProducto().getNombre()+" cant:"+listDetallePedido.get(0).getCantidad());
+	// DetallePedido detallePedido=(DetallePedido) event.getObject();
+	// logger.debug(detallePedido.getProducto().getNombre()+" cant:"+detallePedido.getCantidad());
+	// }
+	//
+	// public void cancelEditRow(RowEditEvent event){
+	// logger.debug("edit fila cancelado");
+	// }
+
 	public List<Pedido> getListPedidos() {
 		return listPedidos;
 	}
@@ -185,14 +237,6 @@ public class PedidoBean extends BaseBean implements Serializable {
 
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
-	}
-
-	public Integer getDetalleId() {
-		return detalleId;
-	}
-
-	public void setDetalleId(Integer detalleId) {
-		this.detalleId = detalleId;
 	}
 
 	public Usuario getLogedUser() {

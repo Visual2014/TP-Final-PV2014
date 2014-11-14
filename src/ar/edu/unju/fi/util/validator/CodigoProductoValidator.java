@@ -13,9 +13,19 @@ import ar.edu.unju.fi.dao.imp.ProductoDAOImp;
 import ar.edu.unju.fi.services.ServiceFacade;
 import ar.edu.unju.fi.services.SpringUtil;
 
+/**
+ * clase para validar el codigo de producto cuando se crea un Nuevo producto.
+ * 
+ * @author Mat-iaS
+ * 
+ */
 @FacesValidator("codigoProductoValidator")
 public class CodigoProductoValidator extends BaseBean implements Validator {
 
+	/**
+	 * validator valida que el codigo ingresado para el nuevo producto no exista
+	 * en la BD.
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {

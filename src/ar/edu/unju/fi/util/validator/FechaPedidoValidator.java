@@ -12,10 +12,21 @@ import javax.faces.validator.ValidatorException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * clase para validar la fecha cuando se crea un Nuevo pedido.
+ * 
+ * @author Mat-iaS
+ * 
+ */
 @FacesValidator("fechaPedidoValidator")
 public class FechaPedidoValidator implements Validator {
 	Logger logger = Logger.getLogger(FechaPedidoValidator.class);
 
+	/**
+	 * Validator valida que la fecha ingresada para el nuevo pedido sea mayor o
+	 * igual a la fecha actual.
+	 * 
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
