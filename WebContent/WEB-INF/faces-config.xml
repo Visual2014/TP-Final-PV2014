@@ -8,10 +8,10 @@
  
 
 <application>
-	<message-bundle>resources.application</message-bundle>
-	<locale-config>
-		<default-locale>es</default-locale>
-	</locale-config>
+<!-- 	<message-bundle>resources.application</message-bundle> -->
+<!-- 	<locale-config> -->
+<!-- 		<default-locale>es</default-locale> -->
+<!-- 	</locale-config> -->
 	<resource-bundle>
 		<base-name>
 			ar.edu.unju.fi.resources.mensajes
