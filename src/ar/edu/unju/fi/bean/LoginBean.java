@@ -9,19 +9,42 @@ import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.model.Usuario;
 
+/**
+ * Clase bean utilizara para validar el usuario ingresado
+ *
+ */
+
 @ManagedBean
 @SessionScoped
 public class LoginBean extends BaseBean {
 	static Logger logger = Logger.getLogger(LoginBean.class);
+
+	//Atributos
+	/**
+	 * dni: Almacena el valor ingresado en el campo "dni" para realizar la validacion 
+	 * password: Almacena el valor ingresado en el campo "contraseña" para realizar la validacion
+	 * logedUser: Almacena el usuario logeado luego de la validacion
+	 */
 	public Integer dni;
 	public String password;
 	public Usuario logedUser;
+	
+	//Metodos
 
+	/**
+	 * redirige a la pagina login.xhtml
+	 * @return un {@code String} con la url de la pagina para logearse
+	 */
 	public String url() {
 		logedUser = null;
 		return "login?faces-redirect=true";
 	}
-
+	
+	/**
+	 * Metodo que realiza la validacion de los datos ingresados e ingresa a la pagina principal
+	 * o da un mensaje de error, segun corresponda 
+	 * @return un {@code String} con la url de la pagina principal
+	 */
 	public String ingresar() {
 		UsuarioDAO dao = getService().getUsuarioDAO();
 		RolUsuarioDAO daoRol = getService().getRolUsuarioDAO();
@@ -34,6 +57,8 @@ public class LoginBean extends BaseBean {
 		return "home?faces-redirect=true";
 	}
 
+	//Getters y Setters de los atributos
+	
 	public Integer getDni() {
 		return dni;
 	}

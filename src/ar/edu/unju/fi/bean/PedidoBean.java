@@ -35,56 +35,45 @@ public class PedidoBean extends BaseBean implements Serializable {
 
 	// atributos para la busqueda
 	/**
-	 * atributo usado para almacenar la fecha con la cual se hace la busqueda de
-	 * pedidos en la BD
+	 * fechaBusqueda: almacena la fecha con la cual se hace la busqueda de pedidos en la BD
+	 * estado: almacena un Estado de pedido con la cual se hace la busqueda en la BD
 	 */
 	private Date fechaBusqueda;
-	/**
-	 * atributo usado para almacenar un Estado de pedido con la cual se hace la
-	 * busqueda de pedidos en la BD
-	 */
 	private String estado;
 
 	// listas
 	/**
-	 * atributo usado para almacenar una lista de Pedidos para carga el
-	 * DataTable de pedidos
+	 * listaPedidos: almacena una lista de pedidos para cargar el DataTable de pedidos
+	 * listDetallePedido: almacena una lista de detalles de pedido que despues será asignada al pedido
 	 */
 	private List<Pedido> listPedidos;
-	/**
-	 * atributo usado para almacenar una lista detalles de pedido que despues
-	 * sera asignada al pedido
-	 */
 	private List<DetallePedido> listDetallePedido;
 
-	// pedido
-	/** atributo usado para almacenar la fecha del nuevo pedido */
+	// atributos del pedido
+	/** 
+	 * fechaNuevoPedido: almacena la fecha del nuevo pedido 
+	 * pedido: se utiliza para crear el nuevo pedido
+	 * logedUser: se utiliza para almacenar el usuario que esta logueado
+	 */
 	private Date fechaNuevoPedido;
-	/** atributo usado para crear el nuevo Pedido */
 	private Pedido pedido;
-	/** atributo usado para almacenar el usuario que esta logueado */
 	private Usuario logedUser;
 
-	// detalle Pedido
+	// atributos del detalle Pedido
 	/**
-	 * atributo usado para crear un nuevo detalle y asignarlo al pedido. y para
-	 * eliminar un detalle existente de la lista de detalles
+	 * unDetalle: crea un nuevo detalle y lo asigna al pedido. y para eliminar un detalle existente de la lista de detalles
+	 * producto: almacena un producto que luego sera asignado a un detalle de pedido
+	 * cantidad: almacena la cantidad de un roducto que luego sera asignado a un detalle de pedido
 	 */
 	private DetallePedido unDetalle;
-	/**
-	 * atributo usado para almacenar un producto que luego sera asignado a un
-	 * detalle de pedido.
-	 */
 	private Producto producto;
-	/**
-	 * atributo usado para almacenar la cantidad de un producto que luego sera
-	 * asignado a un detalle de pedido.
-	 */
 	private Integer cantidad;
+	
 
+	//Metodos
+	
 	/**
 	 * redirige a la pagina listaPedidos.html
-	 * 
 	 * @return un {@code String} con la url de lista de pedidos
 	 */
 	public String urlListaPedidos() {
@@ -103,6 +92,7 @@ public class PedidoBean extends BaseBean implements Serializable {
 	/**
 	 * redirige a la pagina para realizar un Nuevo pedido e instancia un detalle
 	 * vacio y el pedido con sus datos correspondientes.
+	 * @return un {@code String} con la url de la pagina para crear un nuevo pedido
 	 */
 	public String urlNuevoPedido() {
 		logger.debug("---------- nuevoPedido");
@@ -174,6 +164,9 @@ public class PedidoBean extends BaseBean implements Serializable {
 	// public void cancelEditRow(RowEditEvent event){
 	// logger.debug("edit fila cancelado");
 	// }
+	
+	
+	//Getters y Setters de los atributos
 
 	public List<Pedido> getListPedidos() {
 		return listPedidos;
