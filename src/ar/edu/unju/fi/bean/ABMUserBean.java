@@ -12,14 +12,25 @@ import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Usuario;
 
+/**
+ * clase bean asociada a las paginas de Lista de Usuarios y nuevos usuarios.
+ */
+
 @ManagedBean
 @SessionScoped
 public class ABMUserBean extends BaseBean implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
+	//Atributos
+	/**
+	 * usuario: se utiliza para realizar todas las operaciones del ABM
+	 * banderaModif: se utiliza para decidir entre modificar un usuario o crear uno nuevo
+	 * documento: almacena el documento del usuario para ralizar la busqueda
+	 * apellido: almacena el apellido del usuario para ralizar la busqueda
+	 * estado: almacena el estrado seleccionado para realizar la busqueda
+	 * usuarioList: almacena la lista de usuarios que coinciden con los parametros de busqueda ingresados
+	 */
 	private Usuario usuario;
 	private String banderaModif = "false";
 	private Integer documento;
@@ -27,6 +38,19 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	private String estado;
 	private List<Usuario> usuarioList;
 	static Logger logger = Logger.getLogger(ABMUserBean.class);
+	
+	//Metodos
+	
+	
+	/**
+	 * Constructor del bean
+	 */
+	public ABMUserBean() {
+	}
+	
+	/**
+	 * Metodo que realiza la busqueda de usuarios en la BD y carga el DataTable de usuarios
+	 */
 	
 	public String search(){
 		logger.debug("test log4j");
@@ -36,6 +60,12 @@ public class ABMUserBean extends BaseBean implements Serializable{
 		usuarioList = dao.buscarUser(documento, apellido, estado);
 		return null;
 	}
+
+	/**
+	 * Metodo que realiza el alta de un usuario nuevo o la modificacion de uno ya existente
+	 * dependiendo de el valor del atributo banderaModif
+	 * @return un {@code String} con la url de la lista de usuarios
+	 */
 	
 	public String aceptar(){
 		UsuarioDAO dao = new UsuarioDAOImp();
@@ -48,17 +78,28 @@ public class ABMUserBean extends BaseBean implements Serializable{
 		return "listaUsuarios.xhtml?faces-redirect=true";
 	}
 	
+	/**
+	 *Instancia un nuevo usuario y asigna el valor "false" a banderaModif 
+	 * @return un {@code String} con la url para crear o modificar un usuario
+	 */
 	public String preInsert(){
 		setUsuario(new Usuario());
 		banderaModif = "false";
 		return "altaUsuario.xhtml?faces-redirect=true";
 	}
 	
+	/**
+	 *Asigna el valor "true" a banderaModif 
+	 * @return un {@code String} con la url para crear o modificar un usuario
+	 */	
 	public String preModif(){
 		banderaModif = "true";
 		return "altaUsuario.xhtml?faces-redirect=true";
 	}
 	
+	/**
+	 * Elimina el usuario seleccionado en la lista de usuarios
+	 */
 	public String preEliminar(){
 		UsuarioDAO dao = new UsuarioDAOImp();
 		dao.delete(usuario);
@@ -66,14 +107,15 @@ public class ABMUserBean extends BaseBean implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * redirige a la pagina listaUsuarios.html
+	 * @return un {@code String} con la url de la lista de usuarios
+	 */
 	public String url() {
 		return "listaUsuarios?faces-redirect=true";
 	}
-	
-	
-	public ABMUserBean() {
-	}
 
+	//Getters y Setters de los atributos
 
 	public Usuario getUsuario() {
 		return usuario;

@@ -49,9 +49,7 @@ public class PedidoBean extends BaseBean implements Serializable {
 	private Date fechaNuevoPedido=new Date();
 	/** atributo usado para crear el nuevo Pedido */
 	private Pedido pedido;
-	/** atributo usado para almacenar el usuario que esta logueado */
 	private Usuario logedUser;
-
 	String nuevoEstado;
 	
 	
@@ -62,7 +60,7 @@ public class PedidoBean extends BaseBean implements Serializable {
 	private DetallePedido unDetalle;
 	/** atributo usado para almacenar un producto que luego sera asignado a un detalle de pedido.  */
 	private Producto producto;
-	/** atributo usado para almacenar la cantidad de un producto que luego sera asignado a un detalle de pedido. */
+	/** cantidad: almacena la cantidad de un roducto que luego sera asignado a un detalle de pedido	 */
 	private Integer cantidad;
 
 
@@ -90,13 +88,15 @@ public class PedidoBean extends BaseBean implements Serializable {
 		listPedidos = getService().getPedidoDAO().search(fechaBusqueda, estado,logedUser);
 	}
 
-	
-	
-	
-	
-	
-	
-	/** redirige a la pagina para realizar un Nuevo pedido e instancia un detalle vacio y el pedido con sus datos correspondientes.	 */
+
+
+
+
+	/**
+	 * redirige a la pagina para realizar un Nuevo pedido e instancia un detalle
+	 * vacio y el pedido con sus datos correspondientes.
+	 * @return un {@code String} con la url de la pagina para crear un nuevo pedido
+	 */
 	public String urlNuevoPedido() {
 		logger.debug("---------- nuevoPedido");
 
@@ -168,8 +168,7 @@ public class PedidoBean extends BaseBean implements Serializable {
 		return urlListaPedidos();
 	}
 
-	
-	
+		
 	
 	
 	
@@ -187,7 +186,7 @@ public class PedidoBean extends BaseBean implements Serializable {
 		unPedido.setFechaModificacion(new Date());
 		unPedido.setFechaPedido(pedido.getFechaPedido());
 		unPedido.setPedidoId(pedido.getPedidoId());
-//		unPedido.setTotal(pedido.getTotal());
+		unPedido.setTotal(pedido.getTotal());
 		unPedido.setUsuarioCreacion(pedido.getUsuarioCreacion());
 		unPedido.setUsuarioModificacion(logedUser.getDocumento());
 		
@@ -198,6 +197,7 @@ public class PedidoBean extends BaseBean implements Serializable {
 		logger.info("el Usuario "+logedUser.getDocumento()+"-"+logedUser.getApellido()+" "+logedUser.getNombre()+" cambio a "+nuevoEstado+" el pedido Id: "+pedido.getPedidoId());
 		search();
 	}
+
 
 	
 	
