@@ -69,12 +69,16 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="pedidoDAO" class="ar.edu.unju.fi.dao.imp.PedidoDAOImp">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	<bean id="detallePedidoDAO" class="ar.edu.unju.fi.dao.imp.DetallePedidoDAOImp">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 	
 	<bean id="serviceFacade" class="ar.edu.unju.fi.services.ServiceFacade">
 		<property name="usuarioDAO" ref="usuarioDAO" />
 		<property name="rolUsuarioDAO" ref="rolUsuarioDAO" />
 		<property name="productoDAO" ref="productoDAO" />
 		<property name="pedidoDAO" ref="pedidoDAO" />
+		<property name="detallePedidoDAO" ref="detallePedidoDAO" />
 	</bean>
 
 	<!-- Transaction Manager -->

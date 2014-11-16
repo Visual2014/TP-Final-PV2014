@@ -14,4 +14,5 @@ public class EstadoPedido {
 	public static String CONFIRMADO = "CONFIRMADO";
 	/** estado de Pedido ANULADO */
 	public static String ANULADO = "ANULADO";
+	public static String TODO = "TODO";
 }

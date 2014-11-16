@@ -14,7 +14,7 @@
 			<column name="codigo" />
 		</many-to-one>
 		<many-to-one name="pedido" class="ar.edu.unju.fi.model.Pedido"
-			fetch="select" cascade="all">
+			fetch="select">
 			<column name="pedido_id" />
 		</many-to-one>
 		<property name="precioUnitario" type="double">

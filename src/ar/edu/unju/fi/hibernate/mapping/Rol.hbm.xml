@@ -11,12 +11,12 @@
 		<property name="descripcion" type="string">
 			<column name="descripcion" length="16" />
 		</property>
-		<set name="usuarios" table="usuario" inverse="true" lazy="true"
-			fetch="select">
-			<key>
-				<column name="rol_id" />
-			</key>
-			<one-to-many class="ar.edu.unju.fi.model.Usuario" />
-		</set>
+<!-- 		<set name="usuarios" table="usuario" inverse="true" lazy="true" -->
+<!-- 			fetch="select"> -->
+<!-- 			<key> -->
+<!-- 				<column name="rol_id" /> -->
+<!-- 			</key> -->
+<!-- 			<one-to-many class="ar.edu.unju.fi.model.Usuario" /> -->
+<!-- 		</set> -->
 	</class>
 </hibernate-mapping>
