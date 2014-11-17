@@ -42,8 +42,7 @@
 
 			<p:dataTable id="pedidos" value="#{pedidoBean.listPedidos}" var="p">
 
-				<p:column>
-
+				<p:column width="80">
 					<p:commandButton id="confirm" icon="ui-icon-circle-check"
 						title="#{msg.title_confirmar}" 
 						action="#{pedidoBean.updateEstado}" process="pedidos"
@@ -100,7 +99,7 @@
 					<f:validator validatorId="fechaPedidoValidator"></f:validator>
 				</p:calendar>
 				<p:commandButton id="acepet" value="#{msg.btn_aceptar}" process="fecha @form"
-					action="#{pedidoBean.urlNuevoPedido}" update="@all">
+					action="#{pedidoBean.crearNuevoPedido}" update="@all">
 				</p:commandButton>
 			</p:dialog>
 		</h:form>

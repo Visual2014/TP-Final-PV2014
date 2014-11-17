@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.bean;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -99,17 +100,47 @@ public class PedidoBean extends BaseBean implements Serializable {
 	 * vacio y el pedido con sus datos correspondientes.
 	 * @return un {@code String} con la url de la pagina para crear un nuevo pedido
 	 */
-	public String urlNuevoPedido() {
+	public String crearNuevoPedido() {
 		logger.debug("---------- nuevoPedido");
 
-		listDetallePedido = new ArrayList<DetallePedido>();
-		unDetalle = new DetallePedido();
-		pedido = new Pedido();
-		pedido.setFechaPedido(fechaNuevoPedido);
-		pedido.setEstado(EstadoPedido.INICIADO);
-		pedido.setFechaCreacion(new Date());
-		pedido.setUsuarioCreacion(logedUser.getDocumento());
-		return "nuevoPedido.xhtml?faces-redirect=true";
+		Boolean repiteFecha = false;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date hoy = new Date();
+		String fechaNueva = sdf.format(fechaNuevoPedido);
+
+		// VALIDO SI YA EXISTE ALGUN PEDIDO CON LA DE CREACION FECHA NUEVA
+		for (int i = 0; i < listPedidos.size() && !repiteFecha; i++) {
+			String fechaExistente = sdf.format(listPedidos.get(i)
+					.getFechaCreacion());
+
+			if (fechaExistente.equals(fechaNueva)) {
+				repiteFecha = true;
+				logger.debug("existente: " + fechaExistente + " nueva"
+						+ fechaNueva);
+			}
+		}
+
+		// SI EXISTE UN PEDIDO CON FECHA DE HOY MUESTRO MENSAJE
+		logger.debug(repiteFecha);
+		if (repiteFecha) {
+			FacesMessage mensaje = new FacesMessage(
+					"Ya Existe un pedido para esa fecha");
+			FacesContext.getCurrentInstance().addMessage(null, mensaje);
+
+			return null;
+
+			// SI NO CREO EL PEDIDO
+		} else {
+			listDetallePedido = new ArrayList<DetallePedido>();
+			unDetalle = new DetallePedido();
+			pedido = new Pedido();
+			pedido.setFechaPedido(fechaNuevoPedido);
+			pedido.setEstado(EstadoPedido.INICIADO);
+			pedido.setFechaCreacion(new Date());
+			pedido.setUsuarioCreacion(logedUser.getDocumento());
+
+			return "nuevoPedido.xhtml?faces-redirect=true";
+		}
 	}
 
 	
@@ -121,10 +152,10 @@ public class PedidoBean extends BaseBean implements Serializable {
 	public void addProducto() {
 		logger.debug("producto:" + producto.getDescripcion());
 		
-		if(producto.getStock()<cantidad){
-			FacesMessage mensaje=new FacesMessage("no hay Stock suficiente..");
+		if (producto.getStock() < cantidad) {
+			FacesMessage mensaje = new FacesMessage("no hay Stock suficiente..");
 			FacesContext.getCurrentInstance().addMessage(null, mensaje);
-		}else{
+		} else {
 			DetallePedido unDetalle = new DetallePedido();
 			unDetalle.setPedido(pedido);
 			unDetalle.setCantidad(cantidad);
