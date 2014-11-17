@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
@@ -117,19 +119,24 @@ public class PedidoBean extends BaseBean implements Serializable {
 	
 	/** crean un DetallePedido nuevo con el Producto y cantidad seleccionados y lo agrega a la lista de detalles. */
 	public void addProducto() {
-
 		logger.debug("producto:" + producto.getDescripcion());
-		DetallePedido unDetalle = new DetallePedido();
-		unDetalle.setPedido(pedido);
-		unDetalle.setCantidad(cantidad);
-		unDetalle.setFechaCreacion(new Date());
-		unDetalle.setFechaModificacion(null);
-		unDetalle.setPrecioUnitario(unDetalle.getCantidad()
-				* producto.getPrecioUnitario());
-		unDetalle.setProducto(producto);
-		unDetalle.setUsuarioCreacion(logedUser.getDocumento());
-		unDetalle.setUsuarioModificacion(null);
-		listDetallePedido.add(unDetalle);
+		
+		if(producto.getStock()<cantidad){
+			FacesMessage mensaje=new FacesMessage("no hay Stock suficiente..");
+			FacesContext.getCurrentInstance().addMessage(null, mensaje);
+		}else{
+			DetallePedido unDetalle = new DetallePedido();
+			unDetalle.setPedido(pedido);
+			unDetalle.setCantidad(cantidad);
+			unDetalle.setFechaCreacion(new Date());
+			unDetalle.setFechaModificacion(null);
+			unDetalle.setPrecioUnitario(unDetalle.getCantidad()
+					* producto.getPrecioUnitario());
+			unDetalle.setProducto(producto);
+			unDetalle.setUsuarioCreacion(logedUser.getDocumento());
+			unDetalle.setUsuarioModificacion(null);
+			listDetallePedido.add(unDetalle);
+		}
 	}
 
 	
@@ -154,18 +161,28 @@ public class PedidoBean extends BaseBean implements Serializable {
 	 * @return un {@code String} con la url a la pagina de lista de Pedidos  */
 	public String grabarPedido() {
 		
-		//GUARDO EL PEDIDO
-		PedidoDAO pedidoDAO = getService().getPedidoDAO();
-		pedidoDAO.insert(pedido);
-		
-		//GUARDO LOS DETALLES
-		DetallePedidoDAO detalleDao=getService().getDetallePedidoDAO();
-		for (DetallePedido d : listDetallePedido) {
-			detalleDao.insert(d);
+		if(listDetallePedido.isEmpty()){
+			FacesMessage mensaje=new FacesMessage("agregue productos al pedido");
+			FacesContext.getCurrentInstance().addMessage(null, mensaje);
+			
+			return null;
+		}else{
+			//GUARDO EL PEDIDO
+			PedidoDAO pedidoDAO = getService().getPedidoDAO();
+			pedidoDAO.insert(pedido);
+			
+			//GUARDO LOS DETALLES
+			DetallePedidoDAO detalleDao=getService().getDetallePedidoDAO();
+			for (DetallePedido d : listDetallePedido) {
+				detalleDao.insert(d);
+			}
+					
+			logger.info("el Usuario "+logedUser.getDocumento()+"-"+logedUser.getApellido()+" "+logedUser.getNombre()+" guardo un nuevo pedido Id: "+pedido.getPedidoId());
+			
+			return urlListaPedidos();
 		}
-				
-		logger.info("el Usuario "+logedUser.getDocumento()+"-"+logedUser.getApellido()+" "+logedUser.getNombre()+" guardo un nuevo pedido Id: "+pedido.getPedidoId());
-		return urlListaPedidos();
+		
+		
 	}
 
 		
