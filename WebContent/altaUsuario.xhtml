@@ -22,7 +22,7 @@
 					disabled="#{aBMUserBean.banderaModif}" required="true" 
 					requiredMessage="#{msg.msg_requerido}"
 					converterMessage="#{msg.msg_errorInt}">
-					<f:validator validatorId="dniUserValidator" />
+					  <!--  <f:validator validatorId="dniUserValidator" />-->
 						<f:ajax event="blur" render="msgDni" />	
 				</p:inputText>
 				<h:message id="msgDni" for="dni" style="color:red" />
@@ -68,14 +68,14 @@
 					</p:inputText>
 					<h:message id="msgEmail" for="mail" style="color:red" />
 					
-					<p:outputLabel value="#{msg.header_rol}"/>
+					<!--  <p:outputLabel value="#{msg.header_rol}"/>
 					<h:selectOneMenu id="rol"
 						value="#{aBMUserBean.usuario.rol}">
 						<f:selectItem itemLabel="#{msg.label_admin}" itemValue="ADMINISTRADOR" />
 						<f:selectItem itemLabel="#{msg.label_empleado}" itemValue="EMPLEADO" />
 						<f:ajax event="blur" render="msgRol" />
 					</h:selectOneMenu>
-					<h:message id="msgRol" for="estado" style="color:red" />
+					<h:message id="msgRol" for="estado" style="color:red" />-->
 			</p:panelGrid>
 			<p:commandButton action="#{aBMUserBean.aceptar}" value="#{msg.btn_aceptar}">
 					<f:ajax execute="@form" render="@all" />

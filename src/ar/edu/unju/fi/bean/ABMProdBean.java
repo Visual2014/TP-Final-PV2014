@@ -55,6 +55,7 @@ public class ABMProdBean extends BaseBean implements Serializable {
 
 	// instancia el objeto producto de esta clase antes de ingresar a la pagina
 	public String preInsert() {
+		System.out.println("preinsert de Producto");
 		logger.debug("--------preInsert");
 		setProducto(new Producto());
 		banderaModif = "false";

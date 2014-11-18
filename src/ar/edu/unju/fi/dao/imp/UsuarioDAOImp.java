@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import ar.edu.unju.fi.dao.UsuarioDAO;
@@ -51,11 +51,17 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 
 	@Override
 	public void insert(Usuario u) {
-		Session session = getSession();
-		session.beginTransaction();
-		session.save(u);
-		session.getTransaction().commit();
-		session.close();
+		try{
+			System.out.println("agregando...............");
+			getHibernateTemplate().save(u);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+		}
+//		Session session = getSession();
+//		session.beginTransaction();
+//		session.save(u);
+//		session.getTransaction().commit();
+//		session.close();
 		
 	}
 

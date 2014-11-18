@@ -10,9 +10,13 @@ import java.util.Set;
  */
 public class Rol implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int rolId;
 	private String descripcion;
-	private Set usuarios = new HashSet(0);
+	private Set usuarios = new HashSet<Object>(0);
 
 	public Rol() {
 	}

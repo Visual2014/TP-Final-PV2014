@@ -11,11 +11,8 @@ import org.apache.log4j.Logger;
 
 import ar.edu.unju.fi.bean.BaseBean;
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Usuario;
 import ar.edu.unju.fi.model.constantes.EstadoUsuario;
-import ar.edu.unju.fi.services.ServiceFacade;
-import ar.edu.unju.fi.services.SpringUtil;
 
 @FacesValidator("loginUsuarioValidator")
 public class LoginUsuarioValidator extends BaseBean implements Validator {

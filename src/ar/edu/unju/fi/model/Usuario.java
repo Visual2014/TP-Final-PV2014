@@ -7,6 +7,10 @@ package ar.edu.unju.fi.model;
  */
 public class Usuario implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int documento;
 	private Rol rol;
 	private String nombre;

@@ -15,5 +15,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PVisual-lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/libs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernateLibraries"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jsfLibraries"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
