@@ -14,10 +14,18 @@ import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.services.ServiceFacade;
 import ar.edu.unju.fi.services.SpringUtil;
 
+/**
+ * Clase para validar el password ingresado
+ */
 @FacesValidator("loginPasswordValidator")
 public class LoginPasswordValidator extends BaseBean implements Validator {
 	static Logger logger = Logger.getLogger(LoginPasswordValidator.class);
 
+	/**
+	 * validator valida que el documento y la contraseña coincidan con 
+	 * los mismos datos de algun usuario de la BD
+	 * 
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {

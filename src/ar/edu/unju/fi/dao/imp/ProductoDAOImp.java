@@ -13,8 +13,16 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import ar.edu.unju.fi.dao.ProductoDAO;
 import ar.edu.unju.fi.model.Producto;
 
+/**
+ *clase para acceder a la tabla Productos de la BD 
+ *
+ */
 public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 
+	/**
+	 * metodo que permite guardar un producto en la BD
+	 * @param p es el producto que será guardado en la BD
+	 */
 	@Override
 	public void insert(Producto p) {
 		try {
@@ -25,6 +33,10 @@ public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 
 	}
 
+	/**
+	 * metodo que permite actualizar los datos de un producto en la BD
+	 * @param p es el producto que sera modificado en la BD
+	 */
 	@Override
 	public void update(Producto p) {
 		try {
@@ -34,6 +46,10 @@ public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 		}
 	}
 
+	/**
+	 * metodo para eliminar un producto de la BD
+	 * @param p es el producto a eliminar dela BD
+	 */
 	@Override
 	public void delete(Producto p) {
 		try {
@@ -43,6 +59,11 @@ public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 		}
 	}
 
+	/**
+	 * metodo para buscar un producto en la BD
+	 * @param codigo es el parametro de busqueda que se utilizara
+	 * @return producto es el producto cuyo codigo coincide con el codigo ingresado como parametro
+	 */
 	@Override
 	public Producto get(int codigo) {
 		Session session = getSession();
@@ -57,6 +78,10 @@ public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 		return producto;
 	}
 
+	/**
+	 * metodo para traer todos los productos almacenados en la BD
+	 * @return list es la lista con todos los productos almacenados en la BD
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Producto> getAll() {
@@ -67,6 +92,13 @@ public class ProductoDAOImp extends HibernateDaoSupport implements ProductoDAO {
 		return list;
 	}
 
+	/**
+	 * metodo para buscar una lista de productos en la BD
+	 * @param codigo busca un solo producto cuyo codigo coincida con el parametro ingresado
+	 * @param nombre busca todos los productos cuyo nombre coincidan con el parametro ingresado
+	 * @param estado busca todos los productos cuyo estado coincidan con el parametro ingresado
+	 * @return list es la lista de todos los productos que coinciden con los parametros ingresados
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Producto> buscar(int codigo, String nombre, String estado) {

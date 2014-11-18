@@ -10,9 +10,16 @@ import javax.faces.validator.ValidatorException;
 import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 
+/**
+ * clase para validar el documento de un usuario cuando se crea un nuevo usuario
+ */
 @FacesValidator()
 public class DniUserValidator implements Validator{
 
+	/**
+	 * validator valida que el documento ingresado no coincida con ningun documento
+	 * de ningun usuario en la BD
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException {

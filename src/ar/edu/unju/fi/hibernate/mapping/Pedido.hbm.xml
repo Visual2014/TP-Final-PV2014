@@ -30,7 +30,7 @@
 			<column name="fecha_modificacion" length="13" />
 		</property>
 		<set name="detallePedidos" table="detalle_pedido" inverse="true"
-			lazy="true" fetch="select" cascade="all">
+			lazy="true" fetch="select">
 			<key>
 				<column name="pedido_id" />
 			</key>

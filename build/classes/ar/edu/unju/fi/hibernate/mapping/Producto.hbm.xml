@@ -33,12 +33,12 @@
 		<property name="tamanio" type="string">
 			<column name="tamanio" length="12" />
 		</property>
-		<set name="detallePedidos" table="detalle_pedido" inverse="true"
-			lazy="true" fetch="select">
-			<key>
-				<column name="codigo" />
-			</key>
-			<one-to-many class="ar.edu.unju.fi.model.DetallePedido" />
-		</set>
+<!-- 		<set name="detallePedidos" table="detalle_pedido" inverse="true" -->
+<!-- 			lazy="true" fetch="select"> -->
+<!-- 			<key> -->
+<!-- 				<column name="codigo" /> -->
+<!-- 			</key> -->
+<!-- 			<one-to-many class="ar.edu.unju.fi.model.DetallePedido" /> -->
+<!-- 		</set> -->
 	</class>
 </hibernate-mapping>

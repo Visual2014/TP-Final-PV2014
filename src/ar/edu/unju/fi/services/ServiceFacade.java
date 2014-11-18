@@ -1,15 +1,18 @@
 package ar.edu.unju.fi.services;
 
+import ar.edu.unju.fi.dao.DetallePedidoDAO;
 import ar.edu.unju.fi.dao.PedidoDAO;
 import ar.edu.unju.fi.dao.ProductoDAO;
 import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.dao.UsuarioDAO;
+import ar.edu.unju.fi.model.DetallePedido;
 
 public class ServiceFacade {
 	private UsuarioDAO usuarioDAO;
 	private RolUsuarioDAO rolUsuarioDAO;
 	private ProductoDAO productoDAO;
 	private PedidoDAO pedidoDAO;
+	private DetallePedidoDAO detallePedidoDAO;
 
 	public RolUsuarioDAO getRolUsuarioDAO() {
 		return rolUsuarioDAO;
@@ -41,6 +44,14 @@ public class ServiceFacade {
 
 	public void setPedidoDAO(PedidoDAO pedidoDAO) {
 		this.pedidoDAO = pedidoDAO;
+	}
+
+	public DetallePedidoDAO getDetallePedidoDAO() {
+		return detallePedidoDAO;
+	}
+
+	public void setDetallePedidoDAO(DetallePedidoDAO detallePedidoDAO) {
+		this.detallePedidoDAO = detallePedidoDAO;
 	}
 
 }

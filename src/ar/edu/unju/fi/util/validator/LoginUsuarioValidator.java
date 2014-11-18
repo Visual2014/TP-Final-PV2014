@@ -14,10 +14,16 @@ import ar.edu.unju.fi.dao.UsuarioDAO;
 import ar.edu.unju.fi.model.Usuario;
 import ar.edu.unju.fi.model.constantes.EstadoUsuario;
 
+/**
+ * clase para validar el usuario ingresado
+ */
 @FacesValidator("loginUsuarioValidator")
 public class LoginUsuarioValidator extends BaseBean implements Validator {
 	static Logger logger=Logger.getLogger(LoginUsuarioValidator.class);
 	
+	/**
+	 * validator valida la existencia de un usuario en la BD y el estado del mismo 
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {

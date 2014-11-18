@@ -7,9 +7,17 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+/**
+ * Clase para validar el precio por fardo de un producto
+ *
+ */
 @FacesValidator("precioFardoProductoValidator")
 public class PrecioFardoProductoValidator implements Validator {
 
+	/**
+	 * validator valida que el precio por fardo de un producto sea mayor al 
+	 * precio unitario del mismo
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {

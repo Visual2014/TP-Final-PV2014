@@ -1,17 +1,19 @@
 package ar.edu.unju.fi.bean;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
+import ar.edu.unju.fi.dao.DetallePedidoDAO;
 import ar.edu.unju.fi.dao.PedidoDAO;
 import ar.edu.unju.fi.model.DetallePedido;
 import ar.edu.unju.fi.model.Pedido;
@@ -34,147 +36,226 @@ public class PedidoBean extends BaseBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// atributos para la busqueda
-	/**
-	 * atributo usado para almacenar la fecha con la cual se hace la busqueda de
-	 * pedidos en la BD
-	 */
+	/** atributo usado para almacenar la fecha con la cual se hace la busqueda de pedidos en la BD */
 	private Date fechaBusqueda;
-	/**
-	 * atributo usado para almacenar un Estado de pedido con la cual se hace la
-	 * busqueda de pedidos en la BD
-	 */
+	/** atributo usado para almacenar un Estado de pedido con la cual se hace la busqueda de pedidos en la BD  */
 	private String estado;
 
 	// listas
-	/**
-	 * atributo usado para almacenar una lista de Pedidos para carga el
-	 * DataTable de pedidos
-	 */
+	/** atributo usado para almacenar una lista de Pedidos para carga el DataTable de pedidos  */
 	private List<Pedido> listPedidos;
-	/**
-	 * atributo usado para almacenar una lista detalles de pedido que despues
-	 * sera asignada al pedido
-	 */
+	/** atributo usado para almacenar una lista detalles de pedido que despues sera asignada al pedido */
 	private List<DetallePedido> listDetallePedido;
 
 	// pedido
 	/** atributo usado para almacenar la fecha del nuevo pedido */
-	private Date fechaNuevoPedido;
+	private Date fechaNuevoPedido=new Date();
 	/** atributo usado para crear el nuevo Pedido */
 	private Pedido pedido;
-	/** atributo usado para almacenar el usuario que esta logueado */
 	private Usuario logedUser;
-
+	String nuevoEstado;
+	
+	
+	
+	
 	// detalle Pedido
-	/**
-	 * atributo usado para crear un nuevo detalle y asignarlo al pedido. y para
-	 * eliminar un detalle existente de la lista de detalles
-	 */
+	/** atributo usado para crear un nuevo detalle y asignarlo al pedido. y para eliminar un detalle existente de la lista de detalles  */
 	private DetallePedido unDetalle;
-	/**
-	 * atributo usado para almacenar un producto que luego sera asignado a un
-	 * detalle de pedido.
-	 */
+	/** atributo usado para almacenar un producto que luego sera asignado a un detalle de pedido.  */
 	private Producto producto;
-	/**
-	 * atributo usado para almacenar la cantidad de un producto que luego sera
-	 * asignado a un detalle de pedido.
-	 */
+	/** cantidad: almacena la cantidad de un roducto que luego sera asignado a un detalle de pedido	 */
 	private Integer cantidad;
 
-	/**
-	 * redirige a la pagina listaPedidos.html
-	 * 
-	 * @return un {@code String} con la url de lista de pedidos
-	 */
+
+	
+	
+	
+	/** redirige a la pagina listaPedidos.html 
+	 * @return un {@code String} con la url de lista de pedidos */
 	public String urlListaPedidos() {
+		search();
 		return "listaPedidos.xhtml?faces-redirect=true";
 	}
 
-	/**
-	 * metodo que realiza la Busqueda de pedidos en la BD y carga el DataTable
-	 * de pedidos.
-	 */
+	
+	
+	
+	
+	
+	
+	/** metodo que realiza la Busqueda de pedidos en la BD y carga el DataTable de pedidos. */
 	public void search() {
 		logger.debug("------------- search Pedidos");
-		listPedidos = getService().getPedidoDAO().search(fechaBusqueda, estado);
+		if(estado==null)
+			estado=EstadoPedido.TODO;
+		listPedidos = getService().getPedidoDAO().search(fechaBusqueda, estado,logedUser);
 	}
+
+
+
+
 
 	/**
 	 * redirige a la pagina para realizar un Nuevo pedido e instancia un detalle
 	 * vacio y el pedido con sus datos correspondientes.
+	 * @return un {@code String} con la url de la pagina para crear un nuevo pedido
 	 */
-	public String urlNuevoPedido() {
+	public String crearNuevoPedido() {
 		logger.debug("---------- nuevoPedido");
 
-		listDetallePedido = new ArrayList<DetallePedido>();
-		unDetalle = new DetallePedido();
-		pedido = new Pedido();
-		pedido.setFechaPedido(fechaNuevoPedido);
-		pedido.setEstado(EstadoPedido.INICIADO);
-		pedido.setFechaCreacion(new Date());
-		pedido.setUsuarioCreacion(logedUser.getDocumento());
-		return "nuevoPedido.xhtml?faces-redirect=true";
+		Boolean repiteFecha = false;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date hoy = new Date();
+		String fechaNueva = sdf.format(fechaNuevoPedido);
+
+		// VALIDO SI YA EXISTE ALGUN PEDIDO CON LA DE CREACION FECHA NUEVA
+		for (int i = 0; i < listPedidos.size() && !repiteFecha; i++) {
+			String fechaExistente = sdf.format(listPedidos.get(i)
+					.getFechaCreacion());
+
+			if (fechaExistente.equals(fechaNueva)) {
+				repiteFecha = true;
+				logger.debug("existente: " + fechaExistente + " nueva"
+						+ fechaNueva);
+			}
+		}
+
+		// SI EXISTE UN PEDIDO CON FECHA DE HOY MUESTRO MENSAJE
+		logger.debug(repiteFecha);
+		if (repiteFecha) {
+			FacesMessage mensaje = new FacesMessage(
+					"Ya Existe un pedido para esa fecha");
+			FacesContext.getCurrentInstance().addMessage(null, mensaje);
+
+			return null;
+
+			// SI NO CREO EL PEDIDO
+		} else {
+			listDetallePedido = new ArrayList<DetallePedido>();
+			unDetalle = new DetallePedido();
+			pedido = new Pedido();
+			pedido.setFechaPedido(fechaNuevoPedido);
+			pedido.setEstado(EstadoPedido.INICIADO);
+			pedido.setFechaCreacion(new Date());
+			pedido.setUsuarioCreacion(logedUser.getDocumento());
+
+			return "nuevoPedido.xhtml?faces-redirect=true";
+		}
 	}
 
-	/**
-	 * crean un DetallePedido nuevo con el Producto y cantidad seleccionados y
-	 * lo agrega a la lista de detalles.
-	 */
+	
+	
+	
+	
+	
+	/** crean un DetallePedido nuevo con el Producto y cantidad seleccionados y lo agrega a la lista de detalles. */
 	public void addProducto() {
-
 		logger.debug("producto:" + producto.getDescripcion());
-		DetallePedido unDetalle = new DetallePedido();
-		unDetalle.setPedido(pedido);
-		unDetalle.setCantidad(cantidad);
-		unDetalle.setFechaCreacion(new Date());
-		unDetalle.setFechaModificacion(null);
-		unDetalle.setPrecioUnitario(unDetalle.getCantidad()
-				* producto.getPrecioUnitario());
-		unDetalle.setProducto(producto);
-		unDetalle.setUsuarioCreacion(logedUser.getDocumento());
-		unDetalle.setUsuarioModificacion(null);
-		listDetallePedido.add(unDetalle);
+		
+		if (producto.getStock() < cantidad) {
+			FacesMessage mensaje = new FacesMessage("no hay Stock suficiente..");
+			FacesContext.getCurrentInstance().addMessage(null, mensaje);
+		} else {
+			DetallePedido unDetalle = new DetallePedido();
+			unDetalle.setPedido(pedido);
+			unDetalle.setCantidad(cantidad);
+			unDetalle.setFechaCreacion(new Date());
+			unDetalle.setFechaModificacion(null);
+			unDetalle.setPrecioUnitario(unDetalle.getCantidad()
+					* producto.getPrecioUnitario());
+			unDetalle.setProducto(producto);
+			unDetalle.setUsuarioCreacion(logedUser.getDocumento());
+			unDetalle.setUsuarioModificacion(null);
+			listDetallePedido.add(unDetalle);
+		}
 	}
 
-	/**
-	 * elimina el Producto seleccionado de la Lista de Detalles
-	 */
+	
+	
+	
+	
+	
+	
+	/** elimina el Producto seleccionado de la Lista de Detalles */
 	public void removeProducto() {
-		logger.debug("------- removeDet");
 		logger.debug("remover el prod: " + unDetalle.getProducto().getNombre());
 		listDetallePedido.remove(unDetalle);
 	}
 
-	/**
-	 * asigna la lista de detalles al pedido y guarda el pedido con sus
-	 * correspondientes detalle en la BD.
-	 * 
-	 * @return un {@code String} con la url a la pagina de lista de Pedidos
-	 */
+	
+	
+	
+	
+	
+	
+	/** asigna la lista de detalles al pedido y guarda el pedido con sus correspondientes detalle en la BD. 
+	 * @return un {@code String} con la url a la pagina de lista de Pedidos  */
 	public String grabarPedido() {
-		Set<DetallePedido> detallesPedido = new HashSet<DetallePedido>(
-				listDetallePedido);
-		pedido.setDetallePedidos(detallesPedido);
-
-		PedidoDAO pedidoDAO = getService().getPedidoDAO();
-
-		pedidoDAO.insert(pedido);
-
-		return urlListaPedidos();
+		
+		if(listDetallePedido.isEmpty()){
+			FacesMessage mensaje=new FacesMessage("agregue productos al pedido");
+			FacesContext.getCurrentInstance().addMessage(null, mensaje);
+			
+			return null;
+		}else{
+			//GUARDO EL PEDIDO
+			PedidoDAO pedidoDAO = getService().getPedidoDAO();
+			pedidoDAO.insert(pedido);
+			
+			//GUARDO LOS DETALLES
+			DetallePedidoDAO detalleDao=getService().getDetallePedidoDAO();
+			for (DetallePedido d : listDetallePedido) {
+				detalleDao.insert(d);
+			}
+					
+			logger.info("el Usuario "+logedUser.getDocumento()+"-"+logedUser.getApellido()+" "+logedUser.getNombre()+" guardo un nuevo pedido Id: "+pedido.getPedidoId());
+			
+			return urlListaPedidos();
+		}
+		
+		
 	}
 
-	// public void editRow(RowEditEvent event) {
-	// logger.debug("fila editada");
-	// logger.debug(listDetallePedido.get(0).getProducto().getNombre()+" cant:"+listDetallePedido.get(0).getCantidad());
-	// DetallePedido detallePedido=(DetallePedido) event.getObject();
-	// logger.debug(detallePedido.getProducto().getNombre()+" cant:"+detallePedido.getCantidad());
-	// }
-	//
-	// public void cancelEditRow(RowEditEvent event){
-	// logger.debug("edit fila cancelado");
-	// }
+		
+	
+	
+	
+	
+	
+	public void updateEstado(){
+		logger.debug("update nuevo estado "+nuevoEstado+" estado viejo"+ pedido.getEstado());
+		
+		pedido.setEstado(nuevoEstado);
+		
+		Pedido unPedido = new Pedido();
+		
+		unPedido.setEstado(pedido.getEstado());
+		unPedido.setFechaCreacion(pedido.getFechaCreacion());
+		unPedido.setFechaModificacion(new Date());
+		unPedido.setFechaPedido(pedido.getFechaPedido());
+		unPedido.setPedidoId(pedido.getPedidoId());
+		unPedido.setTotal(pedido.getTotal());
+		unPedido.setUsuarioCreacion(pedido.getUsuarioCreacion());
+		unPedido.setUsuarioModificacion(logedUser.getDocumento());
+		
+		PedidoDAO dao=getService().getPedidoDAO();
+		dao.update(unPedido);
+		unPedido=null;
+		
+		logger.info("el Usuario "+logedUser.getDocumento()+"-"+logedUser.getApellido()+" "+logedUser.getNombre()+" cambio a "+nuevoEstado+" el pedido Id: "+pedido.getPedidoId());
+		search();
+	}
 
+
+	
+	
+	
+	
+	
+	
+	
+	
+//Getters and Setters	
 	public List<Pedido> getListPedidos() {
 		return listPedidos;
 	}
@@ -255,4 +336,14 @@ public class PedidoBean extends BaseBean implements Serializable {
 		this.unDetalle = unDetalle;
 	}
 
+	public String getNuevoEstado() {
+		return nuevoEstado;
+	}
+
+	public void setNuevoEstado(String nuevoEstado) {
+		this.nuevoEstado = nuevoEstado;
+	}
+
+	
+	
 }

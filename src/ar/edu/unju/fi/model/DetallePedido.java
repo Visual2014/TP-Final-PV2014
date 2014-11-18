@@ -1,8 +1,7 @@
 package ar.edu.unju.fi.model;
 
-// Generated 21-oct-2014 19:40:42 by Hibernate Tools 3.4.0.CR1
 
-import java.math.BigDecimal;
+
 import java.util.Date;
 
 /**
@@ -10,6 +9,7 @@ import java.util.Date;
  */
 public class DetallePedido implements java.io.Serializable {
 
+	private static final long serialVersionUID = -4125974410518925306L;
 	private int detallePedidoId;
 	private Producto producto;
 	private Pedido pedido;
