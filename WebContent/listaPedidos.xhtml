@@ -18,13 +18,15 @@
 			<p:panelGrid columns="5">
 				<p:outputLabel value="#{msg.label_fecha}" />
 				<p:calendar id="calendar" value="#{pedidoBean.fechaBusqueda}"
-					showOn="button" navigator="true" pattern="dd/MM/yyyy">
-					<p:ajax event="dateSelect" immediate="false" />
+					showOn="button" navigator="true" pattern="dd/MM/yyyy"
+					immediate="true">
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur"></p:ajax>
 				</p:calendar>
 
 				<p:outputLabel value="#{msg.label_estado}" />
 				<p:selectOneMenu id="estado" value="#{pedidoBean.estado}">
-					<p:ajax immediate="false" />
+					<p:ajax immediate="true" />
 					<f:selectItem itemLabel="#{msg.label_todo}" itemValue="TODO" />
 					<f:selectItem itemLabel="#{msg.label_iniciado}"
 						itemValue="INICIADO" />
@@ -46,7 +48,7 @@
 					<p:commandButton id="confirm" icon="ui-icon-circle-check"
 						title="#{msg.title_confirmar}" 
 						action="#{pedidoBean.updateEstado}" process="pedidos"
-						rendered="#{p.estado eq 'INICIADO'}">
+						rendered="#{p.estado eq 'INICIADO'}" update="pedidos">
 							<f:setPropertyActionListener value="#{p}"
 								target="#{pedidoBean.pedido}" />
 							<f:setPropertyActionListener value="CONFIRMADO"
@@ -54,7 +56,7 @@
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-circle-close"
-						title="#{msg.title_anular}"
+						title="#{msg.title_anular}" update="pedidos"
 						rendered="#{p.estado eq 'INICIADO'}"
 						action="#{pedidoBean.updateEstado}" process="pedidos">
 						<f:setPropertyActionListener value="#{p}"

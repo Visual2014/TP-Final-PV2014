@@ -50,9 +50,9 @@ public class PedidoDAOImp extends HibernateDaoSupport implements PedidoDAO {
 		if(fecha != null){
 			//seteo el calendario y determino las fechas max y min
 			cal.setTime(fecha);
-			cal.add(Calendar.DATE, 2);
+			cal.add(Calendar.DATE, 1);
 			Date maxFecha=cal.getTime();
-			cal.add(Calendar.DATE, -4);
+			cal.add(Calendar.DATE, -2);
 			Date minFecha=cal.getTime();
 			logger.debug("desde: "+minFecha+" hasta "+maxFecha);
 			//filtro objetos q esten entre las 2 fechas max y min

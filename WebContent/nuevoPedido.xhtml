@@ -116,8 +116,7 @@
 
 					<p:column>
 						<p:commandButton title="#{msg.title_agregar}"
-							icon="ui-icon-plusthick" action="#{pedidoBean.addProducto}">
-							<p:ajax update="@all" />
+							icon="ui-icon-plusthick" action="#{pedidoBean.addProducto}" update="@all">
 							<f:setPropertyActionListener value="#{p}"
 								target="#{pedidoBean.producto}" />
 						</p:commandButton>
