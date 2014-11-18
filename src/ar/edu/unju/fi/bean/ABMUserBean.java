@@ -86,22 +86,16 @@ public class ABMUserBean extends BaseBean implements Serializable{
 		}
 		return "listaUsuarios.xhtml?faces-redirect=true";
 	}
-	
-<<<<<<< HEAD
-	// 
-=======
+
 	/**
 	 *Instancia un nuevo usuario y asigna el valor "false" a banderaModif 
 	 * @return un {@code String} con la url para crear o modificar un usuario
 	 */
->>>>>>> origin/master
 	public String preInsert(){
 //		setUsuario(new Usuario());
 		System.out.println("preinsert de usuario");
 		logger.debug("........pre Insert... usuario");
 		setUsuario(new Usuario());
-		rol1 = RolUsuarioDAOImp.clas;
-		usuario.setRol(rol1);
 		banderaModif = "false";
 
 		return "altaUsuario.xhtml?faces-redirect=true";

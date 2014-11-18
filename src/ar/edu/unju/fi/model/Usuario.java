@@ -10,11 +10,8 @@ public class Usuario implements java.io.Serializable {
 	/**
 	 * 
 	 */
-<<<<<<< HEAD
-	private static final long serialVersionUID = 1L;
-=======
+
 	private static final long serialVersionUID = 3305705219115929886L;
->>>>>>> origin/master
 	private int documento;
 	private Rol rol;
 	private String nombre;
