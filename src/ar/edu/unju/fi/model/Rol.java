@@ -49,5 +49,15 @@ public class Rol implements java.io.Serializable {
 	public String toString() {
 		return descripcion;
 	}
+	
+	@Override
+	public boolean equals(Object arg0) {
+		Rol unRol=(Rol)arg0;
+		
+		if(unRol.getDescripcion().equals(this.getDescripcion()) && unRol.getRolId()==this.getRolId()){
+			return true;
+		}
+		return false;
+	}
 
 }

@@ -55,6 +55,7 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	 * Metodo que realiza la busqueda de usuarios en la BD y carga el DataTable de usuarios
 	 */
 	
+	
 	public String search(){
 		logger.debug("test log4j");
 		logger.debug("-------Busqueda");
@@ -125,6 +126,7 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	 * @return un {@code String} con la url de la lista de usuarios
 	 */
 	public String url() {
+		search();
 		return "listaUsuarios.xhtml?faces-redirect=true";
 	}
 

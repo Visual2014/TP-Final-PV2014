@@ -96,11 +96,11 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 	 */
 	@Override
 	public void update(Usuario u) {
-		Session session = getSession();
-		session.beginTransaction();
-		session.update(u);
-		session.getTransaction().commit();
-		session.close();
+		try{
+			getHibernateTemplate().update(u);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -110,11 +110,11 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 	 */
 	@Override
 	public void delete(Usuario u) {
-		Session session = getSession();
-		session.beginTransaction();
-		session.delete(u);
-		session.getTransaction().commit();
-		session.close();
+		try{
+			getHibernateTemplate().delete(u);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -146,7 +146,6 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 		criteria.addOrder(Order.asc("documento"));
 		List<Usuario> list = criteria.list();
 
-		session.close();
 		return list;
 		//return getHibernateTemplate().findByCriteria(criteria);
 	}

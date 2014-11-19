@@ -23,27 +23,27 @@
 						converterMessage="#{msg.msg_errorDni}">
 						<f:convertNumber integerOnly="true" groupingUsed="false" />
 					</p:inputText>
-					
+
 					<p:outputLabel value="#{msg.label_apellido}" />
 					<p:inputText value="#{aBMUserBean.apellido}" />
 
 					<p:outputLabel value="#{msg.label_estado}" />
 					<p:selectOneMenu id="estado" value="#{aBMUserBean.estado}">
 						<f:selectItem itemValue="TODO" itemLabel="#{msg.label_todo}" />
-						<f:selectItem itemValue="NO ACTIVO" itemLabel="#{msg.label_noActivo}" />
+						<f:selectItem itemValue="NO ACTIVO"
+							itemLabel="#{msg.label_noActivo}" />
 						<f:selectItem itemValue="ACTIVO" itemLabel="#{msg.label_activo}" />
 					</p:selectOneMenu>
 					<p:commandButton id="submit" action="#{aBMUserBean.search}"
-					 ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
-					 </p:commandButton>
+						ajax="false" icon="ui-icon-search" onclick="PF('dlg1').show();">
+					</p:commandButton>
 				</p:panelGrid>
+			
+				<p:commandButton value="#{msg.label_nuevoUsuario}" action="#{aBMUserBean.preInsert}"/>
 				
-
-				
-
 				<p:dataTable styleClass="tabla" id="usuarios"
-					value="#{aBMUserBean.usuarioList}" var="p"
-					rows="10" paginator="true" emptyMessage="#{msg.label_emptyUser}">
+					value="#{aBMUserBean.usuarioList}" var="p" rows="10"
+					paginator="true" emptyMessage="#{msg.label_emptyUser}">
 
 					<p:column headerText="#{msg.header_dni}" sortBy="#{p.documento}">
 						<p:outputLabel value="#{p.documento}" />
@@ -53,7 +53,8 @@
 						<p:outputLabel value="#{p.nombre}" />
 					</p:column>
 
-					<p:column headerText="#{msg.header_apellido}" sortBy="#{p.apellido}">
+					<p:column headerText="#{msg.header_apellido}"
+						sortBy="#{p.apellido}">
 						<p:outputLabel value="#{p.apellido}" />
 					</p:column>
 
@@ -61,24 +62,35 @@
 						<p:outputLabel value="#{p.estado}" />
 					</p:column>
 
+					<p:column headerText="#{msg.header_rol}" sortBy="#{p.rol}">
+						<p:outputLabel value="#{p.rol}" >
+							<f:converter converterId="rolUserConverter"></f:converter>
+						</p:outputLabel>
+					</p:column>
+					
 					<p:column headerText="#{msg.header_accion}">
-					<div align="center">
-						<p:commandButton action="#{aBMUserBean.preModif}"
-							icon="ui-icon-pencil" title="Modificar">
-							<f:setPropertyActionListener value="#{p}"
-								target="#{aBMUserBean.usuario}" />
-						</p:commandButton>
-				<p:commandButton action="#{aBMUserBean.preEliminar}" icon="ui-icon-trash" title="Eliminar">
-						<p:confirm header="#{msg.header_eliminar}" message="#{msg.msg_eliminar}" icon="ui-icon-alert" />
-						<f:setPropertyActionListener value="#{p}" target="#{aBMUserBean.usuario}"/>
-						<f:ajax render="usuarios"/>
-				</p:commandButton>
-				<p:confirmDialog global="true" showEffect="fade">
-	       			 <p:commandButton value="#{msg.btn_aceptar}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-	        		<p:commandButton value="#{msg.btn_cancelar}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-    			</p:confirmDialog>
-    			</div>
-				</p:column>
+						<div align="center">
+							<p:commandButton action="#{aBMUserBean.preModif}"
+								icon="ui-icon-pencil" title="Modificar">
+								<f:setPropertyActionListener value="#{p}"
+									target="#{aBMUserBean.usuario}" />
+							</p:commandButton>
+							<p:commandButton action="#{aBMUserBean.preEliminar}"
+								icon="ui-icon-trash" title="Eliminar">
+								<p:confirm header="#{msg.header_eliminar}"
+									message="#{msg.msg_eliminar}" icon="ui-icon-alert" />
+								<f:setPropertyActionListener value="#{p}"
+									target="#{aBMUserBean.usuario}" />
+								<f:ajax render="usuarios" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade">
+								<p:commandButton value="#{msg.btn_aceptar}" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="#{msg.btn_cancelar}" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</div>
+					</p:column>
 				</p:dataTable>
 			</h:form>
 		</ui:define>

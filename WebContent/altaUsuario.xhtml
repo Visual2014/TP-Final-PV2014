@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	
+
 <h:head></h:head>
 <h:body>
 	<ui:composition template="/templates/template.xhtml">
@@ -15,74 +15,70 @@
 		</ui:define>
 
 		<ui:define name="content">
-		<h:form>
-			<p:panelGrid columns="3">
-				<p:outputLabel value="#{msg.label_dni}"/>
-				<p:inputText id="dni" value="#{aBMUserBean.usuario.documento}"
-					disabled="#{aBMUserBean.banderaModif}" required="true" 
-					requiredMessage="#{msg.msg_requerido}"
-					converterMessage="#{msg.msg_errorInt}">
-					  <!--  <f:validator validatorId="dniUserValidator" />-->
-						<f:ajax event="blur" render="msgDni" />	
-				</p:inputText>
-				<h:message id="msgDni" for="dni" style="color:red" />
+			<h:form>
+				<p:panelGrid columns="3">
 				
-				<p:outputLabel value="#{msg.label_pass}"/>
-				<p:password id="pass" value="#{aBMUserBean.usuario.password}" required="true" 
-						requiredMessage="#{msg.msg_requerido}">
+					<p:outputLabel value="#{msg.label_dni}" />
+					<p:inputText id="dni" value="#{aBMUserBean.usuario.documento}"
+						disabled="#{aBMUserBean.banderaModif}" required="true"
+						requiredMessage="#{msg.msg_requerido}"
+						converterMessage="#{msg.msg_errorInt}">
+						<!--  <f:validator validatorId="dniUserValidator" />-->
+						<f:ajax event="blur" render="msgDni" />
+					</p:inputText>
+					<h:message id="msgDni" for="dni" style="color:red" />
+
+					<p:outputLabel value="#{msg.label_pass}" />
+					<p:password id="pass" value="#{aBMUserBean.usuario.password}"
+						required="true" requiredMessage="#{msg.msg_requerido}">
 						<f:ajax event="blur" render="msgPass" />
-				</p:password>
-				<h:message id="msgPass" for="dni" style="color:red" />
-				
-				<p:outputLabel value="#{msg.label_apellido}" />
+					</p:password>
+					<h:message id="msgPass" for="dni" style="color:red" />
+
+					<p:outputLabel value="#{msg.label_apellido}" />
 					<p:inputText id="apellido" value="#{aBMUserBean.usuario.apellido}"
-						required="true" requiredMessage="#{msg.msg_requerido}" maxlength="15">
+						required="true" requiredMessage="#{msg.msg_requerido}"
+						maxlength="15">
 						<f:ajax event="blur" render="msgApellido" />
 					</p:inputText>
 					<h:message id="msgApellido" for="apellido" style="color:red" />
-				
-				<p:outputLabel value="#{msg.label_nombre}" />
+
+					<p:outputLabel value="#{msg.label_nombre}" />
 					<p:inputText id="nombre" value="#{aBMUserBean.usuario.nombre}"
-						required="true" requiredMessage="#{msg.msg_requerido}" maxlength="25">
+						required="true" requiredMessage="#{msg.msg_requerido}"
+						maxlength="25">
 						<f:ajax event="blur" render="msgNombre" />
 					</p:inputText>
 					<h:message id="msgNombre" for="nombre" style="color:red" />
-				
-				<p:outputLabel value="#{msg.label_estado}"/>
-					<h:selectOneMenu id="estado"
-						value="#{aBMUserBean.usuario.estado}">
+
+					<p:outputLabel value="#{msg.label_estado}" />
+					<h:selectOneMenu id="estado" value="#{aBMUserBean.usuario.estado}">
 						<f:selectItem itemLabel="#{msg.label_activo}" itemValue="ACTIVO" />
-						<f:selectItem itemLabel="#{msg.label_noActivo}" itemValue="NO ACTIVO" />
+						<f:selectItem itemLabel="#{msg.label_noActivo}"
+							itemValue="NO ACTIVO" />
 						<f:ajax event="blur" render="msgEstado" />
 					</h:selectOneMenu>
 					<h:message id="msgEstado" for="estado" style="color:red" />
-					
-					
-					 
-					 <p:outputLabel value="#{msg.label_mail}" />
-					 <p:inputText id="mail" required="true" value="#{aBMUserBean.usuario.email}" label="email" size="40"
-						requiredMessage="#{msg.msg_requerido}" validatorMessage="{msg.msg_errorMail}">
- 			  			<f:validateRegex
-						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-						<f:ajax event="blur" render="msgEmail" />
-					</p:inputText>
-					<h:message id="msgEmail" for="mail" style="color:red" />
-					
-					<!--  <p:outputLabel value="#{msg.header_rol}"/>
+
+ 					 <p:outputLabel value="#{msg.header_rol}"/>
 					<h:selectOneMenu id="rol"
 						value="#{aBMUserBean.usuario.rol}">
+						<f:converter converterId="rolUserConverter"/>
 						<f:selectItem itemLabel="#{msg.label_admin}" itemValue="ADMINISTRADOR" />
-						<f:selectItem itemLabel="#{msg.label_empleado}" itemValue="EMPLEADO" />
-						<f:ajax event="blur" render="msgRol" />
+						<f:selectItem itemLabel="#{msg.label_vendedor}" itemValue="VENDEDOR" />
+						<p:ajax event="change" update="msgrol"/>
 					</h:selectOneMenu>
-					<h:message id="msgRol" for="estado" style="color:red" />-->
-			</p:panelGrid>
-			<p:commandButton action="#{aBMUserBean.aceptar}" value="#{msg.btn_aceptar}">
+					<h:message id="msgrol" for="rol" style="color:red" showDetail="true" showSummary="true"/>
+					
+				</p:panelGrid>
+				<p:commandButton action="#{aBMUserBean.aceptar}"
+					value="#{msg.btn_aceptar}">
 					<f:ajax execute="@form" render="@all" />
 				</p:commandButton>
-				<p:commandButton action="#{aBMUserBean.url}" value="#{msg.btn_cancelar}" />
-			
-		</h:form>
+				<p:commandButton action="#{aBMUserBean.url}"
+					value="#{msg.btn_cancelar}" immediate="true" />
+
+			</h:form>
 		</ui:define>
 
 		<ui:define name="footer" />

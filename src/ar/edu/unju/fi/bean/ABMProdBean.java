@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -45,6 +46,7 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	 * Constructor del Bean
 	 */
 	public ABMProdBean() {
+		productList=new ArrayList<Producto>();
 		banderaModif = "false";
 	}
 
@@ -117,6 +119,8 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	 * @return un {@code String} con la url de la lista de productos
 	 */
 	public String url() {
+		if (banderaModif.equals("true"))
+			search();
 		return "listaProductos?faces-redirect=true";
 	}
 

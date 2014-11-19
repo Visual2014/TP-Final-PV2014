@@ -55,7 +55,7 @@
 						requiredMessage="#{msg.msg_requerido}">
 						<f:validator validatorId="fechaProductoValidator" />
 						<f:convertDateTime pattern="dd/MM/yyyy" />
-						<f:ajax event="blur" render="msgFVencimiento" />
+						<f:ajax event="dateSelect" render="msgFVencimiento" />
 					</p:calendar>
 					<h:message id="msgFVencimiento" for="fechaVencimiento"
 						style="color:red" />
@@ -105,7 +105,7 @@
 					<f:ajax execute="@form" render="@all" />
 				</p:commandButton>
 				<p:commandButton action="#{aBMProdBean.url}"
-					value="#{msg.btn_cancelar}" />
+					value="#{msg.btn_cancelar}" immediate="true"/>
 			</h:form>
 		</ui:define>
 
