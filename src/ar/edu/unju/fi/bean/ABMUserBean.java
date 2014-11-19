@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -41,6 +42,7 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	private String estado;
 	private List<Usuario> usuarioList;
 	static Logger logger = Logger.getLogger(ABMUserBean.class);
+	private Usuario logedUser; 
 	
 	//Metodos
 	
@@ -59,7 +61,6 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	public String search(){
 		logger.debug("test log4j");
 		logger.debug("-------Busqueda");
-		
 		UsuarioDAO dao = getService().getUsuarioDAO();
 		usuarioList = dao.buscarUser(documento, apellido, estado);
 		return null;
@@ -97,6 +98,8 @@ public class ABMUserBean extends BaseBean implements Serializable{
 		System.out.println("preinsert de usuario");
 		logger.debug("........pre Insert... usuario");
 		setUsuario(new Usuario());
+		usuario.setFechaCreacion(new Date());
+		usuario.setUsuarioCreacion(logedUser.getDocumento());
 		banderaModif = "false";
 
 		return "altaUsuario.xhtml?faces-redirect=true";
@@ -108,6 +111,8 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	 */	
 	public String preModif(){
 		banderaModif = "true";
+		usuario.setUsuarioModif(logedUser.getDocumento());
+		usuario.setFechaModif(new Date());
 		return "altaUsuario.xhtml?faces-redirect=true";
 	}
 	
@@ -126,7 +131,6 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	 * @return un {@code String} con la url de la lista de usuarios
 	 */
 	public String url() {
-		search();
 		return "listaUsuarios.xhtml?faces-redirect=true";
 	}
 
@@ -184,6 +188,14 @@ public class ABMUserBean extends BaseBean implements Serializable{
 
 	public void setUsuarioList(List<Usuario> usuarioList) {
 		this.usuarioList = usuarioList;
+	}
+
+	public Usuario getLogedUser() {
+		return logedUser;
+	}
+
+	public void setLogedUser(Usuario logedUser) {
+		this.logedUser = logedUser;
 	}
 
 

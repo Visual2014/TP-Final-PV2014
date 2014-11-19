@@ -47,7 +47,7 @@
 				<p:dataTable styleClass="tabla" id="productos"
 					value="#{aBMProdBean.productList}"
 					 var="p" rows="10"
-					paginator="true" emptyMessage="#{msg.label_emptyUser}">
+					paginator="true" emptyMessage="#{msg.label_emptyProd}">
 
 					<p:column headerText="#{msg.header_codigo}" sortBy="#{p.codigo}">
 						<p:outputLabel value="#{p.codigo}" />

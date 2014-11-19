@@ -25,14 +25,10 @@
 					<f:setPropertyActionListener value="#{loginBean.logedUser}"
 						target="#{pedidoBean.logedUser}" />
 				</p:menuitem>
-
-				<p:submenu label="#{msg.label_usuario}"
-					rendered="#{'ADMINISTRADOR' eq loginBean.logedUser.rol.descripcion}">
-					<p:menuitem value="#{msg.label_nuevoUsuario}"
-						action="#{aBMUserBean.preInsert}" />
 					<p:menuitem value="#{msg.label_tablaUsuario}"
-						action="#{aBMUserBean.url}" />
-				</p:submenu>
+						action="#{aBMUserBean.url}">
+						<f:setPropertyActionListener value="#{loginBean.logedUser}" target="#{aBMUserBean.logedUser}"/>
+						</p:menuitem>
 
 				<p:menuitem value="#{msg.btn_logout}" action="#{loginBean.url}"
 					icon="ui-icon-close">

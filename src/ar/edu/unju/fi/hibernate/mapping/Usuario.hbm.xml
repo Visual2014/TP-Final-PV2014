@@ -25,5 +25,17 @@
 		<property name="password" type="string">
 			<column name="password" length="8" />
 		</property>
+		<property name="usuarioCreacion" type="java.lang.Integer">
+			<column name="usuario_creacion"/>
+		</property>
+		<property name="usuarioModif" type="java.lang.Integer">
+			<column name="usuario_modificacion"/>
+		</property>
+		<property name="fechaCreacion" type="date">
+			<column name="fecha_creacion"/>
+		</property>
+		<property name="fechaModif" type="date">
+			<column name="fecha_modificacion"/>
+		</property>
 	</class>
 </hibernate-mapping>

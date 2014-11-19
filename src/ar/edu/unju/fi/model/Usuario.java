@@ -1,5 +1,7 @@
 package ar.edu.unju.fi.model;
 
+import java.util.Date;
+
 
 
 /**
@@ -19,6 +21,49 @@ public class Usuario implements java.io.Serializable {
 	private String estado;
 	private String password;
 	private String email;
+	private Integer usuarioCreacion;
+	private Date fechaCreacion;
+	private Integer usuarioModif;
+	private Date fechaModif;
+	
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+
+	public Integer getUsuarioCreacion() {
+		return usuarioCreacion;
+	}
+
+	public void setUsuarioCreacion(Integer usuarioCreacion) {
+		this.usuarioCreacion = usuarioCreacion;
+	}
+
+	public Integer getUsuarioModif() {
+		return usuarioModif;
+	}
+
+	public void setUsuarioModif(Integer usuarioModif) {
+		this.usuarioModif = usuarioModif;
+	}
+
+	public Date getFechaModif() {
+		return fechaModif;
+	}
+
+	public void setFechaModif(Date fechaModif) {
+		this.fechaModif = fechaModif;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 
 	public Usuario() {
 	}
