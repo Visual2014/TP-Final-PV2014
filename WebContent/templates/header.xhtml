@@ -15,7 +15,8 @@
 				rendered="#{not empty loginBean.logedUser}" />
 
 			<p:commandButton action="#{aBMUserBean.preDatosPersonales}"
-					icon="ui-icon-gear" title="Modificar datos personales" rendered="#{not empty loginBean.logedUser}" >
+					icon="ui-icon-gear" title="Modificar datos personales" rendered="#{not empty loginBean.logedUser}" 
+					style="width:20px; height:20px;">
 					<f:setPropertyActionListener value="#{loginBean.logedUser}" target="#{aBMUserBean.usuario}" />
 				</p:commandButton>
 		</div>
