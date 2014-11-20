@@ -29,11 +29,18 @@
 					<h:message id="msgDni" for="dni" style="color:red" />
 
 					<p:outputLabel value="#{msg.label_pass}" />
-					<p:password id="pass" value="#{aBMUserBean.usuario.password}"
+					<p:password id="pass1" value="#{aBMUserBean.usuario.password}"
 						required="true" requiredMessage="#{msg.msg_requerido}">
-						<f:ajax event="blur" render="msgPass" />
+						<f:ajax event="blur" render="msgPass1" />
 					</p:password>
-					<h:message id="msgPass" for="dni" style="color:red" />
+					<h:message id="msgPass1" for="pass1" style="color:red" />
+					
+					<p:outputLabel value="#{msg.label_confirmPass}" />
+					<p:password id="pass2" value="#{aBMUserBean.usuario.password}"
+						required="true" requiredMessage="#{msg.msg_requerido}" match="pass2" validatorMessage="#{msg.msg_wrongPass}">
+						<f:ajax event="blur" render="msgPass"/>
+					</p:password>
+					<h:message id="msgPass" for="pass2" style="color:red"/>
 
 					<p:outputLabel value="#{msg.label_apellido}" />
 					<p:inputText id="apellido" value="#{aBMUserBean.usuario.apellido}"
@@ -60,9 +67,17 @@
 					</h:selectOneMenu>
 					<h:message id="msgEstado" for="estado" style="color:red" />
 
+					<p:outputLabel value="#{msg.label_mail}"/>
+					<p:inputText id="mail" value="#{aBMUserBean.usuario.email}"
+					 required="true" requiredMessage="#{msg.msg_requerido}" validatorMessage="#{msg.msg_errorMail}" maxlength="26">
+					 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					<f:ajax event="blur" render="msgMail"/>
+					</p:inputText>
+					<h:message id="msgMail" for="mail" style="color:red" />
+
  					 <p:outputLabel value="#{msg.header_rol}"/>
 					<h:selectOneMenu id="rol"
-						value="#{aBMUserBean.usuario.rol}">
+						value="#{aBMUserBean.usuario.rol}" disabled="#{aBMUserBean.datosPersonales}">
 						<f:converter converterId="rolUserConverter"/>
 						<f:selectItem itemLabel="#{msg.label_admin}" itemValue="ADMINISTRADOR" />
 						<f:selectItem itemLabel="#{msg.label_vendedor}" itemValue="VENDEDOR" />

@@ -13,7 +13,11 @@
 			<p:outputLabel
 				value="[#{loginBean.logedUser.rol.descripcion}] - #{loginBean.logedUser.nombre}, #{loginBean.logedUser.apellido} "
 				rendered="#{not empty loginBean.logedUser}" />
-			<br />
+
+			<p:commandButton action="#{aBMUserBean.preDatosPersonales}"
+					icon="ui-icon-gear" title="Modificar datos personales" rendered="#{not empty loginBean.logedUser}" >
+					<f:setPropertyActionListener value="#{loginBean.logedUser}" target="#{aBMUserBean.usuario}" />
+				</p:commandButton>
 		</div>
 	</ui:composition>
 </h:body>

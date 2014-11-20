@@ -34,6 +34,7 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	 * apellido: almacena el apellido del usuario para ralizar la busqueda
 	 * estado: almacena el estrado seleccionado para realizar la busqueda
 	 * usuarioList: almacena la lista de usuarios que coinciden con los parametros de busqueda ingresados
+	 * datosPersonales: se utiliza para inhabilitar el cambio de rol al momento de modificar los datos personales
 	 */
 	private Usuario usuario;
 	private String banderaModif = "false";
@@ -43,9 +44,9 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	private List<Usuario> usuarioList;
 	static Logger logger = Logger.getLogger(ABMUserBean.class);
 	private Usuario logedUser; 
+	private String datosPersonales = "false";
 	
 	//Metodos
-	
 	
 	/**
 	 * Constructor del bean
@@ -111,7 +112,16 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	 */	
 	public String preModif(){
 		banderaModif = "true";
+		datosPersonales="false";
 		usuario.setUsuarioModif(logedUser.getDocumento());
+		usuario.setFechaModif(new Date());
+		return "altaUsuario.xhtml?faces-redirect=true";
+	}
+	
+	public String preDatosPersonales(){
+		banderaModif = "true";
+		datosPersonales="true";
+		usuario.setUsuarioModif(usuario.getDocumento());
 		usuario.setFechaModif(new Date());
 		return "altaUsuario.xhtml?faces-redirect=true";
 	}
@@ -196,6 +206,14 @@ public class ABMUserBean extends BaseBean implements Serializable{
 
 	public void setLogedUser(Usuario logedUser) {
 		this.logedUser = logedUser;
+	}
+
+	public String getDatosPersonales() {
+		return datosPersonales;
+	}
+
+	public void setDatosPersonales(String datosPersonales) {
+		this.datosPersonales = datosPersonales;
 	}
 
 

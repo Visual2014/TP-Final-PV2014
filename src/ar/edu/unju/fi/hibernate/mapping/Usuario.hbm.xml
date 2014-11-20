@@ -37,5 +37,8 @@
 		<property name="fechaModif" type="date">
 			<column name="fecha_modificacion"/>
 		</property>
+		<property name="email" type="string">
+			<column name="email" length="64"/>
+		</property>
 	</class>
 </hibernate-mapping>
