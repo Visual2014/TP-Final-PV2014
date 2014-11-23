@@ -39,9 +39,10 @@
 					 ajax="false" icon="ui-icon-search">
 					 </p:commandButton>
 				</p:panelGrid>
-				
-				<p:commandButton value="#{msg.btn_agregarProducto}" action="#{aBMProdBean.preInsert}"/>
 
+				<p:commandButton value="#{msg.btn_agregarProducto}"
+					action="#{aBMProdBean.preInsert}"
+					disabled="#{loginBean.logedUser.rol.descripcion eq 'VENDEDOR'}" />
 
 
 				<p:dataTable styleClass="tabla" id="productos"
@@ -69,12 +70,12 @@
 					<p:column headerText="#{msg.header_accion}">
 						<div align="center">
 							<p:commandButton action="#{aBMProdBean.preModif}"
-								icon="ui-icon-pencil" title="Modificar">
+								icon="ui-icon-pencil" title="Modificar" disabled="#{loginBean.logedUser.rol.descripcion eq 'VENDEDOR'}">
 								<f:setPropertyActionListener value="#{p}"
 									target="#{aBMProdBean.producto}" />
 							</p:commandButton>
 							<p:commandButton action="#{aBMProdBean.preEliminar}"
-								icon="ui-icon-trash" title="Eliminar">
+								icon="ui-icon-trash" title="Eliminar" disabled="#{loginBean.logedUser.rol.descripcion eq 'VENDEDOR'}">
 								<p:confirm header="#{msg.header_eliminar}"
 									message="#{msg.msg_eliminar}" icon="ui-icon-alert" />
 								<f:setPropertyActionListener value="#{p}"

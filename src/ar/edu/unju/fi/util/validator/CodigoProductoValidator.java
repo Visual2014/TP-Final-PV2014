@@ -9,9 +9,6 @@ import javax.faces.validator.ValidatorException;
 
 import ar.edu.unju.fi.bean.BaseBean;
 import ar.edu.unju.fi.dao.ProductoDAO;
-import ar.edu.unju.fi.dao.imp.ProductoDAOImp;
-import ar.edu.unju.fi.services.ServiceFacade;
-import ar.edu.unju.fi.services.SpringUtil;
 
 /**
  * clase para validar el codigo de producto cuando se crea un Nuevo producto.

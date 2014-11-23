@@ -24,21 +24,24 @@ public class ABMProdBean extends BaseBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
-	/**
-	 * producto: Se utiliza para realizar todas las operaciones del ABM 
-	 * banderaModif:se utiliza para decidir entre modificar un producto o crear uno nuevo
-	 * codigo: almacena el codigo del producto ingresado por el usuario para realizar la busqueda
-	 * nombre: almacena el nombre del producto ingresado por el usuario para realizar la busqueda
-	 * estado: almacena el estado seleccionado por el usuario para realizar la busqueda
-	 * productList: almacena la lista de productos que coinciden con los parametros de busqueda ingresados
-	 */
+	/** producto: Se utiliza para realizar todas las operaciones del ABM */
+	  private Producto producto;
+	  
+	  /** banderaModif:se utiliza para decidir entre modificar un producto o crear uno nuevo */
+	 private String banderaModif;
+	  
+	 /** codigo: almacena el codigo del producto ingresado por el usuario para realizar la busqueda */
+	 private Integer codigo;
+	  
+	 /** nombre: almacena el nombre del producto ingresado por el usuario para realizar la busqueda */
+	 private String nombre;
+	  
+	 /** estado: almacena el estado seleccionado por el usuario para realizar la busqueda */
+	 private String estado;
+	  
+	 /** productList: almacena la lista de productos que coinciden con los parametros de busqueda ingresados */
+	 private List<Producto> productList;
 	
-	private Producto producto;
-	private String banderaModif;
-	private Integer codigo;
-	private String nombre;
-	private String estado;
-	private List<Producto> productList;
 	static Logger logger = Logger.getLogger(ABMProdBean.class);
 
 	//Metodos

@@ -12,23 +12,20 @@
 		<h:form>
 			<p:menubar rendered="#{not empty loginBean.logedUser}">
 
-				<p:submenu label="#{msg.label_producto}">
-					<p:menuitem value="#{msg.label_nuevoProducto}"
-						action="#{aBMProdBean.preInsert}">
-					</p:menuitem>
+				<p:menuitem value="#{msg.label_usuario}" action="#{aBMUserBean.url}"
+					disabled="#{loginBean.logedUser.rol.descripcion eq 'VENDEDOR'}">
+					<f:setPropertyActionListener value="#{loginBean.logedUser}"
+						target="#{aBMUserBean.logedUser}" />
+				</p:menuitem>
+				
+				<p:menuitem value="#{msg.label_producto}"
+					action="#{aBMProdBean.url}" />
 
-					<p:menuitem value="#{msg.label_tablaProductos}"
-						action="#{aBMProdBean.url}" />
-				</p:submenu>
-
-				<p:menuitem value="#{msg.label_pedido}" action="#{pedidoBean.urlListaPedidos}">
+				<p:menuitem value="#{msg.label_pedido}"
+					action="#{pedidoBean.urlListaPedidos}">
 					<f:setPropertyActionListener value="#{loginBean.logedUser}"
 						target="#{pedidoBean.logedUser}" />
 				</p:menuitem>
-					<p:menuitem value="#{msg.label_tablaUsuario}"
-						action="#{aBMUserBean.url}">
-						<f:setPropertyActionListener value="#{loginBean.logedUser}" target="#{aBMUserBean.logedUser}"/>
-						</p:menuitem>
 
 				<p:menuitem value="#{msg.btn_logout}" action="#{loginBean.url}"
 					icon="ui-icon-close">

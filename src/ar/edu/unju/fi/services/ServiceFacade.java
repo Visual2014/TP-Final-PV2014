@@ -5,7 +5,6 @@ import ar.edu.unju.fi.dao.PedidoDAO;
 import ar.edu.unju.fi.dao.ProductoDAO;
 import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.model.DetallePedido;
 
 public class ServiceFacade {
 	private UsuarioDAO usuarioDAO;

@@ -9,9 +9,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
-import ar.edu.unju.fi.dao.RolUsuarioDAO;
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.imp.RolUsuarioDAOImp;
 import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Rol;
 import ar.edu.unju.fi.model.Usuario;
@@ -26,25 +24,33 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	//Atributos
-	/**
-	 * usuario: se utiliza para realizar todas las operaciones del ABM
-	 * banderaModif: se utiliza para decidir entre modificar un usuario o crear uno nuevo
-	 * documento: almacena el documento del usuario para ralizar la busqueda
-	 * apellido: almacena el apellido del usuario para ralizar la busqueda
-	 * estado: almacena el estrado seleccionado para realizar la busqueda
-	 * usuarioList: almacena la lista de usuarios que coinciden con los parametros de busqueda ingresados
-	 * datosPersonales: se utiliza para inhabilitar el cambio de rol al momento de modificar los datos personales
-	 */
+	/** se utiliza para realizar todas las operaciones del ABM*/
 	private Usuario usuario;
-	private String banderaModif = "false";
-	private Integer documento;
-	private String apellido;
-	private String estado;
-	private List<Usuario> usuarioList;
+	
+	/** banderaModif: se utiliza para decidir entre modificar un usuario o crear uno nuevo */
+	 private String banderaModif = "false";
+	 
+	 /** documento: almacena el documento del usuario para ralizar la busqueda */
+	 private Integer documento;
+	
+	 /** apellido: almacena el apellido del usuario para ralizar la busqueda */
+	 private String apellido;
+	
+	 /** estado: almacena el estrado seleccionado para realizar la busqueda */
+	 private String estado;
+	
+	 /** usuarioList: almacena la lista de usuarios que coinciden con los parametros de busqueda ingresados */
+	 private List<Usuario> usuarioList;
+	 
+	 /** datosPersonales: se utiliza para inhabilitar el cambio de rol al momento de modificar los datos personales */
+	 private String datosPersonales = "false";
+	
+	 /** guarda el usuario actualmente logueado */
+	 private Usuario logedUser;
+	 
 	static Logger logger = Logger.getLogger(ABMUserBean.class);
-	private Usuario logedUser; 
-	private String datosPersonales = "false";
+	 
+	
 	
 	//Metodos
 	
@@ -57,8 +63,6 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	/**
 	 * Metodo que realiza la busqueda de usuarios en la BD y carga el DataTable de usuarios
 	 */
-	
-	
 	public String search(){
 		logger.debug("test log4j");
 		logger.debug("-------Busqueda");

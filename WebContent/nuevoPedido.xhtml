@@ -28,8 +28,9 @@
 			<!-- 			TABLA DETALLES DEL PEDIDO -->
 			<p:dataTable id="tablaDetalles"
 				value="#{pedidoBean.listDetallePedido}" var="d" editable="true">
-				<p:ajax event="rowEdit" update=":form:msgs" />
+				<p:ajax event="rowEdit" update=":form:msgs" listener="#{pedidoBean.onRowEdit}"/>
 				<p:ajax event="rowEditCancel" update=":form:msgs" />
+				
 
 				<p:column width="15">
 					<p:rowEditor>
@@ -40,10 +41,11 @@
 					<p:commandButton action="#{pedidoBean.removeProducto}"
 						icon="ui-icon-trash">
 						<f:setPropertyActionListener value="#{d}"
-							target="#{pedidoBean.unDetalle}"></f:setPropertyActionListener>
+							target="#{pedidoBean.unDetalle}"/>
 						<f:ajax execute="@form" render="@all"></f:ajax>
 					</p:commandButton>
 				</p:column>
+				
 				<p:column headerText="#{msg.header_codigo}">
 					<p:outputLabel value="#{d.producto.codigo}" />
 				</p:column>
@@ -67,7 +69,7 @@
 					<p:outputLabel value="#{d.producto.precioUnitario}" />
 				</p:column>
 
-				<p:column headerText="#{msg.header_subTotal}">
+				<p:column id="total" headerText="#{msg.header_subTotal}" footerText="#{pedidoBean.totalDetalles}" >
 					<p:outputLabel value="#{d.precioUnitario}"></p:outputLabel>
 				</p:column>
 
@@ -92,13 +94,16 @@
 							target="#{aBMProdBean.estado}" />
 					</p:commandButton>
 				</p:panelGrid>
-
+				
+				<p:separator></p:separator>
+				
 				<p:outputLabel value="#{msg.header_cantidad}" />
 				<p:spinner id="cant" value="#{pedidoBean.cantidad}" min="1"
-					converterMessage="#{msg.msg_convertPositivo}">
+					converterMessage="#{msg.msg_convertPositivo}"
+					validatorMessage="#{msg.msg_convertPositivo}">
+					<f:validateLongRange minimum="1"/>
 					<f:convertNumber integerOnly="true" groupingUsed="false" />
 				</p:spinner>
-
 				<p:dataTable id="tablaProductos" value="#{aBMProdBean.productList}"
 					var="p" paginator="true" rows="5" paginatorAlwaysVisible="false">
 					<p:column headerText="#{msg.header_codigo}">

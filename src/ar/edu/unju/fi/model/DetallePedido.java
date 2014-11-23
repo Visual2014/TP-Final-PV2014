@@ -113,5 +113,6 @@ public class DetallePedido implements java.io.Serializable {
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
+	
 
 }

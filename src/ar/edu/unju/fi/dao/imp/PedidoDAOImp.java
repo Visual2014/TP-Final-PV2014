@@ -35,12 +35,13 @@ public class PedidoDAOImp extends HibernateDaoSupport implements PedidoDAO {
 	@Override
 	
 	
-	public List<Pedido> search(Date fecha, String estado, Usuario user) {
+	public List<Pedido> search(Date fecha, String estado,Integer user, Usuario logedUser) {
 		logger.debug("date recibida" +fecha);
 		
 		
-		String rolUsuario=user.getRol().getDescripcion();
-		Integer usuarioCreacion=user.getDocumento();
+		String rolUsuario=logedUser.getRol().getDescripcion();
+		Integer usuarioCreacion=logedUser.getDocumento();
+		
 		//creo calendario para sumar dias
 		Calendar cal=Calendar.getInstance();
 		
@@ -55,17 +56,27 @@ public class PedidoDAOImp extends HibernateDaoSupport implements PedidoDAO {
 			cal.add(Calendar.DATE, -2);
 			Date minFecha=cal.getTime();
 			logger.debug("desde: "+minFecha+" hasta "+maxFecha);
+			
 			//filtro objetos q esten entre las 2 fechas max y min
 			criteria.add(Restrictions.gt("fechaPedido", minFecha));
 			criteria.add(Restrictions.lt("fechaPedido", maxFecha));
 		}
+		
 		//filtro por estado segun el valor q traiga la varible estado
 		if(!estado.equals("TODO"))
 			criteria.add(Restrictions.eq("estado", estado));
 		
+//		si el user logeado es Admin filtro pedidos creados por el dni de usuario ingresado
+		if(rolUsuario.equals(Rol.ADMINISTRADOR)){
+			if(user!=0)
+				criteria.add(Restrictions.eq("usuarioCreacion", user));
+		}
+		
 		// si el usuario no es un ADMINISTADOR filtro objetos por dni de usuario
-		if(!rolUsuario.equals(Rol.ADMINISTRADOR))
+		if(!rolUsuario.equals(Rol.ADMINISTRADOR)){
 			criteria.add(Restrictions.eq("usuarioCreacion", usuarioCreacion));
+		}
+		
 		criteria.addOrder(Order.asc("pedidoId"));
 		return criteria.list();
 		

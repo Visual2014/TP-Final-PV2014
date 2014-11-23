@@ -82,12 +82,6 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 		}catch(DataAccessException e){
 			e.printStackTrace();
 		}
-//		Session session = getSession();
-//		session.beginTransaction();
-//		session.save(u);
-//		session.getTransaction().commit();
-//		session.close();
-		
 	}
 
 	/**
@@ -129,7 +123,6 @@ public class UsuarioDAOImp extends HibernateDaoSupport implements UsuarioDAO {
 	@Override
 	public List<Usuario> buscarUser(int documento, String apellido, String estado) {
 
-		Session session = getSession();
 		Criteria criteria = getSession().createCriteria(Usuario.class);
 		//DetachedCriteria criteria = DetachedCriteria.forClass(Usuario.class);
 		if (documento != 0) {

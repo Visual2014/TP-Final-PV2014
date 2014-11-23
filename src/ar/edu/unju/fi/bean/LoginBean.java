@@ -19,15 +19,18 @@ import ar.edu.unju.fi.model.Usuario;
 public class LoginBean extends BaseBean {
 	static Logger logger = Logger.getLogger(LoginBean.class);
 
-	//Atributos
-	/**
-	 * dni: Almacena el valor ingresado en el campo "dni" para realizar la validacion 
-	 * password: Almacena el valor ingresado en el campo "contraseña" para realizar la validacion
-	 * logedUser: Almacena el usuario logeado luego de la validacion
-	 */
+	
+	/** dni: Almacena el valor ingresado en el campo "dni" para realizar la validacion */
 	public Integer dni;
+	
+	/** password: Almacena el valor ingresado en el campo "contraseña" para realizar la validacion */
 	public String password;
+	 
+	/** logedUser: Almacena el usuario logeado luego de la validacion */
 	public Usuario logedUser;
+	
+	
+	
 	
 	//Metodos
 

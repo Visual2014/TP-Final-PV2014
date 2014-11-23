@@ -8,7 +8,7 @@ import ar.edu.unju.fi.model.Usuario;
 
 public interface PedidoDAO {
 	
-	List<Pedido> search(Date fecha, String estado, Usuario user);
+	List<Pedido> search(Date fecha, String estado,Integer user, Usuario logedUser);
 	
 	void insert(Pedido pedido);
 	void update(Pedido pedido);

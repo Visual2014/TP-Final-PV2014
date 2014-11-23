@@ -11,8 +11,6 @@ import org.apache.log4j.Logger;
 
 import ar.edu.unju.fi.bean.BaseBean;
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.services.ServiceFacade;
-import ar.edu.unju.fi.services.SpringUtil;
 
 /**
  * Clase para validar el password ingresado
@@ -30,16 +28,22 @@ public class LoginPasswordValidator extends BaseBean implements Validator {
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
 
-		int dni = Integer.valueOf(component.getAttributes().get("dni")
-				.toString());
-		String pass = (String) value;
-		UsuarioDAO dao = getService().getUsuarioDAO();
+		try {
+			int dni = Integer.valueOf(component.getAttributes().get("dni")
+					.toString());
+			String pass = (String) value;
+			UsuarioDAO dao = getService().getUsuarioDAO();
 
-		logger.debug("validar DNI: " + dni + "  Pass: " + pass);
-		if (dao.validarPassword(dni, pass) == null) {
-			throw new ValidatorException(new FacesMessage(
-					FacesMessage.SEVERITY_ERROR, "error password", null));
+			logger.debug("validar DNI: " + dni + "  Pass: " + pass);
+			if (dao.validarPassword(dni, pass) == null) {
+				throw new ValidatorException(new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, "error password", null));
+			}
+
+		} catch (NullPointerException e) {
+//			e.printStackTrace();
 		}
+
 	}
 
 }
