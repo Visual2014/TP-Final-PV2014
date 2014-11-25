@@ -86,7 +86,7 @@ public class ABMUserBean extends BaseBean implements Serializable{
 			Rol rol= new Rol();
 			rol.setRolId(1);
 			usuario.setRol(rol);
-			
+
 			dao.insert(usuario);
 		}else{
 			dao.update(usuario);
@@ -134,7 +134,7 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	 * Elimina el usuario seleccionado en la lista de usuarios
 	 */
 	public String preEliminar(){
-		UsuarioDAO dao = new UsuarioDAOImp();
+		UsuarioDAO dao = getService().getUsuarioDAO();
 		dao.delete(usuario);
 		search();
 		return null;
