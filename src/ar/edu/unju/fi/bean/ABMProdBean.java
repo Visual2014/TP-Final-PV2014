@@ -78,8 +78,10 @@ public class ABMProdBean extends BaseBean implements Serializable {
 
 		if (banderaModif.equals("false")) {
 			dao.insert(producto);
+			logger.info("se agrego un nuevo producto ID: "+producto.getNombre());
 		} else {
 			dao.update(producto);
+			logger.info("se modifico el producto ID: "+producto.getNombre());
 		}
 		return "listaProductos.xhtml?faces-redirect=true";
 	}

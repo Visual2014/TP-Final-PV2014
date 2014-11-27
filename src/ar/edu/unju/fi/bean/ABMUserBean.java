@@ -10,7 +10,6 @@ import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
 
 import ar.edu.unju.fi.dao.UsuarioDAO;
-import ar.edu.unju.fi.dao.imp.UsuarioDAOImp;
 import ar.edu.unju.fi.model.Rol;
 import ar.edu.unju.fi.model.Usuario;
 
@@ -83,13 +82,22 @@ public class ABMUserBean extends BaseBean implements Serializable{
 		UsuarioDAO dao= getService().getUsuarioDAO();
 	
 		if(banderaModif.equals("false")){
-			Rol rol= new Rol();
-			rol.setRolId(1);
-			usuario.setRol(rol);
+//			Rol rol= new Rol();
+//			rol.setRolId(1);
+//			usuario.setRol(rol);
 
 			dao.insert(usuario);
+			
+			logger.info("el Usuario " + logedUser.getDocumento() + "-"
+					+ logedUser.getApellido() + " " + logedUser.getNombre()
+					+ " creo un nuevo usuario "+ usuario.getRol().getDescripcion()+ " " + usuario.getDocumento()
+					+ " - " + usuario.getApellido() + " " + usuario.getNombre());
 		}else{
 			dao.update(usuario);
+			logger.info("el Usuario " + logedUser.getDocumento() + "-"
+					+ logedUser.getApellido() + " " + logedUser.getNombre()
+					+ " modifico el usuario "+ usuario.getRol().getDescripcion() + " " + usuario.getDocumento()
+					+ " - " + usuario.getApellido() + " " + usuario.getNombre());
 		}
 		return "listaUsuarios.xhtml?faces-redirect=true";
 	}
@@ -99,8 +107,6 @@ public class ABMUserBean extends BaseBean implements Serializable{
 	 * @return un {@code String} con la url para crear o modificar un usuario
 	 */
 	public String preInsert(){
-//		setUsuario(new Usuario());
-		System.out.println("preinsert de usuario");
 		logger.debug("........pre Insert... usuario");
 		setUsuario(new Usuario());
 		usuario.setFechaCreacion(new Date());
@@ -137,6 +143,10 @@ public class ABMUserBean extends BaseBean implements Serializable{
 		UsuarioDAO dao = getService().getUsuarioDAO();
 		dao.delete(usuario);
 		search();
+		logger.warn("el Usuario " + logedUser.getDocumento() + "-"
+				+ logedUser.getApellido() + " " + logedUser.getNombre()
+				+ " elimino al "+ usuario.getRol().getDescripcion() + usuario.getDocumento()
+				+ " - " + usuario.getApellido() + " " + usuario.getNombre());
 		return null;
 	}
 	

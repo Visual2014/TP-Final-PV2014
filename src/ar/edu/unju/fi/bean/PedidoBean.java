@@ -244,18 +244,28 @@ public class PedidoBean extends BaseBean implements Serializable {
 
 			return null;
 		} else {
-//			actualizo el HashSet de pedido usado para calcular el total
-			DetallePedidoDAO detallePedidoDAO=getService().getDetallePedidoDAO();
-			List<DetallePedido> detallesList=detallePedidoDAO.getAll(pedido);
-			Set<DetallePedido> detalles=new HashSet<>(detallesList);
+			// actualizo el HashSet de pedido usado para calcular el total
+			DetallePedidoDAO detallePedidoDAO = getService()
+					.getDetallePedidoDAO();
+			List<DetallePedido> detallesList = detallePedidoDAO.getAll(pedido);
+			Set<DetallePedido> detalles = new HashSet<>(detallesList);
 			pedido.setDetallePedidos(detalles);
-			
-//			creo una copia del pedido antes de actualizarlo para evitar error de 2 sessiones
+
+			// creo una copia del pedido antes de actualizarlo para evitar error
+			// de 2 sessiones
 			Pedido nuevoPedido = clonarPedido(pedido);
 
 			PedidoDAO pedidoDAO = getService().getPedidoDAO();
 			pedidoDAO.update(nuevoPedido);
+
+			logger.info("el Usuario " + logedUser.getDocumento() + "-"
+					+ logedUser.getApellido() + " " + logedUser.getNombre()
+					+ " creo el pedido Id:" + nuevoPedido.getPedidoId()
+					+ " con fecha:" + nuevoPedido.getFechaPedido() + " total: $"
+					+ nuevoPedido.getTotal());
+
 			return urlListaPedidos();
+
 		}
 	}
 
@@ -323,6 +333,10 @@ public class PedidoBean extends BaseBean implements Serializable {
 			DetallePedidoDAO detallePedidoDAO = getService()
 					.getDetallePedidoDAO();
 			detallePedidoDAO.update(nuevoDetallePedido);
+			logger.info("el Usuario " + logedUser.getDocumento() + "-"
+					+ logedUser.getApellido() + " " + logedUser.getNombre()
+					+ " edito el detalle ID:" + nuevoDetallePedido.getDetallePedidoId());
+			
 		}
 	}
 	
@@ -415,23 +429,30 @@ public class PedidoBean extends BaseBean implements Serializable {
 	
 	
 	
-	public void deletePedido(){
-		DetallePedidoDAO detallesDAO=getService().getDetallePedidoDAO();
-		PedidoDAO pedidoDAO=getService().getPedidoDAO();
-		
-//		traigo de la BD todos los detalles del pedido Seleccionado en el DataTable para eliminarlos
+	public void deletePedido() {
+		DetallePedidoDAO detallesDAO = getService().getDetallePedidoDAO();
+		PedidoDAO pedidoDAO = getService().getPedidoDAO();
+
+		// traigo de la BD todos los detalles del pedido Seleccionado en el
+		// DataTable para eliminarlos
 		List<DetallePedido> listDetalles = detallesDAO.getAll(pedido);
-		
-//		por cada detalle de la lista lo clono y lo elimino de la BD
+
+		// por cada detalle de la lista lo clono y lo elimino de la BD
 		for (DetallePedido detalle : listDetalles) {
-			DetallePedido detalleClon=clonarDetalle(detalle);
-			
+			DetallePedido detalleClon = clonarDetalle(detalle);
+
 			detallesDAO.delete(detalleClon);
 		}
-		
-//		clono y elimino el pedido de la BD
+
+		// clono y elimino el pedido de la BD
 		Pedido pedidoClon = clonarPedido(pedido);
 		pedidoDAO.delete(pedidoClon);
+		logger.info("el Usuario " + logedUser.getDocumento() + "-"
+				+ logedUser.getApellido() + " " + logedUser.getNombre()
+				+ " elimino el pedido ID:" + pedidoClon.getPedidoId() + "-"
+				+ pedidoClon.getEstado() + " con fecha de Pedido:"
+				+ pedidoClon.getFechaPedido() + " y fecha de creacion:"
+				+ pedidoClon.getFechaCreacion());
 		search();
 	}
 	
