@@ -6,5 +6,5 @@ ar.edu.unju.fi.hibernate
 ar.edu.unju.fi.model
 ar.edu.unju.fi.model.constantes
 ar.edu.unju.fi.services
+ar.edu.unju.fi.util.converter
 ar.edu.unju.fi.util.validator
-ar.edu.unju.fi.vista.util.validator
