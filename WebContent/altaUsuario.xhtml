@@ -23,7 +23,7 @@
 						disabled="#{aBMUserBean.banderaModif}" required="true"
 						requiredMessage="#{msg.msg_requerido}"
 						converterMessage="#{msg.msg_errorInt}">
-						<!--  <f:validator validatorId="dniUserValidator" />-->
+						<f:validator validatorId="dniUserValidator" />
 						<f:ajax event="blur" render="msgDni" />
 					</p:inputText>
 					<h:message id="msgDni" for="dni" style="color:red" />

@@ -1,5 +1,7 @@
 package ar.edu.unju.fi.util.validator;
 
+import java.util.ResourceBundle;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -36,8 +38,15 @@ public class LoginPasswordValidator extends BaseBean implements Validator {
 
 			logger.debug("validar DNI: " + dni + "  Pass: " + pass);
 			if (dao.validarPassword(dni, pass) == null) {
-				throw new ValidatorException(new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, "error password", null));
+				String texto=null;
+				try{
+					ResourceBundle bundle = ResourceBundle.getBundle("ar.edu.unju.fi.resources.mensajes",context.getViewRoot().getLocale());
+					texto = bundle.getString("msg_errorPass");
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				throw new ValidatorException(
+						new FacesMessage(texto));
 			}
 
 		} catch (NullPointerException e) {
@@ -47,3 +56,5 @@ public class LoginPasswordValidator extends BaseBean implements Validator {
 	}
 
 }
+
+

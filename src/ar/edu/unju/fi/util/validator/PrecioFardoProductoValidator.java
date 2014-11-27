@@ -1,5 +1,7 @@
 package ar.edu.unju.fi.util.validator;
 
+import java.util.ResourceBundle;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -27,11 +29,18 @@ public class PrecioFardoProductoValidator implements Validator {
 		Double precioFardo = Double.valueOf(value.toString());
 
 		if (precioUnitario >= precioFardo) {
+			String texto=null;
+			try{
+				ResourceBundle bundle = ResourceBundle.getBundle("ar.edu.unju.fi.resources.mensajes",context.getViewRoot().getLocale());
+				texto = bundle.getString("msg_errorPrecioFardo");
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			throw new ValidatorException(
-					new FacesMessage(
-							"El precio por fardo no puede ser menor al precio unitario"));
+					new FacesMessage(texto));
 		}
 
 	}
 
 }
+

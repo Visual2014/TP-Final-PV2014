@@ -2,6 +2,7 @@ package ar.edu.unju.fi.util.validator;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -42,11 +43,22 @@ public class FechaPedidoValidator implements Validator {
 		logger.debug("param: " + fecha);
 		logger.debug(fecha.before(fechaActual));
 		if (fecha.before(fechaActual)) {
+			String texto=null;
+			try{
+				ResourceBundle bundle = ResourceBundle.getBundle("ar.edu.unju.fi.resources.mensajes",context.getViewRoot().getLocale());
+				texto = bundle.getString("msg_errorFecha");
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			throw new ValidatorException(
-					new FacesMessage(
-							"la fecha del pedido debe ser mayor o igual a la fecha actual"));
+					new FacesMessage(texto));
 		}
 
 	}
 
 }
+
+
+
+
+

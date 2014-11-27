@@ -1,5 +1,7 @@
 package ar.edu.unju.fi.util.validator;
 
+import java.util.ResourceBundle;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,14 +37,29 @@ public class LoginUsuarioValidator extends BaseBean implements Validator {
 		if (user != null) {
 			if (user.getEstado().equals(EstadoUsuario.NO_ACTIVO)) {
 				logger.debug("[+]no activo");
-				throw new ValidatorException(new FacesMessage(
-						FacesMessage.SEVERITY_WARN,
-						"el usuario no esta activo", null));
+				String texto=null;
+				try{
+					ResourceBundle bundle = ResourceBundle.getBundle("ar.edu.unju.fi.resources.mensajes",context.getViewRoot().getLocale());
+					texto = bundle.getString("msg_errorUserInactivo");
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				throw new ValidatorException(
+						new FacesMessage(texto));
 			}
 		} else {
 			logger.debug("[+]no existe");
-			throw new ValidatorException(new FacesMessage(
-					FacesMessage.SEVERITY_ERROR, "el usuario no existe", null));
+			String texto=null;
+			try{
+				ResourceBundle bundle = ResourceBundle.getBundle("ar.edu.unju.fi.resources.mensajes",context.getViewRoot().getLocale());
+				texto = bundle.getString("msg_errorUserInexistente");
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			throw new ValidatorException(
+					new FacesMessage(texto));
 		}
 	}
 }
+
+

@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.util.validator;
 
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -28,8 +29,15 @@ public class FechaProductoValidator implements Validator {
 		Date fecha = (Date) value;
 		Date fechaActual = new Date();
 		if (!fecha.after(fechaActual)) {
-			throw new ValidatorException(new FacesMessage(
-					"la fecha debe ser mayor a la fecha actual"));
+			String texto=null;
+			try{
+				ResourceBundle bundle = ResourceBundle.getBundle("ar.edu.unju.fi.resources.mensajes",context.getViewRoot().getLocale());
+				texto = bundle.getString("msg_errorFecha");
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			throw new ValidatorException(
+					new FacesMessage(texto));
 		}
 
 	}
